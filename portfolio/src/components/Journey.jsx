@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Journey.css';
 
 export default function Journey() {
+  const [lineFillHeight, setLineFillHeight] = useState(0);
+  const [visibleRows, setVisibleRows] = useState({});
+  const [watermarkX, setWatermarkX] = useState(0);
+  const sectionRef = useRef(null);
+  const rowRefs = useRef([]);
+
   const milestones = [
     {
       year: 'Year 01',
@@ -49,10 +55,58 @@ export default function Journey() {
     }
   ];
 
+  // 1. Scroll-Driven Timeline Line Fill & Watermark Shift
+  useEffect(() => {
+    const handleScroll = () => {
+      const sec = sectionRef.current;
+      if (!sec) return;
+      const rect = sec.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Scroll progress percentage through section (0 to 100)
+      const totalDist = rect.height + windowHeight * 0.5;
+      const scrolled = windowHeight - rect.top;
+      let progress = (scrolled / totalDist) * 100;
+      progress = Math.max(0, Math.min(100, progress));
+
+      setLineFillHeight(progress);
+      setWatermarkX((window.scrollY * -0.04) % 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // 2. IntersectionObserver for Alternating Card Slide-Ins
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = entry.target.getAttribute('data-index');
+          if (entry.isIntersecting) {
+            setVisibleRows((prev) => ({ ...prev, [index]: true }));
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    rowRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="journey" className="journey-section">
-      {/* Background Watermark */}
-      <div className="journey-watermark" aria-hidden="true">
+    <section id="journey" className="journey-section" ref={sectionRef}>
+      {/* Background Watermark with Scroll Parallax */}
+      <div
+        className="journey-watermark"
+        style={{ transform: `translateX(calc(-50% + ${watermarkX}px))` }}
+        aria-hidden="true"
+      >
         MY JOURNEY
       </div>
 
@@ -73,42 +127,57 @@ export default function Journey() {
 
         {/* Timeline Container with Central Dividing Line */}
         <div className="timeline-wrapper">
-          {/* Central Vertical Divider Line */}
-          <div className="central-divider-line"></div>
+          {/* Central Vertical Base Line */}
+          <div className="central-divider-line">
+            {/* Scroll-Driven Dynamic Line Fill */}
+            <div
+              className="central-line-fill"
+              style={{ height: `${lineFillHeight}%` }}
+            >
+              <div className="line-fill-tip"></div>
+            </div>
+          </div>
 
           {/* Cards */}
           <div className="timeline-cards">
-            {milestones.map((item, index) => (
-              <div
-                key={index}
-                className={`timeline-card-row ${item.position === 'left' ? 'row-left' : 'row-right'}`}
-              >
-                {/* Node Marker on Divider Line */}
-                <div className="timeline-node-marker">
-                  <div className="node-outer-glow"></div>
-                  <div className="node-inner-dot"></div>
-                </div>
-
-                {/* Card Content Box */}
-                <div className="journey-card">
-                  <div className="journey-card-top">
-                    <div className="journey-year-badge">{item.year}</div>
-                    <div className="journey-icon-box">{item.icon}</div>
+            {milestones.map((item, index) => {
+              const isVisible = !!visibleRows[index];
+              return (
+                <div
+                  key={index}
+                  ref={(el) => (rowRefs.current[index] = el)}
+                  data-index={index}
+                  className={`timeline-card-row ${item.position === 'left' ? 'row-left' : 'row-right'} ${
+                    isVisible ? 'in-view' : ''
+                  }`}
+                >
+                  {/* Node Marker on Divider Line */}
+                  <div className="timeline-node-marker">
+                    <div className={`node-outer-glow ${isVisible ? 'active-pulse' : ''}`}></div>
+                    <div className="node-inner-dot"></div>
                   </div>
 
-                  <h3 className="journey-card-title">{item.title}</h3>
-                  <p className="journey-card-desc">{item.description}</p>
+                  {/* Card Content Box */}
+                  <div className="journey-card">
+                    <div className="journey-card-top">
+                      <div className="journey-year-badge">{item.year}</div>
+                      <div className="journey-icon-box">{item.icon}</div>
+                    </div>
 
-                  <div className="journey-tags-list">
-                    {item.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="journey-tag-item">
-                        {tag}
-                      </span>
-                    ))}
+                    <h3 className="journey-card-title">{item.title}</h3>
+                    <p className="journey-card-desc">{item.description}</p>
+
+                    <div className="journey-tags-list">
+                      {item.tags.map((tag, tIdx) => (
+                        <span key={tIdx} className="journey-tag-item">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

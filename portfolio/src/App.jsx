@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Journey from './components/Journey';
+import Skills from './components/Skills';
 import WorldMapBg from './components/WorldMapBg';
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
         <Hero />
         <About />
         <Journey />
+        <Skills />
       </main>
     </div>
   );

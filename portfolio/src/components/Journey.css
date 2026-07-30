@@ -83,25 +83,40 @@
   padding: 20px 0;
 }
 
-/* Central Dividing Line */
+/* Central Vertical Base Line & Scroll Fill */
 .central-divider-line {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
   width: 2px;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 230, 82, 0) 0%,
-    rgba(0, 230, 82, 0.5) 15%,
-    rgba(0, 230, 82, 0.5) 85%,
-    rgba(0, 230, 82, 0) 100%
-  );
+  background: rgba(255, 255, 255, 0.06);
   transform: translateX(-50%);
   z-index: 1;
 }
 
-/* Timeline Rows & Cards */
+.central-line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #00c845 0%, #00e652 100%);
+  box-shadow: 0 0 15px rgba(0, 230, 82, 0.6);
+  transition: height 0.1s linear;
+}
+
+.line-fill-tip {
+  position: absolute;
+  bottom: -4px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #ffffff, 0 0 20px var(--accent-green);
+}
+
+/* Timeline Rows & Directional Slide-Ins */
 .timeline-cards {
   display: flex;
   flex-direction: column;
@@ -115,14 +130,23 @@
   display: flex;
   width: 100%;
   align-items: center;
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
 }
 
-.row-left {
+.timeline-card-row.row-left {
   justify-content: flex-start;
+  transform: translateX(-70px);
 }
 
-.row-right {
+.timeline-card-row.row-right {
   justify-content: flex-end;
+  transform: translateX(70px);
+}
+
+.timeline-card-row.in-view {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Node Marker on Divider Line */
@@ -142,11 +166,31 @@
 .node-outer-glow {
   position: absolute;
   inset: 0;
-  background: rgba(0, 230, 82, 0.25);
+  background: rgba(0, 230, 82, 0.2);
   border: 1.5px solid var(--accent-green);
   border-radius: 50%;
-  box-shadow: 0 0 15px var(--accent-green);
-  animation: pulseGlow 2.5s infinite;
+  box-shadow: 0 0 10px var(--accent-green);
+  transition: all 0.5s ease;
+}
+
+.node-outer-glow.active-pulse {
+  animation: nodeRipple 2s infinite;
+  box-shadow: 0 0 20px var(--accent-green);
+}
+
+@keyframes nodeRipple {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px var(--accent-green);
+  }
+  50% {
+    transform: scale(1.4);
+    box-shadow: 0 0 25px rgba(0, 230, 82, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px var(--accent-green);
+  }
 }
 
 .node-inner-dot {

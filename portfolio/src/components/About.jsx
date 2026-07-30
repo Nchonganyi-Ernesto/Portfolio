@@ -1,12 +1,106 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import profileImg from '../assets/porfolio image.png';
 import './About.css';
 
 export default function About() {
+  const [yearsCount, setYearsCount] = useState(0);
+  const [tiltStyle, setTiltStyle] = useState({});
+  const [watermarkX, setWatermarkX] = useState(0);
+  const [gridInView, setGridInView] = useState(false);
+  const footerRef = useRef(null);
+  const imageCardRef = useRef(null);
+  const gridRef = useRef(null);
+
+  // 1. Grid Entrance IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setGridInView(true);
+        }
+      },
+      { threshold: 0.15 }
+    );
+    if (gridRef.current) observer.observe(gridRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // 2. Dynamic Animated Count-Up (0 -> 3)
+  useEffect(() => {
+    let countStarted = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !countStarted) {
+          countStarted = true;
+          let current = 0;
+          const target = 3;
+          const duration = 1200; // ms
+          const stepTime = duration / target;
+
+          const timer = setInterval(() => {
+            current += 1;
+            setYearsCount(current);
+            if (current >= target) {
+              clearInterval(timer);
+            }
+          }, stepTime);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // 3. Parallax Watermark Drift on Scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY;
+      setWatermarkX((scrollPos * 0.04) % 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // 4. 3D Card Mouse Tilt
+  const handleMouseMove = (e) => {
+    const card = imageCardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -12; // tilt max 12deg
+    const rotateY = ((x - centerX) / centerX) * 12;
+
+    setTiltStyle({
+      transform: `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.03, 1.03, 1.03)`,
+      transition: 'transform 0.1s ease-out'
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTiltStyle({
+      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+      transition: 'transform 0.5s ease'
+    });
+  };
+
   return (
     <section id="about" className="about-section">
-      {/* Giant Watermark Background Text */}
-      <div className="watermark-bg-text" aria-hidden="true">
+      {/* Giant Watermark Background Text with Parallax */}
+      <div
+        className="watermark-bg-text"
+        style={{ transform: `translateX(calc(-50% + ${watermarkX}px))` }}
+        aria-hidden="true"
+      >
         - ABOUT - ME
       </div>
 
@@ -19,11 +113,17 @@ export default function About() {
           </div>
         </div>
 
-        {/* Main Grid Content */}
-        <div className="about-grid">
-          {/* Left Column: Rectangular Image Container */}
+        {/* Main Grid Content with Slide-In Entrance */}
+        <div ref={gridRef} className={`about-grid ${gridInView ? 'in-view' : ''}`}>
+          {/* Left Column: Image Container (Cross Slide-In from Right/Left) */}
           <div className="about-image-column">
-            <div className="rectangular-image-card">
+            <div
+              ref={imageCardRef}
+              className="rectangular-image-card 3d-tilt-card"
+              style={tiltStyle}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
               <div className="image-border-glow"></div>
               <img
                 src={profileImg}
@@ -53,7 +153,7 @@ export default function About() {
             </p>
 
             {/* Bottom Card (3 Years Experience, LinkedIn, GitHub + Network Logo BG) */}
-            <div className="about-footer-card">
+            <div className="about-footer-card" ref={footerRef}>
               {/* White-styled Medium Size Network Logo Background */}
               <div className="network-logo-watermark" aria-hidden="true">
                 <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
@@ -67,9 +167,9 @@ export default function About() {
                 </svg>
               </div>
 
-              {/* Experience Badge */}
+              {/* Experience Badge with Count-Up Animation */}
               <div className="experience-badge-item">
-                <span className="exp-number">3+</span>
+                <span className="exp-number">{yearsCount}+</span>
                 <div className="exp-text-wrapper">
                   <span className="exp-title">Years of</span>
                   <span className="exp-subtitle">Experience</span>
@@ -83,7 +183,7 @@ export default function About() {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="social-btn linkedin-btn"
+                  className="social-btn linkedin-btn magnetic-btn"
                   aria-label="LinkedIn Profile"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -97,7 +197,7 @@ export default function About() {
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="social-btn github-btn"
+                  className="social-btn github-btn magnetic-btn"
                   aria-label="GitHub Profile"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
