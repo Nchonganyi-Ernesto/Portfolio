@@ -28,15 +28,17 @@
   text-align: left;
 }
 
-/* Badge */
+/* On-Load Entrance Animations */
 .hero-badge {
+  opacity: 0;
+  animation: heroFadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 8px 18px;
   background: rgba(18, 21, 24, 0.7);
   border: 1px solid rgba(0, 230, 82, 0.3);
-  border-radius: 30px;
+  border-radius: 6px;
   backdrop-filter: blur(12px);
   box-shadow: 0 0 20px rgba(0, 230, 82, 0.12);
 }
@@ -61,16 +63,12 @@
   display: inline;
 }
 
-.code-bracket {
-  font-family: monospace;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.35);
-}
-
 /* Headline */
 .headline-wrapper {
   position: relative;
   width: 100%;
+  opacity: 0;
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
 }
 
 .hero-title {
@@ -88,6 +86,7 @@
   position: relative;
   display: inline-block;
   text-shadow: 0 0 30px rgba(0, 230, 82, 0.5);
+  animation: highlightGlow 3s ease-in-out infinite alternate;
 }
 
 .code-tag-inline {
@@ -103,6 +102,8 @@
 .intro-wrapper {
   position: relative;
   width: 100%;
+  opacity: 0;
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
 }
 
 .hero-description {
@@ -129,6 +130,8 @@
   gap: 20px;
   margin-top: 10px;
   flex-wrap: wrap;
+  opacity: 0;
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
 }
 
 .btn-primary-glow {
@@ -138,7 +141,7 @@
   color: #0b0d0e;
   background: var(--accent-green);
   padding: 16px 32px;
-  border-radius: 40px;
+  border-radius: 6px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -168,7 +171,7 @@
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 15px 28px;
-  border-radius: 40px;
+  border-radius: 6px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -198,6 +201,8 @@
   padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   width: 100%;
+  opacity: 0;
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
 }
 
 .metric-item {
@@ -239,6 +244,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  animation: heroScaleZoom 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
 /* Outer Spinning Rings */
@@ -337,6 +344,39 @@
 }
 
 /* Animations */
+@keyframes heroFadeDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroScaleZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
 @keyframes spinRing {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

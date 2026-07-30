@@ -104,7 +104,7 @@
   color: #0b0d0e;
   background: var(--accent-green);
   padding: 8px 20px;
-  border-radius: 30px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   gap: 8px;

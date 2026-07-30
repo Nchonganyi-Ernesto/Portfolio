@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import About from './components/About';
 import WorldMapBg from './components/WorldMapBg';
 import './App.css';
 
@@ -13,9 +14,10 @@ function App() {
       {/* Glassmorphic Navigation Header */}
       <Navbar />
 
-      {/* Hero Section */}
+      {/* Main Content Sections */}
       <main>
         <Hero />
+        <About />
       </main>
     </div>
   );
