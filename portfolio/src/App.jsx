@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import Journey from './components/Journey';
 import WorldMapBg from './components/WorldMapBg';
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
       <main>
         <Hero />
         <About />
+        <Journey />
       </main>
     </div>
   );

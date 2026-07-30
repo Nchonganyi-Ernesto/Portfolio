@@ -32,6 +32,7 @@ export default function Navbar() {
         <nav className="nav-links">
           <a href="#hero" className="nav-link active">Home</a>
           <a href="#about" className="nav-link">About</a>
+          <a href="#journey" className="nav-link">Journey</a>
           <a href="#projects" className="nav-link">Projects</a>
           <a href="#skills" className="nav-link">Skills</a>
           <a href="#contact" className="nav-link">Contact</a>
@@ -64,6 +65,7 @@ export default function Navbar() {
       <div className={`mobile-nav-drawer ${mobileMenuOpen ? 'show' : ''}`}>
         <a href="#hero" onClick={() => setMobileMenuOpen(false)}>Home</a>
         <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
+        <a href="#journey" onClick={() => setMobileMenuOpen(false)}>Journey</a>
         <a href="#projects" onClick={() => setMobileMenuOpen(false)}>Projects</a>
         <a href="#skills" onClick={() => setMobileMenuOpen(false)}>Skills</a>
         <a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a>

@@ -15,16 +15,17 @@
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(40px, 9.5vw, 160px);
+  font-size: clamp(45px, 9.5vw, 150px);
   font-weight: 800;
   color: rgba(255, 255, 255, 0.035);
-  letter-spacing: clamp(3px, 1vw, 14px);
+  letter-spacing: clamp(4px, 1.2vw, 12px);
   white-space: nowrap;
   user-select: none;
   pointer-events: none;
   z-index: 0;
   text-transform: uppercase;
   max-width: 100%;
+  text-align: center;
 }
 
 .about-container {
@@ -349,6 +350,12 @@
 @media (max-width: 580px) {
   .about-section {
     padding: 60px 20px;
+  }
+
+  .watermark-bg-text {
+    font-size: clamp(24px, 6.8vw, 42px);
+    letter-spacing: 2px;
+    top: 15px;
   }
 
   .about-headline {
