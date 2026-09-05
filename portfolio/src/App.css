@@ -2,14 +2,17 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: var(--bg-dark);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Space Grotesk', sans-serif;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
   position: relative;
-  z-index: 2;
   width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
