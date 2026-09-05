@@ -56,7 +56,7 @@ const projectsData = [
 export default function Work() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -66,17 +66,17 @@ export default function Work() {
           observer.disconnect(); // Disconnect immediately so it never retriggers or flickers
         }
       },
-      { threshold: 0.35, rootMargin: '0px 0px -100px 0px' }
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
 
-    const currentSection = sectionRef.current;
-    if (currentSection) {
-      observer.observe(currentSection);
+    const target = headerRef.current;
+    if (target) {
+      observer.observe(target);
     }
 
     return () => {
-      if (currentSection) {
-        observer.unobserve(currentSection);
+      if (target) {
+        observer.unobserve(target);
       }
     };
   }, []);
@@ -89,11 +89,10 @@ export default function Work() {
     <section 
       className={`work-section ${isVisible ? 'in-view' : ''}`} 
       id="work"
-      ref={sectionRef}
     >
       <div className="work-container">
         {/* Header with Background Watermark */}
-        <div className="work-header">
+        <div className="work-header" ref={headerRef}>
           <div className="work-watermark" aria-hidden="true">PORTFOLIO</div>
           <h2 className="work-title">/SELECTED WORK</h2>
         </div>

@@ -1,0 +1,222 @@
+/* Services Section */
+.services-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 6.5rem 2rem 8.5rem 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background Image Layer from public/BG IMAGE.png */
+.services-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  opacity: 0.95;
+}
+
+/* Subtle backdrop gradient for perfect contrast */
+.services-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.35) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.services-container {
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+}
+
+/* Header */
+.services-header {
+  width: 100%;
+}
+
+.services-title {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+/* Services Accordion List */
+.services-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.service-item {
+  width: 100%;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Collapsed Row Styling */
+.service-row-collapsed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.85rem 0.5rem;
+  border-bottom: 1.5px solid rgba(15, 23, 42, 0.14);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.service-row-collapsed:hover {
+  padding-left: 0.85rem;
+  border-bottom-color: rgba(15, 23, 42, 0.4);
+}
+
+.service-collapsed-title {
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.service-row-collapsed:hover .service-collapsed-title {
+  color: #000000;
+}
+
+.service-arrow-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f172a;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-row-collapsed:hover .service-arrow-icon {
+  transform: translate(4px, -4px);
+}
+
+/* Expanded Dark Card Styling */
+.service-card-expanded {
+  position: relative;
+  background-color: #18181b;
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 2.2rem 2.4rem;
+  margin: 1.1rem 0;
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  cursor: pointer;
+  animation: cardExpand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: visible;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes cardExpand {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.service-expanded-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  z-index: 2;
+  padding-right: 1.5rem;
+}
+
+.service-expanded-title {
+  font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.service-expanded-desc {
+  font-size: clamp(0.98rem, 1.35vw, 1.12rem);
+  line-height: 1.68;
+  color: #d4d4d8;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Close Button (✕) */
+.service-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  z-index: 4;
+  flex-shrink: 0;
+}
+
+.service-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+  transform: scale(1.08);
+}
+
+/* Responsive Rules */
+@media (max-width: 868px) {
+  .services-section {
+    padding: 4.5rem 1.25rem 6rem 1.25rem;
+    min-height: auto;
+  }
+
+  .service-card-expanded {
+    padding: 1.85rem 1.4rem;
+    gap: 1.25rem;
+  }
+
+  .service-expanded-left {
+    padding-right: 0;
+  }
+
+  .service-row-collapsed {
+    padding: 1.6rem 0.25rem;
+  }
+}

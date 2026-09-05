@@ -357,6 +357,23 @@
   .work-section {
     padding: 3.5rem 1.25rem 5rem 1.25rem;
   }
+
+  /* Single Column Mobile Card Stagger */
+  .work-section.in-view .project-card:nth-child(1) {
+    animation: projectCardSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  }
+
+  .work-section.in-view .project-card:nth-child(2) {
+    animation: projectCardSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
+  }
+
+  .work-section.in-view .project-card:nth-child(3) {
+    animation: projectCardSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+  }
+
+  .work-section.in-view .project-card:nth-child(4) {
+    animation: projectCardSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+  }
 }
 
 @media (max-width: 680px) {
