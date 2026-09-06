@@ -54,7 +54,7 @@
   gap: 2.75rem;
 }
 
-/* Header */
+/* Header & Slide-Down Entrance */
 .services-header {
   width: 100%;
 }
@@ -65,6 +65,23 @@
   color: #0f172a;
   letter-spacing: -0.025em;
   text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-40px);
+}
+
+.services-section.in-view .services-title {
+  animation: serviceTitleSlideDown 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+}
+
+@keyframes serviceTitleSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Services Accordion List */
@@ -74,130 +91,186 @@
   width: 100%;
 }
 
+/* Staggered Slide from Below & Shift Right Animation */
 .service-item {
   width: 100%;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Collapsed Row Styling */
-.service-row-collapsed {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.85rem 0.5rem;
+  opacity: 0;
+  transform: translateY(45px);
   border-bottom: 1.5px solid rgba(15, 23, 42, 0.14);
-  cursor: pointer;
-  transition: all 0.25s ease;
+  transition: border-bottom-color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-row-collapsed:hover {
-  padding-left: 0.85rem;
-  border-bottom-color: rgba(15, 23, 42, 0.4);
+.service-item.expanded {
+  border-bottom-color: transparent;
 }
 
-.service-collapsed-title {
-  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
-  font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.015em;
-  text-transform: uppercase;
-  margin: 0;
-  transition: color 0.2s ease;
+.services-section.in-view .service-item {
+  animation: serviceItemSlideUpAndShift 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.service-row-collapsed:hover .service-collapsed-title {
-  color: #000000;
-}
-
-.service-arrow-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0f172a;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.service-row-collapsed:hover .service-arrow-icon {
-  transform: translate(4px, -4px);
-}
-
-/* Expanded Dark Card Styling */
-.service-card-expanded {
-  position: relative;
-  background-color: #18181b;
-  color: #ffffff;
-  border-radius: 18px;
-  padding: 2.2rem 2.4rem;
-  margin: 1.1rem 0;
-  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  cursor: pointer;
-  animation: cardExpand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  overflow: visible;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-@keyframes cardExpand {
+@keyframes serviceItemSlideUpAndShift {
   0% {
     opacity: 0;
-    transform: translateY(15px) scale(0.98);
+    transform: translateY(45px) translateX(0);
+  }
+  58% {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0) translateX(12px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) translateX(0);
   }
 }
 
-.service-expanded-left {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  z-index: 2;
-  padding-right: 1.5rem;
+/* Persistent Card Shell (Zero DOM Thrashing / Zero Flickering) */
+.service-card-shell {
+  width: 100%;
+  padding: 1.85rem 0.5rem;
+  background-color: transparent;
+  color: #0f172a;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-expanded-title {
-  font-size: clamp(1.35rem, 2.3vw, 1.75rem);
-  font-weight: 800;
+/* Hover on Collapsed Item */
+.service-item.collapsed:hover .service-card-shell {
+  padding-left: 1.15rem;
+}
+
+.service-item.collapsed:hover .service-arrow-svg {
+  transform: translate(5px, -5px);
+  color: #000000;
+}
+
+/* Expanded Dark Card State */
+.service-item.expanded .service-card-shell {
+  background-color: #18181b;
   color: #ffffff;
+  padding: 2.2rem 2.4rem;
+  margin: 0.85rem 0;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.35), 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Header Row inside Card */
+.service-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.service-item-title {
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-weight: 800;
   letter-spacing: -0.015em;
   text-transform: uppercase;
-  line-height: 1.25;
   margin: 0;
+  color: #0f172a;
+  transition: color 0.4s ease, font-size 0.4s ease;
 }
 
-.service-expanded-desc {
-  font-size: clamp(0.98rem, 1.35vw, 1.12rem);
-  line-height: 1.68;
-  color: #d4d4d8;
-  font-weight: 400;
-  margin: 0;
+.service-item.expanded .service-item-title {
+  color: #ffffff;
+  font-size: clamp(1.35rem, 2.3vw, 1.75rem);
 }
 
-/* Close Button (✕) */
-.service-close-btn {
+/* Toggle Icon Holder (Arrow vs Close ✕) */
+.service-toggle-icon {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  cursor: pointer;
-  transition: all 0.25s ease;
-  z-index: 4;
   flex-shrink: 0;
+  transition: all 0.35s ease;
 }
 
-.service-close-btn:hover {
+.service-arrow-svg {
+  color: #0f172a;
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-item.expanded .service-arrow-svg {
+  opacity: 0;
+  transform: scale(0.5) rotate(45deg);
+  position: absolute;
+  pointer-events: none;
+}
+
+.service-close-svg {
+  color: #ffffff;
+  opacity: 0;
+  transform: scale(0.5) rotate(-45deg);
+  position: absolute;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-item.expanded .service-close-svg {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  position: static;
+  pointer-events: auto;
+}
+
+.service-item.expanded .service-toggle-icon {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.service-item.expanded .service-toggle-icon:hover {
   background-color: rgba(255, 255, 255, 0.22);
   transform: scale(1.08);
+}
+
+/* Expandable Content Body (CSS Grid 0fr -> 1fr for Zero Flickering) */
+.service-body-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-item.expanded .service-body-wrapper {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.service-body-inner {
+  overflow: hidden;
+}
+
+.service-desc-text {
+  font-size: clamp(0.98rem, 1.35vw, 1.12rem);
+  line-height: 1.68;
+  color: #d4d4d8;
+  font-weight: 400;
+  margin: 0.85rem 0 0 0;
+  padding-right: 1.5rem;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(-4px);
+}
+
+.service-item.expanded .service-desc-text {
+  transform: translateY(0);
 }
 
 /* Responsive Rules */
@@ -207,16 +280,19 @@
     min-height: auto;
   }
 
-  .service-card-expanded {
+  .service-item.expanded .service-card-shell {
     padding: 1.85rem 1.4rem;
-    gap: 1.25rem;
   }
 
-  .service-expanded-left {
+  .service-desc-text {
     padding-right: 0;
   }
 
-  .service-row-collapsed {
+  .service-card-shell {
     padding: 1.6rem 0.25rem;
+  }
+
+  .service-item.collapsed:hover .service-card-shell {
+    padding-left: 0.5rem;
   }
 }

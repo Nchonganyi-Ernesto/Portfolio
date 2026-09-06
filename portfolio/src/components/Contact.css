@@ -1,0 +1,522 @@
+/* Contact Section */
+.contact-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 6.5rem 1.5rem 4rem 1.5rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background Image Layer from public/BG IMAGE.png */
+.contact-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  opacity: 0.95;
+}
+
+/* Subtle backdrop gradient */
+.contact-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.contact-container {
+  position: relative;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  opacity: 0;
+  transform: translateY(35px);
+  transition: all 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-section.in-view .contact-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Top Status Code Tag (Borderless, </> wrapper matching Navbar) */
+.contact-code-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-family: var(--font-mono, monospace);
+}
+
+.contact-code-tag .code-bracket {
+  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 600;
+  user-select: none;
+}
+
+.contact-code-tag .status-text {
+  font-size: 0.885rem;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+/* Headline (Reduced to match Work/Experience scale) */
+.contact-headline {
+  font-size: clamp(1.6rem, 2.9vw, 2.35rem);
+  font-weight: 800;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  margin: 0;
+}
+
+/* Subtext (Reduced) */
+.contact-subtext {
+  font-size: clamp(0.92rem, 1.25vw, 1.05rem);
+  line-height: 1.62;
+  color: #475569;
+  max-width: 620px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* Primary Action Button (Contact Me ↗) */
+.contact-cta-wrapper {
+  margin: 0.15rem 0;
+}
+
+.contact-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.72rem 1.95rem;
+  background-color: #18181b;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.28);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-cta-btn:hover {
+  background-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.38);
+}
+
+.contact-cta-btn svg {
+  transition: transform 0.25s ease;
+}
+
+.contact-cta-btn:hover svg {
+  transform: translate(3px, -3px);
+}
+
+/* 2-Column Split Grid (Left Glassmorphism Card | Right Form) */
+.contact-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+  align-items: stretch;
+  width: 100%;
+  margin-top: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* LEFT: Glassmorphism Card */
+.contact-glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 1.85rem 1.65rem;
+  box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.glass-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+}
+
+.glass-avatar-wrapper {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+.glass-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+
+.glass-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.glass-user-name {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.glass-user-role {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748b;
+  margin: 0.15rem 0 0 0;
+}
+
+.glass-bio-text {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #475569;
+  margin: 0;
+}
+
+/* Glass Card Social List */
+.glass-social-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.glass-social-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  border: 1.2px solid rgba(15, 23, 42, 0.08);
+  border-radius: 12px;
+  text-decoration: none;
+  color: #0f172a;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.glass-social-item:hover {
+  background: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.28);
+}
+
+.social-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.social-item-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  color: #0f172a;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.glass-social-item:hover .social-item-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.social-item-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 0.1rem;
+}
+
+.social-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.25;
+  transition: color 0.25s ease;
+}
+
+.glass-social-item:hover .social-label {
+  color: #ffffff;
+}
+
+.social-handle {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-family: var(--font-mono, monospace);
+  font-weight: 500;
+  line-height: 1.2;
+  transition: color 0.25s ease;
+}
+
+.glass-social-item:hover .social-handle {
+  color: #e2e8f0;
+}
+
+.social-item-arrow {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #64748b;
+  opacity: 0.7;
+  transition: all 0.25s ease;
+}
+
+.glass-social-item:hover .social-item-arrow {
+  color: #ffffff;
+  opacity: 1;
+  transform: translate(3px, -3px);
+}
+
+
+
+/* RIGHT: Contact Input Form Column */
+.contact-form-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 100%;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.floating-group {
+  position: relative;
+  width: 100%;
+}
+
+.floating-input,
+.floating-select {
+  width: 100%;
+  height: 54px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.2px solid rgba(15, 23, 42, 0.15);
+  border-radius: 12px;
+  padding: 0 1.15rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #0f172a;
+  box-sizing: border-box;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.floating-select {
+  padding-right: 2.75rem;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.floating-textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.2px solid rgba(15, 23, 42, 0.15);
+  border-radius: 12px;
+  padding: 1.05rem 1.15rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #0f172a;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 125px;
+  line-height: 1.5;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.floating-input:focus,
+.floating-select:focus,
+.floating-textarea:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #0f172a;
+  box-shadow: 0 0 0 3.5px rgba(15, 23, 42, 0.08);
+}
+
+/* Floating Label (Resting inside input like a placeholder) */
+.floating-label {
+  position: absolute;
+  left: 1.05rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.92rem;
+  color: #64748b;
+  pointer-events: none;
+  padding: 0 6px;
+  background: transparent;
+  border-radius: 4px;
+  line-height: 1;
+  transform-origin: left center;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  z-index: 2;
+}
+
+/* Textarea initial position */
+.floating-textarea ~ .floating-label {
+  top: 1.35rem;
+  transform: translateY(0);
+}
+
+/* Floating Label - Moved & Docked to the Border on Focus or Filled */
+.floating-input:focus ~ .floating-label,
+.floating-input:not(:placeholder-shown) ~ .floating-label,
+.floating-textarea:focus ~ .floating-label,
+.floating-textarea:not(:placeholder-shown) ~ .floating-label,
+.floating-select:focus ~ .floating-label,
+.floating-group.has-value .floating-label {
+  top: 0px;
+  transform: translateY(-50%) scale(0.82);
+  background: #ffffff;
+  color: #475569;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Active focus color for docked label */
+.floating-input:focus ~ .floating-label,
+.floating-textarea:focus ~ .floating-label,
+.floating-select:focus ~ .floating-label {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* Custom Select Dropdown Chevron */
+.select-arrow-icon {
+  position: absolute;
+  right: 1.15rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s ease, color 0.22s ease;
+  z-index: 2;
+}
+
+.floating-select:focus ~ .select-arrow-icon {
+  color: #0f172a;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.form-submit-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.form-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.85rem;
+  background-color: #0f172a;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+}
+
+.form-submit-btn:hover {
+  background-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.28);
+}
+
+.submit-success-msg {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #16a34a;
+}
+
+
+/* Responsive Rules */
+@media (max-width: 860px) {
+  .contact-section {
+    padding: 4.5rem 1.25rem 2.5rem 1.25rem;
+  }
+
+  .contact-split-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .contact-glass-card {
+    padding: 1.5rem 1.25rem;
+  }
+}

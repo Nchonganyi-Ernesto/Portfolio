@@ -48,6 +48,7 @@ export default function Navbar() {
 
           {/* Center: Desktop Nav Links */}
           <nav className="nav-menu">
+            <a href="#about" className="nav-link">About</a>
             <a href="#work" className="nav-link">Work</a>
             <a href="#services" className="nav-link">Service</a>
             <a href="#experience" className="nav-link">Experience</a>
@@ -99,6 +100,10 @@ export default function Navbar() {
       <div className={`mobile-menu-drawer ${isOpen ? 'open' : ''}`}>
         <div className="mobile-menu-content">
           <nav className="mobile-nav-links">
+            <a href="#about" className="mobile-nav-link" onClick={closeMenu}>
+              <span>About</span>
+              <span className="mobile-nav-arrow">→</span>
+            </a>
             <a href="#work" className="mobile-nav-link" onClick={closeMenu}>
               <span>Work</span>
               <span className="mobile-nav-arrow">→</span>
