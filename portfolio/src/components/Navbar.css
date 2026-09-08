@@ -1,5 +1,5 @@
 .navbar-header {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -9,9 +9,9 @@
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding: 1.25rem 2rem;
+  box-sizing: border-box;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.3s ease, 
-              background-color 0.3s ease;
+              box-shadow 0.3s ease;
   animation: navSlideDown 1.1s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
@@ -25,7 +25,14 @@
 }
 
 .navbar-header.nav-scrolled {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.025);
+}
+
+/* Document flow spacer to preserve exact original page layout and Hero position */
+.navbar-spacer {
+  width: 100%;
+  height: 82px;
+  pointer-events: none;
 }
 
 @keyframes navSlideDown {
@@ -40,6 +47,7 @@
 }
 
 .navbar-container {
+  width: 100%;
   max-width: 1360px;
   margin: 0 auto;
   display: flex;
@@ -342,6 +350,10 @@
 @media (max-width: 768px) {
   .navbar-header {
     padding: 1rem 1.25rem;
+  }
+
+  .navbar-spacer {
+    height: 64px;
   }
 
   .nav-menu {

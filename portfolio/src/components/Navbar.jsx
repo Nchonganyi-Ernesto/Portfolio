@@ -17,34 +17,47 @@ export default function Navbar() {
 
   // Smart Hide-on-Scroll-Down / Show-on-Scroll-Up
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY =
+            window.pageYOffset ||
+            document.documentElement.scrollTop ||
+            window.scrollY ||
+            0;
 
-      // Track whether page is scrolled past the top
-      setIsScrolled(currentScrollY > 20);
+          // Track whether page is scrolled past the top
+          setIsScrolled(currentScrollY > 20);
 
-      // Always show navbar when near the very top of page
-      if (currentScrollY <= 60) {
-        setIsVisible(true);
-        lastScrollY.current = currentScrollY;
-        return;
+          // Always show navbar when near the very top of page
+          if (currentScrollY <= 50) {
+            setIsVisible(true);
+            lastScrollY.current = currentScrollY;
+            ticking = false;
+            return;
+          }
+
+          const delta = currentScrollY - lastScrollY.current;
+
+          // React to intentional scroll movements (> 4px)
+          if (Math.abs(delta) > 4) {
+            if (delta > 0) {
+              // User is scrolling DOWN -> hide nav
+              setIsVisible(false);
+            } else {
+              // User is scrolling UP -> reveal nav & hamburger
+              setIsVisible(true);
+            }
+            lastScrollY.current = currentScrollY;
+          }
+
+          ticking = false;
+        });
+
+        ticking = true;
       }
-
-      // Ignore small jitter deltas
-      const delta = currentScrollY - lastScrollY.current;
-      if (Math.abs(delta) < 8) {
-        return;
-      }
-
-      if (delta > 0) {
-        // User is scrolling DOWN -> hide nav
-        setIsVisible(false);
-      } else {
-        // User is scrolling UP -> reveal nav & hamburger
-        setIsVisible(true);
-      }
-
-      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -136,6 +149,9 @@ export default function Navbar() {
           </div>
         </div>
       </header>
+
+      {/* Spacer maintaining exact original in-flow space so page content is never shifted */}
+      <div className="navbar-spacer" aria-hidden="true" />
 
       {/* Mobile Slide-Down Menu Overlay */}
       <div 

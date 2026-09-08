@@ -16,7 +16,7 @@ const projectsData = [
     description:
       'An innovative platform connecting blood donors to patients in critical need across Africa through simple profile setups, GPS-based location matching, and automated calling mechanisms to nearby donors.',
     tags: ['React (Vite)', 'CSS', 'Supabase', 'PostgreSQL', 'Baileys WhatsApp Cloud'],
-    link: 'https://github.com/Nchonganyi-Ernesto/'
+    link: 'https://bloodlink0.netlify.app/'
   },
   {
     id: 'pharmascout',
@@ -27,7 +27,7 @@ const projectsData = [
     description:
       'A dedicated healthcare platform eliminating medicine search exhaustion by connecting patients directly to registered pharmacies with verified, real-time drug inventories.',
     tags: ['React', 'CSS', 'Firebase', 'Firestore', 'Cloudinary', 'Resend'],
-    link: 'https://github.com/Nchonganyi-Ernesto/'
+    link: 'https://pharma-scout.online/'
   },
   {
     id: 'ksearch',
@@ -38,7 +38,7 @@ const projectsData = [
     description:
       'A clean advertising web prototype engineered for submitting, verifying, and managing targeted promotional campaigns with interactive submission pipelines.',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Firebase', 'Firestore'],
-    link: 'https://github.com/Nchonganyi-Ernesto/'
+    link: 'https://intern-board2.netlify.app/'
   },
   {
     id: 'foodbistro',
@@ -49,7 +49,7 @@ const projectsData = [
     description:
       'A production-level frontend web application showcasing interactive dining menus, smooth reservation user flows, and aesthetic culinary UI/UX design.',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'UI/UX Design'],
-    link: 'https://github.com/Nchonganyi-Ernesto/'
+    link: 'https://bistro-f.netlify.app/'
   }
 ];
 
@@ -247,6 +247,7 @@ export default function Work() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="project-image-wrapper"
+                  aria-label={`Open live preview of ${project.title}`}
                 >
                   <img
                     src={project.image}
@@ -256,7 +257,11 @@ export default function Work() {
                   />
 
                   {/* Floating Circle Action Arrow on Hover */}
-                  <div className="project-arrow-badge">
+                  <div 
+                    className="project-arrow-badge"
+                    aria-label={`Open live preview of ${project.title}`}
+                    title="Open live preview"
+                  >
                     <svg
                       width="16"
                       height="16"
