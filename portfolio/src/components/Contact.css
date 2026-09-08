@@ -686,6 +686,19 @@
   color: #16a34a;
 }
 
+.submit-error-msg {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #dc2626;
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 
 /* Responsive Rules */
 @media (max-width: 860px) {

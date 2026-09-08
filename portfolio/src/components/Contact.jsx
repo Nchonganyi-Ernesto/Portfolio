@@ -51,7 +51,9 @@ export default function Contact() {
     service: '',
     message: ''
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('idle'); // 'idle' | 'success' | 'error'
+  const [submitError, setSubmitError] = useState('');
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [isGlassCardVisible, setIsGlassCardVisible] = useState(false);
   const [isFormColumnVisible, setIsFormColumnVisible] = useState(false);
@@ -161,27 +163,55 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
-    // Open mailto link as reliable default fallback
-    const subject = encodeURIComponent(`Project Inquiry: ${formData.service || 'New Project'} from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nService: ${formData.service || 'Not specified'}\n\nMessage:\n${formData.message}`
-    );
-    window.location.href = `mailto:nchonganyiernesto27@gmail.com?subject=${subject}&body=${body}`;
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setSubmitError('');
 
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        service: '',
-        message: ''
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'cd274a2b-854c-41fc-a24c-dd2d212b60d2',
+          name: formData.name,
+          email: formData.email,
+          service: formData.service || 'General Inquiry',
+          message: formData.message,
+          subject: `Portfolio Inquiry: ${formData.service || 'New Project'} from ${formData.name}`,
+          from_name: formData.name
+        })
       });
-    }, 4000);
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          service: '',
+          message: ''
+        });
+        setTimeout(() => {
+          setSubmitStatus('idle');
+        }, 5000);
+      } else {
+        setSubmitStatus('error');
+        setSubmitError(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setSubmitStatus('error');
+      setSubmitError('Unable to send message. Please check your network connection.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const scrollToForm = () => {
@@ -377,24 +407,39 @@ export default function Contact() {
               </div>
 
               <div className="form-submit-row">
-                <button type="submit" className="form-submit-btn">
-                  <span>{isSubmitted ? 'Message Sent!' : 'Send Message'}</span>
-                  <svg 
-                    width="16" 
-                    height="16" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2.5" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  >
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
+                <button 
+                  type="submit" 
+                  className="form-submit-btn"
+                  disabled={isSubmitting}
+                >
+                  <span>
+                    {isSubmitting
+                      ? 'Sending...'
+                      : submitStatus === 'success'
+                      ? 'Message Sent!'
+                      : 'Send Message'}
+                  </span>
+                  {!isSubmitting && (
+                    <svg 
+                      width="16" 
+                      height="16" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2.5" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  )}
                 </button>
-                {isSubmitted && (
-                  <span className="submit-success-msg">Opening your email client...</span>
+                {submitStatus === 'success' && (
+                  <span className="submit-success-msg">Thank you! Your message has been sent directly to Ernesto.</span>
+                )}
+                {submitStatus === 'error' && (
+                  <span className="submit-error-msg">{submitError || 'Failed to send message. Please try again.'}</span>
                 )}
               </div>
             </form>
