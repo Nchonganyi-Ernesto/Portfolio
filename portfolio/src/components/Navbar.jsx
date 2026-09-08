@@ -49,6 +49,7 @@ export default function Navbar() {
           {/* Center: Desktop Nav Links */}
           <nav className="nav-menu">
             <a href="#about" className="nav-link">About</a>
+            <a href="#skills" className="nav-link">Skills</a>
             <a href="#work" className="nav-link">Work</a>
             <a href="#services" className="nav-link">Service</a>
             <a href="#experience" className="nav-link">Experience</a>
