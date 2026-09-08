@@ -1,6 +1,49 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Contact.css';
 
+const socialLinksData = [
+  {
+    id: 'linkedin',
+    label: 'LinkedIn',
+    handle: 'nchonganyi-ernesto',
+    url: 'https://www.linkedin.com/in/nchonganyi-ernesto-5a3549369/',
+    isExternal: true,
+    iconClass: 'linkedin-icon',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c.97 0 1.75-.79 1.75-1.76s-.78-1.75-1.75-1.75c-.97 0-1.76.78-1.76 1.75s.79 1.76 1.76 1.76m1.39 9.74v-8.37H5.07v8.37h2.78z"/>
+      </svg>
+    )
+  },
+  {
+    id: 'github',
+    label: 'GitHub',
+    handle: 'Nchonganyi-Ernesto',
+    url: 'https://github.com/Nchonganyi-Ernesto/',
+    isExternal: true,
+    iconClass: 'github-icon',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+    )
+  },
+  {
+    id: 'email',
+    label: 'Email',
+    handle: 'nchonganyiernesto27@gmail.com',
+    url: 'mailto:nchonganyiernesto27@gmail.com',
+    isExternal: false,
+    iconClass: 'mail-icon',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+      </svg>
+    )
+  }
+];
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -9,27 +52,106 @@ export default function Contact() {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-  const containerRef = useRef(null);
-  const formRef = useRef(null);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  const [isGlassCardVisible, setIsGlassCardVisible] = useState(false);
+  const [isFormColumnVisible, setIsFormColumnVisible] = useState(false);
+  const [animatedSocials, setAnimatedSocials] = useState({});
 
+  const headerRef = useRef(null);
+  const glassCardRef = useRef(null);
+  const formColumnRef = useRef(null);
+  const formRef = useRef(null);
+  const socialRefs = useRef({});
+
+  // 1. Header Central Viewport Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsInView(true);
+          setIsHeaderVisible(true);
           observer.disconnect();
         }
       },
       {
         threshold: 0.15,
-        rootMargin: '0px 0px -10% 0px'
+        rootMargin: '-10% 0px -20% 0px'
       }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
     }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // 2. Glassmorphism Social Card Central Viewport Observer (Independent on mobile)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsGlassCardVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '-10% 0px -20% 0px'
+      }
+    );
+
+    if (glassCardRef.current) {
+      observer.observe(glassCardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // 3. Contact Form Column Central Viewport Observer (Independent on mobile)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsFormColumnVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '-10% 0px -20% 0px'
+      }
+    );
+
+    if (formColumnRef.current) {
+      observer.observe(formColumnRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // 4. Independent Social Links Observer (LinkedIn, GitHub, Email stagger & central trigger)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const socialId = entry.target.dataset.socialId;
+            if (socialId) {
+              setAnimatedSocials((prev) => ({ ...prev, [socialId]: true }));
+              observer.unobserve(entry.target);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '-10% 0px -20% 0px'
+      }
+    );
+
+    Object.values(socialRefs.current).forEach((el) => {
+      if (el) observer.observe(el);
+    });
 
     return () => observer.disconnect();
   }, []);
@@ -70,7 +192,7 @@ export default function Contact() {
 
   return (
     <section 
-      className={`contact-section ${isInView ? 'in-view' : ''}`} 
+      className={`contact-section ${isHeaderVisible ? 'in-view' : ''}`} 
       id="contact"
     >
       {/* Background Image Layer from public/BG IMAGE.png */}
@@ -80,47 +202,53 @@ export default function Contact() {
         aria-hidden="true"
       />
 
-      <div className="contact-container" ref={containerRef}>
-        {/* Top Status Tag (Matching Navbar borderless code bracket format) */}
-        <div className="contact-code-tag">
-          <span className="code-bracket">&lt;/</span>
-          <span className="status-text">Available for New Project</span>
-          <span className="code-bracket">&gt;</span>
-        </div>
+      <div className="contact-container">
+        {/* Header Content Group (Animated centrally) */}
+        <div className={`contact-header-wrap ${isHeaderVisible ? 'is-animated' : ''}`} ref={headerRef}>
+          {/* Top Status Tag (Matching Navbar borderless code bracket format) */}
+          <div className="contact-code-tag">
+            <span className="code-bracket">&lt;/</span>
+            <span className="status-text">Available for New Project</span>
+            <span className="code-bracket">&gt;</span>
+          </div>
 
-        {/* Headline */}
-        <h2 className="contact-headline">HAVE A PROJECT IN MIND?</h2>
+          {/* Headline */}
+          <h2 className="contact-headline">HAVE A PROJECT IN MIND?</h2>
 
-        {/* Value Proposition Description */}
-        <p className="contact-subtext">
-          Together, we can create something clear and impactful. Let's collaborate to bring our
-          ideas to life in a way that resonates with everyone.
-        </p>
+          {/* Value Proposition Description */}
+          <p className="contact-subtext">
+            Together, we can create something clear and impactful. Let's collaborate to bring our
+            ideas to life in a way that resonates with everyone.
+          </p>
 
-        {/* Primary Action Button */}
-        <div className="contact-cta-wrapper">
-          <button className="contact-cta-btn" onClick={scrollToForm}>
-            <span>Contact Me</span>
-            <svg 
-              width="15" 
-              height="15" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2.5" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              <line x1="7" y1="17" x2="17" y2="7"></line>
-              <polyline points="7 7 17 7 17 17"></polyline>
-            </svg>
-          </button>
+          {/* Primary Action Button */}
+          <div className="contact-cta-wrapper">
+            <button className="contact-cta-btn" onClick={scrollToForm}>
+              <span>Contact Me</span>
+              <svg 
+                width="15" 
+                height="15" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* 2-Column Split Layout: Left Glassmorphism Social Card | Right Form */}
         <div className="contact-split-grid">
-          {/* LEFT: Glassmorphism Socials & Contact Card */}
-          <div className="contact-glass-card">
+          {/* LEFT: Glassmorphism Socials & Contact Card (Independently observed & animated) */}
+          <div 
+            className={`contact-glass-card ${isGlassCardVisible ? 'is-animated' : ''}`}
+            ref={glassCardRef}
+          >
             <div className="glass-card-header">
               <div className="glass-avatar-wrapper">
                 <img 
@@ -139,74 +267,42 @@ export default function Contact() {
               Looking for a dedicated developer to craft modern web apps, fluid animations, or sleek interfaces? Let's connect directly:
             </p>
 
-            {/* Social & Contact Direct Links */}
+            {/* Social & Contact Direct Links (Staggered Independently: LinkedIn, GitHub, Email) */}
             <div className="glass-social-list">
-              {/* LinkedIn */}
-              <a 
-                href="https://www.linkedin.com/in/nchonganyi-ernesto-5a3549369/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="glass-social-item"
-              >
-                <div className="social-item-left">
-                  <div className="social-item-icon linkedin-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c.97 0 1.75-.79 1.75-1.76s-.78-1.75-1.75-1.75c-.97 0-1.76.78-1.76 1.75s.79 1.76 1.76 1.76m1.39 9.74v-8.37H5.07v8.37h2.78z"/>
-                    </svg>
-                  </div>
-                  <div className="social-item-text">
-                    <span className="social-label">LinkedIn</span>
-                    <span className="social-handle">nchonganyi-ernesto</span>
-                  </div>
-                </div>
-                <span className="social-item-arrow">↗</span>
-              </a>
-
-              {/* GitHub */}
-              <a 
-                href="https://github.com/Nchonganyi-Ernesto/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="glass-social-item"
-              >
-                <div className="social-item-left">
-                  <div className="social-item-icon github-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-                    </svg>
-                  </div>
-                  <div className="social-item-text">
-                    <span className="social-label">GitHub</span>
-                    <span className="social-handle">Nchonganyi-Ernesto</span>
-                  </div>
-                </div>
-                <span className="social-item-arrow">↗</span>
-              </a>
-
-              {/* Email */}
-              <a 
-                href="mailto:nchonganyiernesto27@gmail.com" 
-                className="glass-social-item"
-              >
-                <div className="social-item-left">
-                  <div className="social-item-icon mail-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                    </svg>
-                  </div>
-                  <div className="social-item-text">
-                    <span className="social-label">Email</span>
-                    <span className="social-handle">nchonganyiernesto27@gmail.com</span>
-                  </div>
-                </div>
-                <span className="social-item-arrow">↗</span>
-              </a>
+              {socialLinksData.map((link, index) => {
+                const isAnimated = Boolean(animatedSocials[link.id]);
+                return (
+                  <a 
+                    key={link.id}
+                    ref={(el) => { socialRefs.current[link.id] = el; }}
+                    data-social-id={link.id}
+                    href={link.url}
+                    target={link.isExternal ? '_blank' : undefined}
+                    rel={link.isExternal ? 'noopener noreferrer' : undefined}
+                    className={`glass-social-item ${isAnimated ? 'is-animated' : ''}`}
+                    style={{ '--stagger-delay': `${0.1 + index * 0.18}s` }}
+                  >
+                    <div className="social-item-left">
+                      <div className={`social-item-icon ${link.iconClass}`}>
+                        {link.icon}
+                      </div>
+                      <div className="social-item-text">
+                        <span className="social-label">{link.label}</span>
+                        <span className="social-handle">{link.handle}</span>
+                      </div>
+                    </div>
+                    <span className="social-item-arrow">↗</span>
+                  </a>
+                );
+              })}
             </div>
           </div>
 
-          {/* RIGHT: Input Form Section */}
-          <div className="contact-form-column">
+          {/* RIGHT: Input Form Section (Independently observed & animated) */}
+          <div 
+            className={`contact-form-column ${isFormColumnVisible ? 'is-animated' : ''}`}
+            ref={formColumnRef}
+          >
             <form className="contact-form" onSubmit={handleSubmit} ref={formRef}>
               {/* Your Name */}
               <div className={`floating-group ${formData.name ? 'has-value' : ''}`}>

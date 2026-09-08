@@ -3,24 +3,75 @@ import './About.css';
 
 export default function About() {
   const [isInView, setIsInView] = useState(false);
+  const [visibleParts, setVisibleParts] = useState({
+    header: false,
+    bio: false,
+    image: false,
+    strategy: false
+  });
+
   const containerRef = useRef(null);
+  const headerRef = useRef(null);
+  const bioRef = useRef(null);
+  const imageRef = useRef(null);
+  const strategyRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    // 1. Overall section observer (primary trigger for desktop wide layout)
+    const sectionObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInView(true);
-          observer.disconnect();
+          sectionObserver.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { 
+        threshold: 0.2,
+        rootMargin: '0px 0px -15% 0px'
+      }
     );
 
     if (containerRef.current) {
-      observer.observe(containerRef.current);
+      sectionObserver.observe(containerRef.current);
     }
 
-    return () => observer.disconnect();
+    // 2. Individual observers for each stacked section on mobile (triggers when centrally visible)
+    const elementObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const key = entry.target.dataset.part;
+            if (key) {
+              setVisibleParts((prev) => ({ ...prev, [key]: true }));
+              elementObserver.unobserve(entry.target);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '-12% 0px -22% 0px'
+      }
+    );
+
+    const elements = [
+      { ref: headerRef, key: 'header' },
+      { ref: bioRef, key: 'bio' },
+      { ref: imageRef, key: 'image' },
+      { ref: strategyRef, key: 'strategy' }
+    ];
+
+    elements.forEach(({ ref, key }) => {
+      if (ref.current) {
+        ref.current.dataset.part = key;
+        elementObserver.observe(ref.current);
+      }
+    });
+
+    return () => {
+      sectionObserver.disconnect();
+      elementObserver.disconnect();
+    };
   }, []);
 
   return (
@@ -31,22 +82,37 @@ export default function About() {
     >
       <div className="about-editorial-container">
         {/* Top Header: ABOUT (Spans above Left & Middle Columns) */}
-        <h2 className="editorial-huge-about">ABOUT</h2>
+        <h2 
+          ref={headerRef} 
+          className={`editorial-huge-about ${visibleParts.header ? 'is-animated' : ''}`}
+        >
+          ABOUT
+        </h2>
 
         {/* Main Content Grid directly under ABOUT */}
         <div className="about-editorial-main-row">
           {/* LEFT COLUMN: ME + Subtitle + Bio */}
           <div className="editorial-left-col">
-            <h3 className="editorial-me-text">ME</h3>
-            <p className="editorial-subtitle">Frontend &amp; UI/UX Web Developer</p>
-            <p className="editorial-desc-bold">
-              <strong>Hi, I'm Nchonganyi Ernesto:</strong> A Frontend Developer specializing in 
-              building clean, modern web applications, with average knowledge of backend technologies.
-            </p>
+            <h3 className={`editorial-me-text ${visibleParts.header ? 'is-animated' : ''}`}>
+              ME
+            </h3>
+            <div 
+              ref={bioRef} 
+              className={`editorial-left-bio ${visibleParts.bio ? 'is-animated' : ''}`}
+            >
+              <p className="editorial-subtitle">Frontend &amp; UI/UX Web Developer</p>
+              <p className="editorial-desc-bold">
+                <strong>Hi, I'm Nchonganyi Ernesto:</strong> A Frontend Developer specializing in 
+                building clean, modern web applications, with average knowledge of backend technologies.
+              </p>
+            </div>
           </div>
 
           {/* MIDDLE COLUMN: Image Card (Positioned directly under ABOUT!) */}
-          <div className="editorial-middle-col">
+          <div 
+            ref={imageRef} 
+            className={`editorial-middle-col ${visibleParts.image ? 'is-animated' : ''}`}
+          >
             <div className="editorial-image-frame">
               <img 
                 src="/heroimage.png" 
@@ -57,7 +123,10 @@ export default function About() {
           </div>
 
           {/* RIGHT COLUMN: Work Strategy & 2-per-row Highlights */}
-          <div className="editorial-right-col">
+          <div 
+            ref={strategyRef} 
+            className={`editorial-right-col ${visibleParts.strategy ? 'is-animated' : ''}`}
+          >
             <h3 className="editorial-philosophy-title">Work Strategy &amp; UI/UX Approach</h3>
             <p className="editorial-desc">
               My work strategy centers on meddling through UI/UX details by refining layout grids, 

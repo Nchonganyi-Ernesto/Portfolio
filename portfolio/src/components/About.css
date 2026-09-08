@@ -20,7 +20,7 @@
   box-sizing: border-box;
 }
 
-/* Top Header: ABOUT */
+/* Top Header: ABOUT (Animates Up First) */
 .editorial-huge-about {
   font-size: clamp(2.8rem, 7.5vw, 6rem);
   font-weight: 900;
@@ -30,6 +30,11 @@
   margin: 0 0 1.25rem 0;
   color: #000000;
   text-align: left;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0s, 
+              transform 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+  will-change: transform, opacity;
 }
 
 /* Main 3-Column Content Row Directly Under ABOUT */
@@ -40,19 +45,14 @@
   align-items: start;
 }
 
-.editorial-left-col,
-.editorial-middle-col,
-.editorial-right-col {
+.editorial-left-col {
   display: flex;
   flex-direction: column;
   text-align: left;
-}
-
-/* Left Column: ME + Subtitle + Bio */
-.editorial-left-col {
   gap: 1.25rem;
 }
 
+/* ME Text (Animates Up With ABOUT) */
 .editorial-me-text {
   font-size: clamp(2.2rem, 5.5vw, 4.5rem);
   font-weight: 900;
@@ -61,7 +61,26 @@
   line-height: 0.85;
   margin: 0 0 0.5rem 0;
   color: #000000;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.18s, 
+              transform 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
+  will-change: transform, opacity;
 }
+
+
+/* Left Column Bio (Slides in from the Left) */
+.editorial-left-bio {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  opacity: 0;
+  transform: translateX(-65px);
+  transition: opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s, 
+              transform 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
+  will-change: transform, opacity;
+}
+
 
 .editorial-subtitle {
   font-size: 0.85rem;
@@ -84,10 +103,21 @@
   font-weight: 700;
 }
 
-/* Middle Column: Large Rounded Image Card (Directly under ABOUT text) */
+/* Middle Column: Large Rounded Image Card (Fades in from Background) */
 .editorial-middle-col {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
   width: 100%;
+  opacity: 0;
+  transform: scale(0.86);
+  filter: blur(8px);
+  transition: opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1) 1.05s, 
+              transform 1.35s cubic-bezier(0.16, 1, 0.3, 1) 1.05s, 
+              filter 1.35s ease 1.05s;
+  will-change: transform, opacity, filter;
 }
+
 
 .editorial-image-frame {
   position: relative;
@@ -97,7 +127,7 @@
   overflow: hidden;
   background: #f1f5f9;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.4s ease;
 }
 
 .editorial-image-frame:hover {
@@ -116,11 +146,20 @@
   transform: none;
 }
 
-/* Right Column: Our Philosophy & Strategy */
+/* Right Column: Work Strategy (Slides in from the Right) */
 .editorial-right-col {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
   gap: 1rem;
   padding-top: 0.25rem;
+  opacity: 0;
+  transform: translateX(65px);
+  transition: opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s, 
+              transform 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
+  will-change: transform, opacity;
 }
+
 
 .editorial-philosophy-title {
   font-size: 2.1rem;
@@ -203,23 +242,44 @@
   text-overflow: ellipsis;
 }
 
-/* Scroll Entrance Animations */
-.about-editorial-section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+/* ==========================================================================
+   Desktop Coordinated Animation (Staged Cascade)
+   ========================================================================== */
+@media (min-width: 1025px) {
+  .about-editorial-section.in-view .editorial-huge-about,
+  .about-editorial-section.in-view .editorial-me-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .about-editorial-section.in-view .editorial-left-bio {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .about-editorial-section.in-view .editorial-middle-col {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+
+  .about-editorial-section.in-view .editorial-right-col {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.about-editorial-section.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Responsive Grid Rules */
+/* ==========================================================================
+   Tablet & Mobile: Independent Trigger on Central Visibility
+   ========================================================================== */
 @media (max-width: 1024px) {
   .about-editorial-main-row {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem 2rem;
+  }
+
+  .editorial-left-col {
+    order: 1;
   }
 
   .editorial-middle-col {
@@ -227,8 +287,53 @@
     order: 2;
   }
 
+  .editorial-right-col {
+    order: 3;
+  }
+
   .editorial-image-frame {
     aspect-ratio: 16 / 9;
+  }
+
+  /* Reset cascading delays so each section animates immediately when centrally visible */
+  .editorial-huge-about,
+  .editorial-me-text,
+  .editorial-left-bio,
+  .editorial-middle-col,
+  .editorial-right-col {
+    transition-delay: 0s;
+  }
+
+  /* Each section animates independently only when centrally visible */
+  .editorial-huge-about.is-animated,
+  .editorial-me-text.is-animated {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .editorial-left-bio.is-animated {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .editorial-middle-col.is-animated {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+    transition: opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.05s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 1.05s ease;
+  }
+
+  .editorial-right-col.is-animated {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
@@ -249,6 +354,19 @@
   .about-editorial-main-row {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .editorial-left-bio {
+    transform: translateX(-35px);
+  }
+
+  .editorial-right-col {
+    transform: translateX(35px);
+  }
+
+  .editorial-left-bio.is-animated,
+  .editorial-right-col.is-animated {
+    transform: translateX(0);
   }
 
   .editorial-philosophy-title {

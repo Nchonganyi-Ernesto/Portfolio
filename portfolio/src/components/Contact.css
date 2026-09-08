@@ -54,14 +54,16 @@
   align-items: center;
   text-align: center;
   gap: 1.5rem;
-  opacity: 0;
-  transform: translateY(35px);
-  transition: all 0.95s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.contact-section.in-view .contact-container {
-  opacity: 1;
-  transform: translateY(0);
+/* Header Content Wrap */
+.contact-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.15rem;
+  width: 100%;
 }
 
 /* Top Status Code Tag (Borderless, </> wrapper matching Navbar) */
@@ -74,6 +76,23 @@
   border: none;
   box-shadow: none;
   font-family: var(--font-mono, monospace);
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.contact-header-wrap.is-animated .contact-code-tag {
+  animation: contactTagSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes contactTagSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .contact-code-tag .code-bracket {
@@ -99,6 +118,23 @@
   letter-spacing: -0.025em;
   line-height: 1.18;
   margin: 0;
+  opacity: 0;
+  transform: translateY(-26px);
+}
+
+.contact-header-wrap.is-animated .contact-headline {
+  animation: contactHeadSlideDown 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+@keyframes contactHeadSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-26px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Subtext (Reduced) */
@@ -109,11 +145,45 @@
   max-width: 620px;
   margin: 0 auto;
   font-weight: 400;
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.contact-header-wrap.is-animated .contact-subtext {
+  animation: contactSubtextSlideUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+@keyframes contactSubtextSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Primary Action Button (Contact Me ↗) */
 .contact-cta-wrapper {
   margin: 0.15rem 0;
+  opacity: 0;
+  transform: scale(0.92) translateY(16px);
+}
+
+.contact-header-wrap.is-animated .contact-cta-wrapper {
+  animation: contactCtaPopIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.32s forwards;
+}
+
+@keyframes contactCtaPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .contact-cta-btn {
@@ -171,6 +241,31 @@
   gap: 1.15rem;
   text-align: left;
   box-sizing: border-box;
+  opacity: 0;
+  transform: translateX(-35px) translateY(18px);
+  filter: blur(3px);
+  will-change: transform, opacity, filter;
+}
+
+.contact-glass-card.is-animated {
+  animation: contactGlassSlideIn 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes contactGlassSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-35px) translateY(18px);
+    filter: blur(3px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    filter: blur(0);
+  }
 }
 
 .glass-card-header {
@@ -231,6 +326,7 @@
   gap: 0.65rem;
 }
 
+/* Independent Staggered Social Links (LinkedIn, GitHub, Email) */
 .glass-social-item {
   display: flex;
   align-items: center;
@@ -241,8 +337,37 @@
   border-radius: 12px;
   text-decoration: none;
   color: #0f172a;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateX(-40px) translateY(14px) scale(0.92);
+  filter: blur(4px);
+  will-change: transform, opacity, filter;
+  transition: background 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.glass-social-item.is-animated {
+  animation: socialStaggerSlideIn 1.15s cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay, 0.1s) forwards;
+}
+
+@keyframes socialStaggerSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px) translateY(14px) scale(0.92);
+    filter: blur(4px);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+    filter: blur(0);
+  }
 }
 
 .glass-social-item:hover {
@@ -270,6 +395,25 @@
   color: #0f172a;
   transition: all 0.25s ease;
   flex-shrink: 0;
+}
+
+.glass-social-item.is-animated .social-item-icon {
+  animation: socialIconPulseIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-delay, 0.1s) + 0.12s) forwards;
+}
+
+@keyframes socialIconPulseIn {
+  0% {
+    transform: scale(0.65) rotate(-14deg);
+    opacity: 0.4;
+  }
+  70% {
+    transform: scale(1.14) rotate(4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
 }
 
 .glass-social-item:hover .social-item-icon {
@@ -317,19 +461,57 @@
   transition: all 0.25s ease;
 }
 
+.glass-social-item.is-animated .social-item-arrow {
+  animation: socialArrowEnter 0.75s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-delay, 0.1s) + 0.22s) forwards;
+}
+
+@keyframes socialArrowEnter {
+  0% {
+    opacity: 0;
+    transform: translate(-8px, 8px);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translate(0, 0);
+  }
+}
+
 .glass-social-item:hover .social-item-arrow {
   color: #ffffff;
   opacity: 1;
   transform: translate(3px, -3px);
 }
 
-
-
 /* RIGHT: Contact Input Form Column */
 .contact-form-column {
   display: flex;
   flex-direction: column;
   width: 100%;
+  opacity: 0;
+  transform: translateX(35px) translateY(18px);
+  filter: blur(3px);
+  will-change: transform, opacity, filter;
+}
+
+.contact-form-column.is-animated {
+  animation: contactFormSlideIn 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+@keyframes contactFormSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(35px) translateY(18px);
+    filter: blur(3px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    filter: blur(0);
+  }
 }
 
 .contact-form {
@@ -518,5 +700,65 @@
 
   .contact-glass-card {
     padding: 1.5rem 1.25rem;
+    transform: translateY(28px);
+  }
+
+  .contact-glass-card.is-animated {
+    animation: contactGlassMobileSlideUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes contactGlassMobileSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(28px);
+      filter: blur(3px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  .contact-form-column {
+    transform: translateY(28px);
+  }
+
+  .contact-form-column.is-animated {
+    animation: contactFormMobileSlideUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes contactFormMobileSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(28px);
+      filter: blur(3px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  .glass-social-item {
+    transform: translateY(20px);
+  }
+
+  .glass-social-item.is-animated {
+    animation: socialMobileSlideUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay, 0.1s) forwards;
+  }
+
+  @keyframes socialMobileSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.96);
+      filter: blur(3px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
   }
 }

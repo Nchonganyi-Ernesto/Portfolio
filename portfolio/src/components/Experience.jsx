@@ -49,26 +49,57 @@ const experienceData = [
 export default function Experience() {
   const [hoveredExp, setHoveredExp] = useState(null);
   const [activeModalImg, setActiveModalImg] = useState(null);
-  const [isInView, setIsInView] = useState(false);
-  const containerRef = useRef(null);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  const [animatedRows, setAnimatedRows] = useState({});
 
+  const headerRef = useRef(null);
+  const rowRefs = useRef({});
+
+  // 1. Header Observer (/EXPERIENCE title and watermark)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsInView(true);
+          setIsHeaderVisible(true);
           observer.disconnect();
         }
       },
       {
-        threshold: 0.2,
-        rootMargin: '0px 0px -12% 0px' // triggers when middle content area is in view
+        threshold: 0.15,
+        rootMargin: '-10% 0px -20% 0px'
       }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
     }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // 2. Individual Row Observer (Central viewport triggering for desktop & mobile)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const expId = entry.target.dataset.expId;
+            if (expId) {
+              setAnimatedRows((prev) => ({ ...prev, [expId]: true }));
+              observer.unobserve(entry.target);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '-10% 0px -20% 0px'
+      }
+    );
+
+    Object.values(rowRefs.current).forEach((el) => {
+      if (el) observer.observe(el);
+    });
 
     return () => observer.disconnect();
   }, []);
@@ -94,18 +125,18 @@ export default function Experience() {
 
   return (
     <section 
-      className={`experience-section ${isInView ? 'in-view' : ''}`} 
+      className={`experience-section ${isHeaderVisible ? 'in-view' : ''}`} 
       id="experience"
     >
-      <div className="experience-container" ref={containerRef}>
+      <div className="experience-container">
         {/* Header with Background Watermark */}
-        <div className="experience-header">
-          <div className="experience-watermark" aria-hidden="true">
+        <div className="experience-header" ref={headerRef}>
+          <div className={`experience-watermark ${isHeaderVisible ? 'is-animated' : ''}`} aria-hidden="true">
             EXPERIENCE
           </div>
           <div className="experience-header-content">
-            <h2 className="experience-title">/EXPERIENCE</h2>
-            <span className="experience-badge">3+ years of experience</span>
+            <h2 className={`experience-title ${isHeaderVisible ? 'is-animated' : ''}`}>/EXPERIENCE</h2>
+            <span className={`experience-badge ${isHeaderVisible ? 'is-animated' : ''}`}>3+ years of experience</span>
           </div>
         </div>
 
@@ -114,12 +145,14 @@ export default function Experience() {
           {experienceData.map((item, index) => {
             const hasImage = Boolean(item.image);
             const isHovered = hoveredExp?.id === item.id;
+            const isAnimated = Boolean(animatedRows[item.id]);
 
             return (
               <div
                 key={item.id}
-                className={`experience-row ${hasImage ? 'has-media' : ''} ${isHovered ? 'active-hover' : ''}`}
-                style={{ animationDelay: `${0.25 + index * 0.15}s` }}
+                ref={(el) => { rowRefs.current[item.id] = el; }}
+                data-exp-id={item.id}
+                className={`experience-row ${isAnimated ? 'is-animated' : ''} ${hasImage ? 'has-media' : ''} ${isHovered ? 'active-hover' : ''}`}
                 onMouseEnter={() => hasImage && setHoveredExp(item)}
                 onMouseLeave={() => setHoveredExp(null)}
                 onClick={() => {
@@ -129,6 +162,10 @@ export default function Experience() {
                 }}
               >
                 <div className="experience-left">
+                  <div className="experience-milestone-tag">
+                    <span className="milestone-pip" aria-hidden="true" />
+                    <span className="milestone-num">{`0${index + 1}`}</span>
+                  </div>
                   <h3 className="experience-company-title">{item.title}</h3>
                   <p className="experience-role-subtitle">{item.role}</p>
                 </div>
@@ -137,7 +174,6 @@ export default function Experience() {
                 {hasImage && (
                   <div 
                     className="experience-tilted-card" 
-                    style={{ animationDelay: `${0.65 + index * 0.2}s` }}
                     title="Click to view full image"
                   >
                     <div className="tilted-card-inner">

@@ -1,28 +1,308 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Skills.css';
 
+// ---------------------------------------------------------------------------
+// 1. Hard Skill Card Component (with Stagger, 0% -> Target% Progress & Counter)
+// ---------------------------------------------------------------------------
+function HardSkillCard({ skill, index, isCentrallyVisible, isTabActive, isMobile }) {
+  const cardRef = useRef(null);
+  const [isSelfVisible, setIsSelfVisible] = useState(false);
+  const [animatedPercent, setAnimatedPercent] = useState(0);
+
+  // On mobile: observe self centrally. On desktop: coordinated by grid central visibility
+  useEffect(() => {
+    if (!isMobile || !isTabActive) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsSelfVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '-10% 0px -20% 0px'
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isMobile, isTabActive]);
+
+  // Active animation trigger
+  const shouldAnimate = isTabActive && (isMobile ? isSelfVisible : isCentrallyVisible);
+  // On desktop: sequenced cascading stagger. On mobile: starts immediately when card reaches center
+  const staggerDelay = isMobile ? 0 : (0.12 + index * 0.08);
+
+  // Animate counter from 0% up to skill.percentage
+  useEffect(() => {
+    if (!shouldAnimate) {
+      setAnimatedPercent(0);
+      return;
+    }
+
+    let startTimestamp = null;
+    let animFrameId;
+    const duration = 1650; // ms (increased animation time for a luxurious lead)
+    const delayMs = staggerDelay * 1000;
+
+    const timeoutId = setTimeout(() => {
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const elapsed = timestamp - startTimestamp;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic deceleration
+        const ease = 1 - Math.pow(1 - progress, 3);
+        setAnimatedPercent(Math.round(ease * skill.percentage));
+
+        if (progress < 1) {
+          animFrameId = requestAnimationFrame(step);
+        }
+      };
+      animFrameId = requestAnimationFrame(step);
+    }, delayMs);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+    };
+  }, [shouldAnimate, skill.percentage, staggerDelay]);
+
+  return (
+    <div 
+      ref={cardRef} 
+      className={`hard-skill-card ${shouldAnimate ? 'is-animated' : ''}`}
+      style={{
+        transitionDelay: `${staggerDelay}s`
+      }}
+    >
+      {/* Top Header: Logo + Skill Name + Animated Percentage Counter */}
+      <div className="hard-skill-top">
+        <div className="hard-skill-identity">
+          <div className="hard-skill-icon" style={{ color: skill.iconColor }}>
+            {skill.svg}
+          </div>
+          <span className="hard-skill-name">{skill.name}</span>
+        </div>
+        <span className="hard-skill-percent">{animatedPercent}%</span>
+      </div>
+
+      {/* Slider Progress Bar Track with Circle Node Handle (Leads 0% -> Target%) */}
+      <div className="slider-progress-track">
+        <div 
+          className="slider-progress-fill" 
+          style={{ 
+            width: `${shouldAnimate ? skill.percentage : 0}%`, 
+            backgroundColor: skill.iconColor,
+            color: skill.iconColor,
+            transition: shouldAnimate 
+              ? `width 1.65s cubic-bezier(0.16, 1, 0.3, 1) ${staggerDelay}s` 
+              : 'none'
+          }}
+        />
+        <div 
+          className="slider-node-handle" 
+          style={{ 
+            left: `${shouldAnimate ? skill.percentage : 0}%`, 
+            borderColor: skill.iconColor,
+            color: skill.iconColor,
+            transition: shouldAnimate 
+              ? `left 1.65s cubic-bezier(0.16, 1, 0.3, 1) ${staggerDelay}s` 
+              : 'none'
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 2. Soft Skill Item Component (Independent Observer on Mobile, Stagger on Desktop)
+// ---------------------------------------------------------------------------
+function SoftSkillItem({ skill, index, isCentrallyVisible, isTabActive, isMobile }) {
+  const itemRef = useRef(null);
+  const [isSelfVisible, setIsSelfVisible] = useState(false);
+
+  // On mobile: each soft skill item observes itself independently when active
+  useEffect(() => {
+    if (!isTabActive) {
+      setIsSelfVisible(false);
+      return;
+    }
+    if (!isMobile) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsSelfVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '-10% 0px -20% 0px'
+      }
+    );
+
+    if (itemRef.current) {
+      observer.observe(itemRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isMobile, isTabActive]);
+
+  // On mobile: animates independently when self is centrally visible
+  // On desktop: animates when soft skills grid is centrally visible
+  const shouldAnimate = isTabActive && (isMobile ? isSelfVisible : isCentrallyVisible);
+  // On desktop: sequential cascade. On mobile: independent entrance
+  const staggerDelay = isMobile ? ((index % 2) * 0.08) : (index * 0.11);
+
+  return (
+    <div 
+      ref={itemRef}
+      className={`soft-skill-item ${shouldAnimate ? 'is-animated' : ''}`}
+      style={{
+        transitionDelay: `${staggerDelay}s`,
+        '--stagger-delay': `${staggerDelay}s`
+      }}
+    >
+      <span className="soft-skill-num">{skill.number}.</span>
+      <span className="soft-skill-title">{skill.title}</span>
+      <div className="soft-skill-line" />
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 3. Main Skills Component
+// ---------------------------------------------------------------------------
 export default function Skills() {
   const [activeTab, setActiveTab] = useState('soft'); // 'soft' or 'hard'
-  const [isInView, setIsInView] = useState(false);
-  const containerRef = useRef(null);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  const [isSoftSkillsCentrallyVisible, setIsSoftSkillsCentrallyVisible] = useState(false);
+  const [isHardSkillsCentrallyVisible, setIsHardSkillsCentrallyVisible] = useState(false);
+  const [isHardHeaderVisible, setIsHardHeaderVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
+  const containerRef = useRef(null);
+  const headerRef = useRef(null);
+  const softSkillsRef = useRef(null);
+  const hardSkillsRef = useRef(null);
+  const hardHeaderRef = useRef(null);
+
+  // Detect mobile viewport (<= 900px)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 900);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // 1. Header Observer: triggers when header enters central viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsInView(true);
+          setIsHeaderVisible(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { 
+        threshold: 0.15,
+        rootMargin: '-10% 0px -20% 0px'
+      }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
     }
 
     return () => observer.disconnect();
   }, []);
+
+  // 2. Soft Skills Observer: triggers stagger animation ONLY when soft skills elements are centrally in viewport
+  useEffect(() => {
+    if (activeTab !== 'soft') {
+      setIsSoftSkillsCentrallyVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsSoftSkillsCentrallyVisible(true);
+          observer.disconnect();
+        }
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '-10% 0px -25% 0px'
+      }
+    );
+
+    if (softSkillsRef.current) {
+      observer.observe(softSkillsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [activeTab]);
+
+  // 3. Hard Skills Grid Observer: triggers desktop stagger when hard skills are centrally in viewport
+  useEffect(() => {
+    if (activeTab !== 'hard') {
+      setIsHardSkillsCentrallyVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsHardSkillsCentrallyVisible(true);
+          observer.disconnect();
+        }
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '-10% 0px -25% 0px'
+      }
+    );
+
+    if (hardSkillsRef.current) {
+      observer.observe(hardSkillsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [activeTab]);
+
+  // 4. Hard Skills Header Info Observer
+  useEffect(() => {
+    if (activeTab !== 'hard') return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsHardHeaderVisible(true);
+          observer.disconnect();
+        }
+      },
+      { 
+        threshold: 0.15,
+        rootMargin: '-10% 0px -20% 0px'
+      }
+    );
+
+    if (hardHeaderRef.current) {
+      observer.observe(hardHeaderRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [activeTab]);
 
   // Hard Skills Data (with Logos, Percentages, and Slider Progress Line)
   const hardSkills = [
@@ -74,6 +354,17 @@ export default function Skills() {
       )
     },
     {
+      id: 'flutter',
+      name: 'Flutter',
+      percentage: 75,
+      iconColor: '#54c5f8',
+      svg: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.37zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.372z"/>
+        </svg>
+      )
+    },
+    {
       id: 'firebase',
       name: 'Firebase',
       percentage: 80,
@@ -92,6 +383,28 @@ export default function Skills() {
       svg: (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
           <path d="M13.35 24v-9.67h8.22c.98 0 1.52-1.14.89-1.9L10.65 0v9.67H2.43c-.98 0-1.52 1.14-.89 1.9L13.35 24z"/>
+        </svg>
+      )
+    },
+    {
+      id: 'django',
+      name: 'Django',
+      percentage: 75,
+      iconColor: '#44b78b',
+      svg: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M11.146 0h3.333v16.146c-1.396.27-2.604.354-3.625.354-3.417 0-4.917-1.417-4.917-4.271 0-3.083 1.833-4.875 4.792-4.875.188 0 .417 0 .417.021V0zm0 10.021c-.23-.021-.438-.021-.646-.021-1.375 0-2.062.812-2.062 2.271 0 1.417.625 2.146 1.896 2.146.27 0 .541-.021.812-.062V10.02zm8.333 7.354c-.958.23-1.688.333-2.625.333-2.146 0-3.146-.917-3.146-2.875V7.479h2.375V14.5c0 .667.312 1.021.979 1.021.25 0 .5-.021.771-.062v1.916h1.646v-10h-2.375v.021h2.375v9.999zM16.854 2.875a1.562 1.562 0 1 1 3.125 0 1.562 1.562 0 0 1-3.125 0z"/>
+        </svg>
+      )
+    },
+    {
+      id: 'postgres',
+      name: 'PostgreSQL',
+      percentage: 80,
+      iconColor: '#336791',
+      svg: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M11.905 0C8.595 0 5.438 1.63 3.655 4.39A11.758 11.758 0 0 0 1.5 11.737c0 4.148 2.17 7.973 5.702 10.093l.317.19.145-.341c.214-.5.485-1.135.792-1.782-.693-.5-1.306-1.125-1.808-1.848-.902-1.298-1.385-2.852-1.385-4.453 0-1.802.605-3.52 1.735-4.914 1.13-1.393 2.688-2.317 4.453-2.642.345-.063.69-.095 1.036-.095 2.11 0 4.108.766 5.66 2.175 1.55 1.408 2.454 3.328 2.552 5.424.045.96-.08 1.918-.37 2.825-.33 1.032-.89 1.96-1.633 2.705a7.356 7.356 0 0 1-2.43 1.575c-.328.13-.67.228-1.018.293l-.36.068.14.338c.376.905.81 1.77 1.298 2.58l.19.317 2.13-.578c3.27-1.895 5.285-5.38 5.285-9.155 0-2.482-.876-4.908-2.47-6.848C17.65 1.784 14.862 0 11.905 0z"/>
         </svg>
       )
     },
@@ -133,13 +446,16 @@ export default function Skills() {
 
   return (
     <section 
-      className={`skills-section ${isInView ? 'in-view' : ''}`} 
+      className={`skills-section ${isHeaderVisible ? 'in-view' : ''}`} 
       id="skills" 
       ref={containerRef}
     >
       <div className="skills-container">
         {/* Header & Mode Switcher Tabs (Soft vs Hard Skills) */}
-        <div className="skills-header-row">
+        <div 
+          ref={headerRef} 
+          className={`skills-header-row ${isHeaderVisible ? 'is-animated' : ''}`}
+        >
           <div className="skills-header-left">
             <div className="skills-code-tag">
               <span className="code-bracket">&lt;/</span>
@@ -168,54 +484,50 @@ export default function Skills() {
 
         {/* Dynamic Display Area: Soft Skills view OR Hard Skills (Bottom-Right Slide-In) */}
         <div className="skills-display-stage">
-          {/* 1. SOFT SKILLS VIEW (Numbered 2-column grid matching Image 3) */}
+          {/* 1. SOFT SKILLS VIEW (Numbered 2-column grid matching Image 3 with Staggered Elements) */}
           <div className={`soft-skills-view ${activeTab === 'soft' ? 'active-view' : 'hidden-view'}`}>
-            <div className="soft-skills-grid">
-              {softSkills.map((skill) => (
-                <div key={skill.number} className="soft-skill-item">
-                  <span className="soft-skill-num">{skill.number}.</span>
-                  <span className="soft-skill-title">{skill.title}</span>
-                  <div className="soft-skill-line" />
-                </div>
+            <div 
+              ref={softSkillsRef} 
+              className="soft-skills-grid"
+            >
+              {softSkills.map((skill, index) => (
+                <SoftSkillItem
+                  key={skill.number}
+                  skill={skill}
+                  index={index}
+                  isCentrallyVisible={isSoftSkillsCentrallyVisible}
+                  isTabActive={activeTab === 'soft'}
+                  isMobile={isMobile}
+                />
               ))}
             </div>
           </div>
 
           {/* 2. HARD SKILLS VIEW (Bottom-Right Slide-In covering section, matching Image 1 logos & Image 2 slider lines) */}
           <div className={`hard-skills-view ${activeTab === 'hard' ? 'slide-in-covering' : 'slide-out'}`}>
-            <div className="hard-skills-header-info">
+            <div 
+              ref={hardHeaderRef} 
+              className={`hard-skills-header-info ${isHardHeaderVisible ? 'is-animated' : ''}`}
+            >
               <h3 className="hard-skills-subtitle">Technical Proficiency</h3>
               <p className="hard-skills-desc">
-                Core technologies, frontend frameworks, backend BaaS, version control, and cloud deployment pipelines.
+                Core technologies, frontend &amp; mobile frameworks, backend systems, relational databases, and cloud deployment pipelines.
               </p>
             </div>
 
-            <div className="hard-skills-grid">
-              {hardSkills.map((skill) => (
-                <div key={skill.id} className="hard-skill-card">
-                  {/* Top Header: Logo + Skill Name + Percentage */}
-                  <div className="hard-skill-top">
-                    <div className="hard-skill-identity">
-                      <div className="hard-skill-icon" style={{ color: skill.iconColor }}>
-                        {skill.svg}
-                      </div>
-                      <span className="hard-skill-name">{skill.name}</span>
-                    </div>
-                    <span className="hard-skill-percent">{skill.percentage}%</span>
-                  </div>
-
-                  {/* Slider Progress Bar Track with Circle Node Handle (Matching Image 2) */}
-                  <div className="slider-progress-track">
-                    <div 
-                      className="slider-progress-fill" 
-                      style={{ width: `${skill.percentage}%`, backgroundColor: skill.iconColor }}
-                    />
-                    <div 
-                      className="slider-node-handle" 
-                      style={{ left: `${skill.percentage}%`, borderColor: skill.iconColor }}
-                    />
-                  </div>
-                </div>
+            <div 
+              ref={hardSkillsRef} 
+              className="hard-skills-grid"
+            >
+              {hardSkills.map((skill, index) => (
+                <HardSkillCard
+                  key={skill.id}
+                  skill={skill}
+                  index={index}
+                  isCentrallyVisible={isHardSkillsCentrallyVisible}
+                  isTabActive={activeTab === 'hard'}
+                  isMobile={isMobile}
+                />
               ))}
             </div>
           </div>

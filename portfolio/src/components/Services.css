@@ -69,8 +69,8 @@
   transform: translateY(-40px);
 }
 
-.services-section.in-view .services-title {
-  animation: serviceTitleSlideDown 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+.services-title.is-animated {
+  animation: serviceTitleSlideDown 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
 }
 
 @keyframes serviceTitleSlideDown {
@@ -91,21 +91,22 @@
   width: 100%;
 }
 
-/* Staggered Slide from Below & Shift Right Animation */
+/* Independent Slide from Below & Shift Right Animation */
 .service-item {
   width: 100%;
   opacity: 0;
   transform: translateY(45px);
   border-bottom: 1.5px solid rgba(15, 23, 42, 0.14);
-  transition: border-bottom-color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-bottom-color 0.35s ease;
+  will-change: opacity, transform;
 }
 
 .service-item.expanded {
   border-bottom-color: transparent;
 }
 
-.services-section.in-view .service-item {
-  animation: serviceItemSlideUpAndShift 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.service-item.is-animated {
+  animation: serviceItemSlideUpAndShift 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes serviceItemSlideUpAndShift {
@@ -136,6 +137,9 @@
   border-radius: 18px;
   border: 1px solid transparent;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: pan-y;
+  user-select: none;
   transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
               padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
               margin 0.5s cubic-bezier(0.16, 1, 0.3, 1),
@@ -143,14 +147,27 @@
               border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hover on Collapsed Item */
-.service-item.collapsed:hover .service-card-shell {
-  padding-left: 1.15rem;
+/* Subtle tactile response on click / tap */
+.service-item:active .service-card-shell {
+  transform: scale(0.99);
+  transition: transform 0.12s ease;
 }
 
-.service-item.collapsed:hover .service-arrow-svg {
-  transform: translate(5px, -5px);
-  color: #000000;
+/* Desktop Hover Styles (scoped strictly to mouse/pointer devices to prevent sticky hover on touch) */
+@media (hover: hover) and (pointer: fine) {
+  .service-item.collapsed:hover .service-card-shell {
+    padding-left: 1.15rem;
+  }
+
+  .service-item.collapsed:hover .service-arrow-svg {
+    transform: translate(5px, -5px);
+    color: #000000;
+  }
+
+  .service-item.expanded .service-toggle-icon:hover {
+    background-color: rgba(255, 255, 255, 0.22);
+    transform: scale(1.08);
+  }
 }
 
 /* Expanded Dark Card State */
@@ -235,11 +252,6 @@
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-.service-item.expanded .service-toggle-icon:hover {
-  background-color: rgba(255, 255, 255, 0.22);
-  transform: scale(1.08);
-}
-
 /* Expandable Content Body (CSS Grid 0fr -> 1fr for Zero Flickering) */
 .service-body-wrapper {
   display: grid;
@@ -290,9 +302,5 @@
 
   .service-card-shell {
     padding: 1.6rem 0.25rem;
-  }
-
-  .service-item.collapsed:hover .service-card-shell {
-    padding-left: 0.5rem;
   }
 }

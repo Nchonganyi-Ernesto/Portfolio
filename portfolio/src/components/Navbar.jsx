@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const lastScrollY = useRef(0);
 
   const toggleMenu = () => {
     setIsOpen(prev => !prev);
@@ -11,6 +14,49 @@ export default function Navbar() {
   const closeMenu = () => {
     setIsOpen(false);
   };
+
+  // Smart Hide-on-Scroll-Down / Show-on-Scroll-Up
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Track whether page is scrolled past the top
+      setIsScrolled(currentScrollY > 20);
+
+      // Always show navbar when near the very top of page
+      if (currentScrollY <= 60) {
+        setIsVisible(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      // Ignore small jitter deltas
+      const delta = currentScrollY - lastScrollY.current;
+      if (Math.abs(delta) < 8) {
+        return;
+      }
+
+      if (delta > 0) {
+        // User is scrolling DOWN -> hide nav
+        setIsVisible(false);
+      } else {
+        // User is scrolling UP -> reveal nav & hamburger
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Sync scroll position when closing mobile menu
+  useEffect(() => {
+    if (!isOpen) {
+      lastScrollY.current = window.scrollY;
+    }
+  }, [isOpen]);
 
   // Close menu on resize to desktop
   useEffect(() => {
@@ -37,7 +83,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="navbar-header">
+      <header className={`navbar-header ${!isVisible && !isOpen ? 'nav-hidden' : 'nav-visible'} ${isScrolled ? 'nav-scrolled' : ''}`}>
         <div className="navbar-container">
           {/* Left: Available for project tag (no dot, wrapped in </>) */}
           <div className="status-code-tag">
@@ -103,6 +149,10 @@ export default function Navbar() {
           <nav className="mobile-nav-links">
             <a href="#about" className="mobile-nav-link" onClick={closeMenu}>
               <span>About</span>
+              <span className="mobile-nav-arrow">→</span>
+            </a>
+            <a href="#skills" className="mobile-nav-link" onClick={closeMenu}>
+              <span>Skills</span>
               <span className="mobile-nav-arrow">→</span>
             </a>
             <a href="#work" className="mobile-nav-link" onClick={closeMenu}>

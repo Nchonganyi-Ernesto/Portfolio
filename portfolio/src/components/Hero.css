@@ -327,8 +327,24 @@
     position: relative;
     top: 0;
     left: 0;
+    width: 100%;
     transform: none;
     margin-bottom: 1.5rem;
+    text-align: center;
+    animation: nameFadeInTopMobile 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+  }
+
+  @keyframes nameFadeInTopMobile {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+      filter: blur(8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
   }
 
   .hero-giant-name {
@@ -336,6 +352,8 @@
     white-space: normal;
     flex-wrap: wrap;
     gap: 0.75rem;
+    justify-content: center;
+    text-align: center;
   }
 
   .hero-content-grid {
@@ -377,5 +395,22 @@
     flex-wrap: wrap;
     justify-content: center;
     max-width: 100%;
+  }
+
+  .social-pill:nth-child(1),
+  .social-pill:nth-child(2),
+  .social-pill:nth-child(3) {
+    animation-name: socialSlideUpMobile;
+  }
+
+  @keyframes socialSlideUpMobile {
+    0% {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

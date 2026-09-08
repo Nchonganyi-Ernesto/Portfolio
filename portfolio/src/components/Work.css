@@ -44,7 +44,7 @@
 }
 
 .work-section.in-view .work-watermark {
-  animation: watermarkSlideDown 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  animation: watermarkSlideDown 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
 }
 
 @keyframes watermarkSlideDown {
@@ -74,7 +74,7 @@
 }
 
 .work-section.in-view .work-title {
-  animation: titleSlideDown 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+  animation: titleSlideDown 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
 }
 
 @keyframes titleSlideDown {
@@ -101,7 +101,7 @@
 }
 
 .work-section.in-view .work-controls {
-  animation: controlsSlideDown 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+  animation: controlsSlideDown 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
 }
 
 @keyframes controlsSlideDown {
@@ -206,36 +206,22 @@
   padding: 0.85rem;
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
   transform: translateY(-45px);
+  transition: opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 1.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
+  will-change: opacity, transform;
 }
 
-/* Row 1 Slide-Down */
-.work-section.in-view .project-card:nth-child(1),
-.work-section.in-view .project-card:nth-child(2) {
-  animation: projectCardSlideDown 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+.project-card.is-animated {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Row 2 Slide-Down */
-.work-section.in-view .project-card:nth-child(3),
-.work-section.in-view .project-card:nth-child(4) {
-  animation: projectCardSlideDown 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
-}
-
-@keyframes projectCardSlideDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-45px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.project-card:hover {
-  transform: translateY(-4px);
+.project-card.is-animated:hover {
+  transform: translateY(-5px);
   border-color: rgba(0, 0, 0, 0.12);
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.06), 0 3px 8px rgba(0, 0, 0, 0.03);
 }
@@ -358,22 +344,7 @@
     padding: 3.5rem 1.25rem 5rem 1.25rem;
   }
 
-  /* Single Column Mobile Card Stagger */
-  .work-section.in-view .project-card:nth-child(1) {
-    animation: projectCardSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
-  }
 
-  .work-section.in-view .project-card:nth-child(2) {
-    animation: projectCardSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
-  }
-
-  .work-section.in-view .project-card:nth-child(3) {
-    animation: projectCardSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
-  }
-
-  .work-section.in-view .project-card:nth-child(4) {
-    animation: projectCardSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
-  }
 }
 
 @media (max-width: 680px) {

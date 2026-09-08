@@ -43,8 +43,8 @@
   opacity: 0;
 }
 
-.experience-section.in-view .experience-watermark {
-  animation: expWatermarkFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.experience-watermark.is-animated {
+  animation: expWatermarkFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes expWatermarkFade {
@@ -76,17 +76,17 @@
   text-transform: uppercase;
   margin: 0;
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-24px);
 }
 
-.experience-section.in-view .experience-title {
-  animation: expTitleSlide 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+.experience-title.is-animated {
+  animation: expTitleSlide 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
 }
 
 @keyframes expTitleSlide {
   0% {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-24px);
   }
   100% {
     opacity: 1;
@@ -102,8 +102,8 @@
   opacity: 0;
 }
 
-.experience-section.in-view .experience-badge {
-  animation: expBadgeFade 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+.experience-badge.is-animated {
+  animation: expBadgeFade 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
 }
 
 @keyframes expBadgeFade {
@@ -122,31 +122,133 @@
   width: 100%;
 }
 
+/* 3D Kinetic Horizon Unfurl Animation */
 .experience-row {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.85rem 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 2.15rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: default;
   opacity: 0;
-  transform: translateY(20px);
+  transform: perspective(1200px) rotateX(38deg) translateY(36px) translateZ(-35px);
+  transform-origin: top center;
+  filter: blur(4px);
+  will-change: transform, opacity, filter;
 }
 
-.experience-section.in-view .experience-row {
-  animation: expRowSlideIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.experience-row.is-animated {
+  animation: expRow3DHorizonUnfurl 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes expRowSlideIn {
+@keyframes expRow3DHorizonUnfurl {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: perspective(1200px) rotateX(38deg) translateY(36px) translateZ(-35px);
+    filter: blur(4px);
+  }
+  45% {
+    opacity: 0.85;
+    filter: blur(1px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: perspective(1200px) rotateX(0deg) translateY(0) translateZ(0);
+    filter: blur(0);
+  }
+}
+
+/* Glowing Neon Horizon Laser Beam Tracer across bottom border */
+.experience-row::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: linear-gradient(
+    90deg,
+    #38bdf8 0%,
+    #818cf8 35%,
+    rgba(255, 255, 255, 0.35) 65%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.experience-row.is-animated::after {
+  animation: expLaserTrace 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+@keyframes expLaserTrace {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0.85;
+  }
+}
+
+/* Milestone Index Tag & Pulsing Neon Pip */
+.experience-milestone-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #38bdf8;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.experience-row.is-animated .experience-milestone-tag {
+  animation: expMilestoneSlideIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+}
+
+@keyframes expMilestoneSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.milestone-pip {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: milestoneGlowPulse 2.2s infinite ease-in-out;
+}
+
+@keyframes milestoneGlowPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.75;
+    box-shadow: 0 0 6px #38bdf8;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+    box-shadow: 0 0 14px #38bdf8, 0 0 20px #818cf8;
   }
 }
 
@@ -232,8 +334,8 @@
               border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.experience-section.in-view .experience-tilted-card {
-  animation: expImageFlyInTopRight 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.experience-row.is-animated .experience-tilted-card {
+  animation: expImageFlyInTopRight 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
 @keyframes expImageFlyInTopRight {
@@ -414,7 +516,7 @@
 }
 
 /* Responsive Rules */
-@media (max-width: 768px) {
+@media (max-width: 868px) {
   .experience-section {
     padding: 4.5rem 1.25rem 6rem 1.25rem;
   }
@@ -432,29 +534,43 @@
     padding: 1.6rem 0.25rem;
   }
 
+  /* Signature Fly-In from Top-Right on Mobile (matching desktop physics) */
   .experience-tilted-card {
     position: relative;
     left: auto;
     top: auto;
-    transform: rotate(-3deg) scale(1);
+    transform: translate(85px, -45px) rotate(16deg) scale(0.72);
     opacity: 0;
+    filter: blur(4px);
     pointer-events: auto;
-    margin: 0.5rem 0 0.25rem 0;
+    margin: 0.85rem 0 0.4rem 0;
+    will-change: transform, opacity, filter;
   }
 
-  .experience-section.in-view .experience-tilted-card {
-    animation: expImageFadeMobile 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .experience-row.is-animated .experience-tilted-card {
+    animation: expImageFlyInMobile 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
   }
 
-  @keyframes expImageFadeMobile {
+  @keyframes expImageFlyInMobile {
     0% {
       opacity: 0;
-      transform: translateY(15px) rotate(-3deg) scale(0.95);
+      transform: translate(85px, -45px) rotate(16deg) scale(0.72);
+      filter: blur(4px);
+    }
+    55% {
+      opacity: 1;
+      filter: blur(0);
     }
     100% {
       opacity: 1;
-      transform: translateY(0) rotate(-3deg) scale(1);
+      transform: translate(0, 0) rotate(-4deg) scale(1);
+      filter: blur(0);
     }
+  }
+
+  .experience-row.is-animated:hover .experience-tilted-card,
+  .experience-row.is-animated:active .experience-tilted-card {
+    transform: translate(0, 0) rotate(-1deg) scale(1.05) !important;
   }
 
   .tilted-card-inner {
@@ -464,5 +580,91 @@
 
   .experience-right {
     justify-content: flex-start;
+  }
+
+  /* Mobile Fullscreen Modal (Zero Border Radius, Edge-to-Edge) */
+  .experience-modal-overlay {
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.96);
+  }
+
+  .experience-modal-content {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    border-radius: 0 !important;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: modalPopInMobile 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes modalPopInMobile {
+    0% {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Fixed ✕ Button on Top-Right Corner */
+  .experience-modal-close {
+    position: fixed;
+    top: calc(1rem + env(safe-area-inset-top, 0px));
+    right: calc(1rem + env(safe-area-inset-right, 0px));
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(24, 24, 27, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10002;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .experience-modal-close:active {
+    transform: scale(0.92);
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .experience-modal-img-wrap {
+    width: 100%;
+    flex: 1;
+    min-height: 52vh;
+    max-height: none;
+    background-color: #050608;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 !important;
+    padding: calc(3.5rem + env(safe-area-inset-top, 0px)) 1rem 1rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .experience-modal-image {
+    width: 100%;
+    height: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+    border-radius: 0 !important;
+  }
+
+  .experience-modal-info {
+    padding: 1.5rem 1.25rem calc(2rem + env(safe-area-inset-bottom, 0px)) 1.25rem;
+    background-color: #141519;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0 !important;
   }
 }
