@@ -1,6 +1,7 @@
 :root {
   --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Inter', monospace;
+  --font-serif: 'Newsreader', 'Playfair Display', Georgia, 'Times New Roman', serif;
   
   /* Modern clean aesthetic palette */
   --bg-primary: #ffffff;

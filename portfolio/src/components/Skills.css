@@ -74,10 +74,10 @@
 }
 
 .skills-section-title {
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  font-weight: 900;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   margin: 0;
   color: #ffffff;
 }

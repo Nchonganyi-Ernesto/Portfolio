@@ -1,59 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Work.css';
+import { projectsData } from '../data/projectsData';
 
-import bloodlinkImg from '../assets/BLOODLINK.jpeg';
-import pharmaScoutImg from '../assets/pharma-scout-image.PNG';
-import ksearchImg from '../assets/ads-hero.PNG';
-import foodbistroImg from '../assets/restaurant-image.PNG';
-
-const projectsData = [
-  {
-    id: 'bloodlink',
-    title: 'BloodLink - Life-Saving Blood Donor Network',
-    category: 'Real Project',
-    badge: 'REAL PROJECT',
-    image: bloodlinkImg,
-    description:
-      'An innovative platform connecting blood donors to patients in critical need across Africa through simple profile setups, GPS-based location matching, and automated calling mechanisms to nearby donors.',
-    tags: ['React (Vite)', 'CSS', 'Supabase', 'PostgreSQL', 'Baileys WhatsApp Cloud'],
-    link: 'https://bloodlink0.netlify.app/'
-  },
-  {
-    id: 'pharmascout',
-    title: 'Pharma-Scout - Smart Health & Drug Inventory Broker',
-    category: 'Real Project',
-    badge: 'REAL PROJECT',
-    image: pharmaScoutImg,
-    description:
-      'A dedicated healthcare platform eliminating medicine search exhaustion by connecting patients directly to registered pharmacies with verified, real-time drug inventories.',
-    tags: ['React', 'CSS', 'Firebase', 'Firestore', 'Cloudinary', 'Resend'],
-    link: 'https://pharma-scout.online/'
-  },
-  {
-    id: 'ksearch',
-    title: 'KSearch - Targeted Advertising & Campaign Platform',
-    category: 'Exploration',
-    badge: 'EXPLORATION',
-    image: ksearchImg,
-    description:
-      'A clean advertising web prototype engineered for submitting, verifying, and managing targeted promotional campaigns with interactive submission pipelines.',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'Firebase', 'Firestore'],
-    link: 'https://intern-board2.netlify.app/'
-  },
-  {
-    id: 'foodbistro',
-    title: 'FoodBistro - Modern Restaurant Digital UI Experience',
-    category: 'Exploration',
-    badge: 'EXPLORATION',
-    image: foodbistroImg,
-    description:
-      'A production-level frontend web application showcasing interactive dining menus, smooth reservation user flows, and aesthetic culinary UI/UX design.',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'UI/UX Design'],
-    link: 'https://bistro-f.netlify.app/'
-  }
-];
-
-export default function Work() {
+export default function Work({ onSelectProject }) {
   const [activeFilter, setActiveFilter] = useState('All');
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [isPair1Visible, setIsPair1Visible] = useState(false);
@@ -164,7 +113,15 @@ export default function Work() {
 
   const filteredProjects = activeFilter === 'All'
     ? projectsData
-    : projectsData.filter((project) => project.category === activeFilter);
+    : projectsData.filter((project) => (project.projectType || project.category) === activeFilter);
+
+  const handleCardClick = (project) => {
+    if (onSelectProject) {
+      onSelectProject(project);
+    } else if (project.link) {
+      window.open(project.link, '_blank');
+    }
+  };
 
   return (
     <section 
@@ -242,12 +199,19 @@ export default function Work() {
                   transitionDelay: `${staggerDelay}s`
                 }}
               >
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                {/* Clickable Image Container revealing Eye View Icon on hover */}
+                <div
                   className="project-image-wrapper"
-                  aria-label={`Open live preview of ${project.title}`}
+                  onClick={() => handleCardClick(project)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View full case study of ${project.title}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleCardClick(project);
+                    }
+                  }}
                 >
                   <img
                     src={project.image}
@@ -256,45 +220,52 @@ export default function Work() {
                     loading="lazy"
                   />
 
-                  {/* Floating Circle Action Arrow on Hover */}
+                  {/* Modern View Icon Badge appearing on hover */}
                   <div 
-                    className="project-arrow-badge"
-                    aria-label={`Open live preview of ${project.title}`}
-                    title="Open live preview"
+                    className="project-view-badge"
+                    aria-label={`View details of ${project.title}`}
                   >
                     <svg
-                      width="16"
-                      height="16"
+                      className="view-icon-svg"
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="2.4"
+                      strokeWidth="2.2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      <line x1="7" y1="17" x2="17" y2="7"></line>
-                      <polyline points="7 7 17 7 17 17"></polyline>
+                      <path d="M2 12s3-7 10-7 7 7 7 7-3 7-10 7-10-7-10-7Z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
                     </svg>
+                    <span className="view-badge-label">View Project</span>
                   </div>
-                </a>
+                </div>
 
                 {/* Card Meta Content */}
                 <div className="project-info">
                   <h3 className="project-title">
-                    <a href={project.link} target="_blank" rel="noopener noreferrer">
+                    <button
+                      type="button"
+                      className="project-title-btn"
+                      onClick={() => handleCardClick(project)}
+                    >
                       {project.title}
-                    </a>
+                    </button>
                   </h3>
 
                   <p className="project-desc">{project.description}</p>
 
-                  {/* Tech Stack Pills */}
-                  <div className="project-tags">
-                    {project.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="tech-pill">
-                        {tag}
-                      </span>
-                    ))}
+                  {/* Footer with Full Tech Stack Tags */}
+                  <div className="project-card-footer">
+                    <div className="project-tags">
+                      {project.tags.map((tag, tIdx) => (
+                        <span key={tIdx} className="tech-pill">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </article>

@@ -62,7 +62,7 @@
 
 .work-title {
   position: relative;
-  font-size: clamp(1.35rem, 2.3vw, 1.95rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
   font-weight: 800;
   color: #0f172a;
   letter-spacing: -0.025em;
@@ -250,34 +250,51 @@
   transform: scale(1.03);
 }
 
-/* Floating Circular Arrow Badge */
-.project-arrow-badge {
+/* Modern Floating View Icon Badge (Eye Icon on Hover) */
+.project-view-badge {
   position: absolute;
-  bottom: 0.85rem;
-  right: 0.85rem;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  color: #0f172a;
-  display: flex;
+  bottom: 0.95rem;
+  right: 0.95rem;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0.85;
-  transform: scale(0.92);
+  gap: 0.45rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  background-color: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(8px) scale(0.92);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 2;
+  z-index: 3;
+  pointer-events: none;
 }
 
-.project-card:hover .project-arrow-badge {
+.view-icon-svg {
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.view-badge-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.project-card:hover .project-view-badge {
   opacity: 1;
-  transform: scale(1.02);
+  transform: translateY(0) scale(1);
   background-color: #0f172a;
-  color: #ffffff;
-  border-color: #0f172a;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.3);
+}
+
+.project-card:hover .project-view-badge .view-icon-svg {
+  transform: scale(1.1);
 }
 
 /* Card Content Info */
@@ -289,16 +306,27 @@
 }
 
 .project-title {
+  margin: 0;
+  padding: 0;
+}
+
+.project-title-btn {
+  font-family: inherit;
   font-size: 1.08rem;
   font-weight: 700;
   color: #0f172a;
   line-height: 1.35;
   letter-spacing: -0.015em;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   transition: color 0.2s ease;
 }
 
-.project-title a:hover {
-  color: #3b82f6;
+.project-title-btn:hover {
+  color: #2563eb;
 }
 
 .project-desc {
@@ -308,12 +336,20 @@
   font-weight: 400;
 }
 
-/* Tech Stack Pills */
+/* Footer with Tags and Action Buttons */
+.project-card-footer {
+  display: flex;
+  align-items: center;
+  margin-top: 0.35rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 .project-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: 0.15rem;
+  width: 100%;
 }
 
 .tech-pill {
@@ -344,13 +380,10 @@
     padding: 3.5rem 1.25rem 5rem 1.25rem;
   }
 
-  .project-arrow-badge {
+  .project-view-badge {
     opacity: 1;
-    transform: scale(1);
-    background-color: #0f172a;
-    color: #ffffff;
-    border-color: #0f172a;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    transform: translateY(0) scale(1);
+    background-color: rgba(15, 23, 42, 0.92);
   }
 }
 

@@ -4,6 +4,9 @@ import './Hero.css';
 export default function Hero() {
   return (
     <section className="hero-section">
+      {/* Architectural center grid lines with horizontal edge fade */}
+      <div className="hero-grid-lines" aria-hidden="true" />
+
       <div className="hero-container">
         {/* Short Name Background Typography: NCHONGANYI E. */}
         <div className="hero-typography-backdrop" aria-hidden="true">

@@ -32,8 +32,8 @@
   text-align: left;
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0s, 
-              transform 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+  transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0s,
+    transform 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0s;
   will-change: transform, opacity;
 }
 
@@ -63,8 +63,8 @@
   color: #000000;
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.18s, 
-              transform 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
+  transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
+    transform 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
   will-change: transform, opacity;
 }
 
@@ -76,8 +76,8 @@
   gap: 1.25rem;
   opacity: 0;
   transform: translateX(-65px);
-  transition: opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s, 
-              transform 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
+  transition: opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s,
+    transform 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
   will-change: transform, opacity;
 }
 
@@ -112,9 +112,9 @@
   opacity: 0;
   transform: scale(0.86);
   filter: blur(8px);
-  transition: opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1) 1.05s, 
-              transform 1.35s cubic-bezier(0.16, 1, 0.3, 1) 1.05s, 
-              filter 1.35s ease 1.05s;
+  transition: opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1) 1.05s,
+    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1) 1.05s,
+    filter 1.35s ease 1.05s;
   will-change: transform, opacity, filter;
 }
 
@@ -155,8 +155,8 @@
   padding-top: 0.25rem;
   opacity: 0;
   transform: translateX(65px);
-  transition: opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s, 
-              transform 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
+  transition: opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s,
+    transform 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
   will-change: transform, opacity;
 }
 
@@ -246,6 +246,7 @@
    Desktop Coordinated Animation (Staged Cascade)
    ========================================================================== */
 @media (min-width: 1025px) {
+
   .about-editorial-section.in-view .editorial-huge-about,
   .about-editorial-section.in-view .editorial-me-text {
     opacity: 1;
@@ -309,31 +310,31 @@
   .editorial-me-text.is-animated {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), 
-                transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .editorial-left-bio.is-animated {
     opacity: 1;
     transform: translateX(0);
-    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), 
-                transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .editorial-middle-col.is-animated {
     opacity: 1;
     transform: scale(1);
     filter: blur(0px);
-    transition: opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1), 
-                transform 1.05s cubic-bezier(0.16, 1, 0.3, 1), 
-                filter 1.05s ease;
+    transition: opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 1.05s ease;
   }
 
   .editorial-right-col.is-animated {
     opacity: 1;
     transform: translateX(0);
-    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), 
-                transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 

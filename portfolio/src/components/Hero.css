@@ -12,6 +12,27 @@
   box-sizing: border-box;
 }
 
+/* Center Grid Lines with Fading Left and Right Edges (Matching Detail Hero) */
+.hero-grid-lines {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.075) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.075) 1px, transparent 1px);
+  background-size: 38px 38px;
+  background-position: center center;
+  /* Concentrated at the center, smoothly fading towards left and right sides */
+  mask-image: radial-gradient(ellipse 65% 75% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 78%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 75% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 78%);
+}
+
 .hero-container {
   position: relative;
   width: 100%;
@@ -45,6 +66,7 @@
     transform: translate(-50%, -40px);
     filter: blur(8px);
   }
+
   100% {
     opacity: 1;
     transform: translate(-50%, 0);
@@ -128,6 +150,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -204,6 +227,7 @@
     opacity: 0;
     transform: translateY(120px) scale(0.96);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -259,6 +283,7 @@
     opacity: 0;
     transform: translateX(40px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -297,16 +322,16 @@
   .hero-content-grid {
     grid-template-columns: 260px 1fr 180px;
   }
-  
+
   .hero-giant-name {
     font-size: clamp(2.8rem, 8.5vw, 6.5rem);
   }
-  
+
   .hero-left-col,
   .hero-right-col {
     padding-bottom: 3rem;
   }
-  
+
   .hero-portrait-img {
     max-width: 400px;
   }
@@ -333,7 +358,7 @@
     pointer-events: none;
     z-index: 1;
     background-size: 36px 36px;
-    background-image: 
+    background-image:
       linear-gradient(to right, rgba(15, 23, 42, 0.065) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(15, 23, 42, 0.065) 1px, transparent 1px);
     mask-image: linear-gradient(180deg, #000 88%, transparent 100%);
@@ -363,6 +388,7 @@
       transform: translateY(-30px);
       filter: blur(8px);
     }
+
     100% {
       opacity: 1;
       transform: translateY(0);
@@ -431,6 +457,7 @@
       opacity: 0;
       transform: translateY(18px);
     }
+
     100% {
       opacity: 1;
       transform: translateY(0);
