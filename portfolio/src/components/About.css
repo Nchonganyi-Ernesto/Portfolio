@@ -5,7 +5,7 @@
 .about-editorial-section {
   position: relative;
   width: 100%;
-  padding: 6rem 2rem 7rem;
+  padding: 6rem 2rem 3.5rem;
   background: #ffffff;
   color: #000000;
   box-sizing: border-box;
@@ -22,11 +22,12 @@
 
 /* Top Header: ABOUT (Animates Up First) */
 .editorial-huge-about {
-  font-size: clamp(2.8rem, 7.5vw, 6rem);
-  font-weight: 900;
+  font-family: var(--font-heading);
+  font-size: clamp(3.2rem, 9vw, 7.5rem);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: -0.045em;
-  line-height: 0.85;
+  letter-spacing: -0.02em;
+  line-height: 0.88;
   margin: 0 0 1.25rem 0;
   color: #000000;
   text-align: left;
@@ -54,11 +55,12 @@
 
 /* ME Text (Animates Up With ABOUT) */
 .editorial-me-text {
-  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
-  font-weight: 900;
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 6.5vw, 5.2rem);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: -0.045em;
-  line-height: 0.85;
+  letter-spacing: -0.02em;
+  line-height: 0.88;
   margin: 0 0 0.5rem 0;
   color: #000000;
   opacity: 0;
@@ -162,12 +164,13 @@
 
 
 .editorial-philosophy-title {
-  font-size: 2.1rem;
-  font-weight: 900;
-  letter-spacing: -0.04em;
+  font-family: var(--font-heading);
+  font-size: clamp(1.85rem, 2.8vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   color: #000000;
   margin: 0 0 0.5rem 0;
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
 .editorial-desc {

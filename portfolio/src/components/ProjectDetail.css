@@ -218,10 +218,11 @@
 }
 
 .hero-product-name {
-  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  font-weight: 400;
   color: #0f172a;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
   line-height: 1.05;
   margin: 0;
   animation: heroTextReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -420,10 +421,11 @@
 }
 
 .detail-section-title {
-  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
-  font-weight: 800;
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  font-weight: 400;
   color: #0f172a;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
   margin: 0 0 0.25rem 0;
 }
 
@@ -1044,10 +1046,11 @@
 }
 
 .detail-bottom-projects-title {
-  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
-  font-weight: 800;
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+  font-weight: 400;
   color: #0f172a;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
   margin: 0 0 0.35rem 0;
 }
 
@@ -1304,11 +1307,11 @@
   flex-direction: column;
   align-items: center;
   gap: 0.15rem;
-  font-family: 'Newsreader', 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.75rem, 6.2vw, 4.4rem);
+  font-family: var(--font-heading);
+  font-size: clamp(2.85rem, 6.5vw, 4.6rem);
   font-weight: 400;
   line-height: 1.05;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   margin: 0 0 1.5rem 0;
   opacity: 0;
   transform: translateY(18px);

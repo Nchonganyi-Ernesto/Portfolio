@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import ByTheNumbers from './components/ByTheNumbers';
 import Skills from './components/Skills';
 import Work from './components/Work';
 import Services from './components/Services';
@@ -80,6 +81,7 @@ function App() {
           <>
             <Hero />
             <About />
+            <ByTheNumbers />
             <Skills />
             <Work onSelectProject={handleSelectProject} />
             <Services />

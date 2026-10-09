@@ -1,0 +1,239 @@
+/* ==========================================================================
+   By The Numbers Section Styles (Editorial Serif + Dark 4-Stat Container)
+   ========================================================================== */
+
+.numbers-section {
+  position: relative;
+  width: 100%;
+  padding: 2.5rem 2rem 6.5rem;
+  background: #ffffff;
+  color: #000000;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.numbers-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   Top Header Row (Dot + Eyebrow + Serif Headline on Left; Note on Right)
+   -------------------------------------------------------------------------- */
+.numbers-header-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.numbers-section.in-view .numbers-header-group {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.numbers-title-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+/* Small Solid Dot Indicator */
+.numbers-dot {
+  width: 7px;
+  height: 7px;
+  background-color: #000000;
+  border-radius: 50%;
+  margin-bottom: 0.35rem;
+}
+
+/* Eyebrow / Category Tag */
+.numbers-eyebrow {
+  font-family: var(--font-family);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #525f70;
+}
+
+/* Heading matching Instrument Serif typography */
+.numbers-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5.5vw, 4.35rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #0f172a;
+  letter-spacing: -0.015em;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.numbers-heading span {
+  display: block;
+}
+
+/* Right Context Note */
+.numbers-note-col {
+  max-width: 320px;
+  margin-bottom: 0.5rem;
+}
+
+.numbers-note-text {
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #525f70;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Dark Floating 4-Column Stats Container
+   -------------------------------------------------------------------------- */
+.numbers-card-row {
+  background: #000000;
+  color: #ffffff;
+  border-radius: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 3.5rem 1rem;
+  box-shadow: 0 24px 50px -15px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    transform 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  will-change: opacity, transform;
+}
+
+.numbers-section.in-view .numbers-card-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Individual Stat Box */
+.number-stat-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.75rem 2.25rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.number-stat-item:last-child {
+  border-right: none;
+}
+
+.number-stat-item:hover {
+  transform: translateY(-3px);
+}
+
+/* Numbers matching Instrument Serif typography */
+.number-stat-val {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 5.5vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1;
+  color: #ffffff;
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.015em;
+}
+
+/* Sub-Label Below Number */
+.number-stat-label {
+  font-family: var(--font-family);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Layouts (Tablets & Mobile)
+   -------------------------------------------------------------------------- */
+@media (max-width: 968px) {
+  .numbers-section {
+    padding: 3.5rem 1.5rem 5rem;
+  }
+
+  .numbers-header-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .numbers-note-col {
+    max-width: 100%;
+  }
+
+  .numbers-card-row {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2.75rem 1.5rem;
+    gap: 2.5rem 0;
+    border-radius: 16px;
+  }
+
+  /* 2x2 Grid Border Logic */
+  .number-stat-item {
+    padding: 0.5rem 1.5rem;
+  }
+
+  .number-stat-item:nth-child(1),
+  .number-stat-item:nth-child(2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    padding-bottom: 2.25rem;
+  }
+
+  .number-stat-item:nth-child(even) {
+    border-right: none;
+  }
+
+  .number-stat-item:nth-child(odd) {
+    border-right: 1px solid rgba(255, 255, 255, 0.14);
+  }
+}
+
+@media (max-width: 580px) {
+  .numbers-section {
+    padding: 3rem 1.25rem 4.5rem;
+  }
+
+  .numbers-heading {
+    font-size: clamp(2rem, 8vw, 2.75rem);
+  }
+
+  .numbers-card-row {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2.25rem 1rem;
+    gap: 2rem 0;
+  }
+
+  .number-stat-item {
+    padding: 0.25rem 0.85rem;
+  }
+
+  .number-stat-val {
+    font-size: clamp(2.2rem, 8vw, 3rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .number-stat-label {
+    white-space: normal;
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+}

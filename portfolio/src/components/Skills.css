@@ -74,10 +74,11 @@
 }
 
 .skills-section-title {
-  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
-  font-weight: 800;
+  font-family: var(--font-heading);
+  font-size: clamp(2.3rem, 4.5vw, 3.6rem);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
   margin: 0;
   color: #ffffff;
 }
@@ -264,8 +265,10 @@
 }
 
 .hard-skills-subtitle {
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   color: #ffffff;
   margin: 0;
 }
