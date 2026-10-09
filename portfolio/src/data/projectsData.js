@@ -7,95 +7,95 @@ export const projectsData = [
   {
     id: 'bloodlink',
     name: 'BloodLink',
-    year: '2025',
+    year: '2026',
     category: 'Healthcare',
     projectType: 'Real Project',
-    shortSummary: 'Life-saving blood donor network connecting patients across Cameroon.',
-    leadStatement: 'BloodLink is a critical emergency platform in Cameroon connecting hospitals and patients directly to volunteer blood donors. We engineered a real-time matching system from the ground up.',
-    briefChallenge: 'Severe blood shortages in local hospitals, fragmented communications, and life-threatening delays relying on unorganized social media forwards.',
-    briefApproach: 'A lightweight, low-bandwidth React interface paired with Supabase geolocation queries and automated Baileys WhatsApp dispatch pings.',
-    briefOutcome: 'Reduced emergency donor dispatch response time to under 15 minutes during local pilot testing in Buea.',
-    title: 'BloodLink - Life-Saving Blood Donor Network',
+    shortSummary: 'Multi-page blood donor network connecting patients and donors across all 10 regions of Cameroon.',
+    leadStatement: 'BloodLink is a mission-critical web application connecting patients to blood donors across all regions of Cameroon. Designed with an account-free donor model, instant calling, and an admin-moderated WhatsApp group broadcast dispatch.',
+    briefChallenge: 'Critical blood shortages and chaotic hospital searches across Cameroon, where patients struggle to locate compatible donors quickly without exposing donor privacy.',
+    briefApproach: 'A multi-page, low-bandwidth web app featuring instant GPS location donor search with direct phone calling, private account-free donor management links, and an admin-moderated SOS broadcast to registered WhatsApp community groups.',
+    briefOutcome: 'Connected patients to local donors across all regions in minutes, protected donor anonymity without logins, and automated verified emergency broadcasts directly to community WhatsApp groups.',
+    title: 'BloodLink - Nationwide Blood Donor & Emergency Broadcast Network',
     badge: 'REAL PROJECT',
-    tagline: 'A mission-critical healthcare platform bridging the gap between urgent blood requests and volunteer donors across Cameroon.',
+    tagline: 'A nationwide healthcare platform bridging urgent blood requests and volunteer donors across all 10 regions of Cameroon with zero-friction donor profiles and admin-approved WhatsApp broadcasts.',
     image: bloodlinkImg,
     link: 'https://bloodlink0.netlify.app/',
     github: 'https://github.com/Nchonganyi-Ernesto/',
     role: 'Lead Frontend Developer & System Architect',
-    roleLeadStatement: 'As Lead Frontend Developer & System Architect, I steered the core application architecture, secure health data models, and automated donor alert systems.',
+    roleLeadStatement: 'As Lead Frontend Developer & System Architect, I engineered the multi-page application flows, location-based donor search engine, private tokenized donor management system, and admin broadcast pipeline.',
     roleHighlights: [
       {
-        label: 'APPLICATION ARCHITECTURE',
-        text: 'Engineered the single-page application using React 19 and Vite with modular CSS for sub-second emergency response on 3G connections.'
+        label: 'MULTI-PAGE FLOW & ARCHITECTURE',
+        text: 'Engineered the multi-page application using React 19 and Vite with modular CSS, delivering instant loading and intuitive navigation for patients, donors, and administrators.'
       },
       {
-        label: 'DATA & PATIENT PRIVACY',
-        text: 'Architected Supabase Auth and PostgreSQL Row Level Security to strictly protect donor medical data and contact channels.'
+        label: 'ACCOUNT-FREE DONOR PRIVACY',
+        text: 'Designed a zero-friction donor system where donors register without passwords or account logins, managing their donation status and location via secure private links.'
       },
       {
-        label: 'DISPATCH & AUTOMATION',
-        text: 'Integrated browser Geolocation queries with Baileys WhatsApp Cloud hooks to automatically alert off-grid donors within minutes.'
+        label: 'LOCATION SEARCH & CALL DISPATCH',
+        text: 'Implemented location detection that displays compatible donors with instant direct calling, alongside an emergency SOS broadcast routed to WhatsApp groups upon admin verification.'
       }
     ],
-    timeline: '2025',
+    timeline: '2026',
     status: 'Live & Operational',
-    client: 'Healthcare / Community Emergency',
+    client: 'Healthcare / Nationwide Emergency Network (Cameroon)',
     description:
-      'An innovative platform connecting blood donors to patients in critical need across Africa through simple profile setups, GPS-based location matching, and automated calling mechanisms to nearby donors.',
-    tags: ['React (Vite)', 'Modular CSS', 'Supabase', 'PostgreSQL', 'Baileys WhatsApp Cloud', 'Geolocation API'],
+      'Connects blood donors and patients across Cameroon with location-based search, direct calling, and admin-approved emergency broadcasts.',
+    tags: ['React 19 (Vite)', 'Multi-Page Architecture', 'Modular CSS', 'Supabase', 'PostgreSQL', 'Baileys WhatsApp API', 'Geolocation API'],
     overview:
-      'Blood shortages and fragmented communication in sub-Saharan healthcare centers lead to critical treatment delays. BloodLink was created to solve this urgent crisis by digitizing donor registries and connecting patients to compatible donors in minutes rather than hours.',
+      'Blood shortages across hospitals in Cameroon cost precious lives daily. BloodLink replaces chaotic social media forwards with an organized, nationwide multi-page web application. Patients easily locate nearby compatible donors across all regions and call them immediately. Donors enjoy complete anonymity without needing accounts, updating their availability through private personalized links. When no direct donor is available, an emergency broadcast can be dispatched to registered WhatsApp groups following admin approval.',
     challenge:
-      'In emergency hospital situations, families traditionally broadcast frantic voice notes across social groups hoping a compatible donor responds in time. Blood banks lack real-time digital registries, and donors had no automated notification channel when compatible patients in their vicinity were in critical condition.',
+      'Patients in emergency rooms faced two huge bottlenecks: finding compatible blood donors in their specific region within minutes, and getting help when immediate nearby donors were unavailable. Meanwhile, potential donors avoided registering on platforms that required tedious account passwords or exposed their personal numbers to the public.',
     solution:
-      'We engineered a lightweight, high-performance web platform paired with Baileys WhatsApp Cloud automated dispatching. The app leverages the browser Geolocation API and PostgreSQL spatial queries to locate the closest registered volunteer donors and initiate automated calls and WhatsApp alert pings with patient details.',
+      'We built an accessible multi-page web application optimized for all Cameroon regions. Patients enter their location, search compatible blood groups, and can call available donors directly. Donors sign up in seconds without accounts or passwords, receiving a private link to update their donation cooldown or location anytime. If no donor matches, patients initiate an SOS broadcast that administrators review and dispatch straight to registered community WhatsApp groups with verified patient details.',
     myRole: [
-      'Architected the responsive single-page application using React 19 and Vite with modular CSS for zero-latency mobile browsing.',
-      'Integrated Supabase Auth and PostgreSQL Row Level Security (RLS) to safeguard sensitive donor health and contact records.',
-      'Designed an emergency one-tap SOS broadcast pipeline that queries compatible blood group donors within a custom radius.',
-      'Built the Baileys WhatsApp Cloud webhook connector for automated notification dispatches to off-grid volunteer donors.',
-      'Conducted usability field tests with medical students and local volunteers in Buea to refine the high-stress emergency UI flow.'
+      'Architected the multi-page web application using React 19, Vite, and modular CSS for fluid multi-route navigation across all mobile devices.',
+      'Engineered the recipient workflow: automated location capture, blood group compatibility queries, and direct one-tap telephone calling.',
+      'Built the account-free donor architecture, generating secure, tokenized private links for donors to toggle availability (e.g. given blood / cooldown) or change their region without login friction.',
+      'Designed the admin moderation workflow and Baileys WhatsApp API connector to review pending SOS requests and dispatch verified emergency alerts to registered WhatsApp groups.',
+      'Optimized frontend assets and network queries for sub-Saharan mobile networks across all 10 regions of Cameroon.'
     ],
     keyFeatures: [
       {
-        title: 'Emergency Blood SOS Dispatch',
-        description: 'Patients or medical staff can create urgent blood requests specifying blood group, units, hospital location, and urgency status.'
+        title: 'Instant Location-Based Donor Search & Direct Call',
+        description: 'Detects patient location across all Cameroon regions and displays compatible donors with direct one-tap phone calling for immediate emergency response.'
       },
       {
-        title: 'GPS Radius Donor Matching',
-        description: 'Spatial query engine calculates compatible donors within customizable radius boundaries, ensuring responders are physically near the hospital.'
+        title: 'Account-Free Donor Profiles & Private Update Links',
+        description: 'Donors create a profile without needing an account or password. They receive a private management link to update their donation status (given blood cooldown) or change location anytime.'
       },
       {
-        title: 'Baileys WhatsApp Notification Hook',
-        description: 'Bypasses expensive SMS costs by automating verified emergency notification alerts directly to donors’ WhatsApp inboxes.'
+        title: 'Admin-Approved WhatsApp Group Broadcast',
+        description: 'If no donor is found, patients trigger an SOS broadcast. Once reviewed and approved by the admin, the emergency request is automatically dispatched to registered community WhatsApp groups.'
       },
       {
-        title: 'Donor Health & Eligibility Tracker',
-        description: 'Includes an automated 56-day donation cooldown timer, health checklist screening, and donation history milestone records.'
+        title: 'Privacy-Preserving Donor Anonymity',
+        description: 'Protects donors from public data exposure and spam by avoiding public registry listings and keeping personal info confidential.'
       },
       {
-        title: 'Privacy-Preserving Contact Channels',
-        description: 'Protects donor phone numbers and private records through tokenized request links until a donor explicitly accepts dispatch.'
+        title: 'Coverage Across All 10 Cameroon Regions',
+        description: 'Engineered to support regional filtering and location matching across all ten administrative regions of Cameroon.'
       },
       {
-        title: 'Zero-Lag Offline Resilience',
-        description: 'Engineered for sub-Saharan low-bandwidth networks with minimal asset footprints and aggressive client-side caching.'
+        title: 'Multi-Page Optimized Performance',
+        description: 'Structured multi-page navigation built with pure modular CSS and minimal bundle size for ultra-fast response on 3G mobile connections.'
       }
     ],
     architecture: {
-      frontend: 'React 19, Vite, Modular CSS, HTML5 Geolocation API',
-      backend: 'Supabase Serverless Functions, Baileys WhatsApp API',
-      database: 'PostgreSQL with Row Level Security & Spatial Indexing',
-      deployment: 'Netlify Automated CI/CD, HTTPS Edge CDN'
+      frontend: 'React 19, Vite, Multi-Page Routing, Modular CSS, HTML5 Geolocation',
+      backend: 'Supabase Serverless Functions, Baileys WhatsApp Cloud API, Admin Dispatch Hooks',
+      database: 'PostgreSQL with Region & Spatial Indexing, Private Link Token Storage',
+      deployment: 'Netlify Automated CI/CD, HTTPS Edge Network'
     },
     challengesSolved: [
       {
-        title: 'Low-Bandwidth Mobile Network Optimization',
-        solution: 'Stripped heavy UI libraries and built custom pure CSS components. Reduced initial bundle to under 65KB gzipped, allowing emergency requests to load in under 1.2s on 3G connections.'
+        title: 'Zero-Friction Donor Retention Without Logins',
+        solution: 'Users rarely remember passwords during emergencies. We engineered secure, tokenized private URLs sent to donors, allowing them to instantly toggle their availability or update their location without ever creating or maintaining traditional user accounts.'
       },
       {
-        title: 'Real-Time Notification Delivery',
-        solution: 'Implemented Supabase Realtime WebSocket subscriptions combined with a resilient Baileys WhatsApp Cloud background runner that guarantees delivery even if the recipient is not actively browsing the web app.'
+        title: 'Spam-Proof Emergency WhatsApp Broadcast Pipeline',
+        solution: 'Direct open broadcasts to WhatsApp groups would quickly be spammed. We built an administrative review gateway where emergency SOS requests are verified before being dispatched to registered community WhatsApp groups, ensuring authentic alerts.'
       }
     ]
   },
@@ -105,251 +105,277 @@ export const projectsData = [
     year: '2025',
     category: 'Healthcare',
     projectType: 'Real Project',
-    shortSummary: 'Smart drug inventory broker connecting patients with verified pharmacies.',
-    leadStatement: 'Pharma-Scout is a digital healthcare broker linking patients to registered pharmacies with verified drug stock. We designed a unified real-time inventory discovery network.',
-    briefChallenge: 'Exhausting manual searches across pharmacies for out-of-stock prescription medication, with zero visibility into live shelf inventories.',
-    briefApproach: 'A dual-portal web architecture connecting patients to live Firestore inventory trackers and verified prescription uploads via Cloudinary.',
-    briefOutcome: 'Eliminated pharmacy hopping friction with real-time stock lookup and automated 3-hour medication pickup holds.',
-    title: 'Pharma-Scout - Smart Health & Drug Inventory Broker',
+    shortSummary: 'Smart drug inventory finder eliminating pharmacy-hopping exhaustion for patients across Cameroon.',
+    leadStatement: 'Pharma-Scout eliminates medicine search exhaustion for patients across Cameroon. Designed with zero-login search access, geolocation distance sorting, map navigation, and simple toggle stock updates for pharmacies.',
+    briefChallenge: 'Exhausting pharmacy-hopping across Cameroon where patients with urgent prescriptions walk endlessly between pharmacies searching for out-of-stock medicine, wasting precious health and resources.',
+    briefApproach: 'A zero-login healthcare search platform with geolocation distance sorting and map navigation, paired with Cloud Firestore real-time inventory toggles, Cloudinary storage, Resend alerts, and strict rate-limiting security.',
+    briefOutcome: 'Empowered patients to instantly locate verified prescription drugs and navigate directly to the nearest stocked pharmacy, backed by automated rate limiting and secure input sanitization.',
+    title: 'Pharma-Scout - Smart Medicine Inventory & Pharmacy Locator',
     badge: 'REAL PROJECT',
-    tagline: 'An intelligent healthcare inventory platform connecting patients directly to verified registered pharmacies with real-time stock levels.',
+    tagline: 'An accessible healthcare discovery platform solving medicine search exhaustion with zero-login drug searches, distance-sorted pharmacy inventory, and live map navigation.',
     image: pharmaScoutImg,
     link: 'https://pharma-scout.online/',
     github: 'https://github.com/Nchonganyi-Ernesto/',
-    role: 'Frontend Developer & UI/UX Specialist',
-    roleLeadStatement: 'As Frontend Developer & UI/UX Specialist, I led the end-to-end interface design, pharmacy back-office ergonomics, and real-time inventory synchronization.',
+    role: 'Frontend Developer & Security Architect',
+    roleLeadStatement: 'As Frontend Developer & Security Architect, I built the account-free medicine search interface, geolocation distance-sorting engine, interactive map navigation, and multi-tier API rate limiting and data sanitization.',
     roleHighlights: [
       {
-        label: 'PORTAL UX & ERGONOMICS',
-        text: 'Designed and built dual-portal interfaces for patients and pharmacists, simplifying medicine searches and batch stock updates.'
+        label: 'ZERO-FRICTION PATIENT SEARCH',
+        text: 'Engineered an account-free medicine search interface with automatic location detection, sorting pharmacies by distance with one-click map navigation.'
       },
       {
-        label: 'REAL-TIME DATA INTEGRATION',
-        text: 'Engineered live Cloud Firestore synchronization and atomic inventory hold locks to eliminate medication reservation conflicts.'
+        label: 'PHARMACY INVENTORY CONTROLS',
+        text: 'Designed intuitive stock toggle controls in Firestore allowing pharmacy staff to instantly update drug availability without complex software.'
       },
       {
-        label: 'PRESCRIPTION & DISPATCH PIPELINE',
-        text: 'Integrated Cloudinary client-side compression for high-res prescriptions and Resend email hooks for pickup security PINs.'
+        label: 'SECURITY & RATE LIMITING',
+        text: 'Implemented strict input sanitization, multi-level query rate limiting, and secure Cloudinary/Resend pipelines to protect healthcare data and scale reliably.'
       }
     ],
     timeline: '2024 - 2025',
     status: 'Live & Deployed',
-    client: 'HealthTech / Digital Pharmacy Broker',
+    client: 'Healthcare / Digital Pharmacy Discovery Network (Cameroon)',
     description:
-      'A dedicated healthcare platform eliminating medicine search exhaustion by connecting patients directly to registered pharmacies with verified, real-time drug inventories.',
-    tags: ['React', 'CSS3', 'Firebase', 'Firestore', 'Cloudinary', 'Resend API'],
+      'Solves medicine search exhaustion with zero-login drug availability searches, distance sorting, and direct pharmacy map navigation.',
+    tags: ['React', 'CSS3', 'Firebase', 'Cloud Firestore', 'Cloudinary', 'Resend API', 'Rate Limiting & Sanitization'],
     overview:
-      'Pharma-Scout eliminates pharmacy-hopping exhaustion. By aggregating licensed pharmacy inventories into a centralized, live searchable database, patients find their required prescriptions instantly, check pricing, and reserve drugs before traveling.',
+      'After receiving doctor prescriptions, patients in Cameroon face medicine search exhaustion—exhausting walks from one pharmacy to another searching for unavailable drugs, wasting critical time, money, and energy during acute illness. Pharma-Scout eliminates this physical and financial toll. With no account creation required, patients search for medications instantly, detect their location, view verified pharmacy stock sorted by proximity, and navigate directly using map coordinates. Pharmacists keep stock accurate via simple toggle controls, while backend security layers enforce input sanitization and rate limiting to prevent abuse.',
     challenge:
-      'Patients in Cameroon frequently endure physical exhaustion walking from pharmacy to pharmacy searching for out-of-stock medication, often during urgent illness. Pharmacies on the other hand lacked simple digital tools to publish real-time inventory updates without complex enterprise software.',
+      'Patients dealing with urgent sickness or caring for sick relatives had no way to know which local pharmacy held their prescribed drugs in stock, forcing them into dangerous physical searches. Furthermore, platforms requiring account creation or passwords discourage sick users, while open public healthcare queries must be protected against malicious scraping, denial-of-service spikes, and unsanitized search payloads.',
     solution:
-      'Developed an intuitive two-sided web portal: a patient-facing search engine with fuzzy medication matching and reservation pipelines, and a pharmacist back-office inventory dashboard for instant stock updates and prescription verification via Cloudinary and Resend.',
+      'We engineered a friction-free healthcare web platform where patients search immediately without logins. The application captures the user’s location, queries verified pharmacies in Firestore, sorts results by geographic distance, and provides interactive map directions. Pharmacies manage live availability with lightweight toggle switches. Behind the scenes, the architecture enforces input sanitization, request rate limiting, Cloudinary prescription storage, and Resend transactional notification verification.',
     myRole: [
-      'Engineered the end-to-end user experience, from interactive medication query interfaces to pharmacy management portals.',
-      'Designed real-time Firestore synchronization for drug availability status, preventing double-reservations of limited medications.',
-      'Integrated Cloudinary media pipelines for secure prescription image upload and compression.',
-      'Configured Resend transactional email workflows to deliver confirmation receipts and reservation pickup PIN codes.',
-      'Refined accessibility and mobile ergonomics to ensure patients can easily order prescriptions on any smartphone.'
+      'Built the responsive React frontend using modern CSS3 layouts optimized for rapid mobile search performance.',
+      'Implemented the zero-friction patient flow: eliminated account barriers, enabling instant prescription searches with geolocation detection.',
+      'Engineered proximity distance calculation algorithms and interactive map location routing to guide patients straight to the nearest stocked pharmacy.',
+      'Created the streamlined pharmacy management interface with quick-toggle stock updates, avoiding complicated back-office software.',
+      'Architected enterprise-grade security protocols: input sanitization against injection attacks, API rate limiting to thwart inventory scraping, and secure Cloudinary media pipelines.'
     ],
     keyFeatures: [
       {
-        title: 'Fuzzy Prescription Medication Search',
-        description: 'Allows patients to search by generic active molecule or brand name with instant autocomplete and inventory status.'
+        title: 'Zero-Login Medicine Search',
+        description: 'Patients can search generic molecules or brand names instantly with zero registration or login requirements, removing friction during medical emergencies.'
       },
       {
-        title: 'Verified Pharmacy Inventory Portal',
-        description: 'Enables pharmacy staff to update stock quantities, price changes, and batch expirations with simple toggle controls.'
+        title: 'Geolocation & Proximity Distance Sorting',
+        description: 'Captures user location and ranks pharmacies with confirmed drug stock by physical distance, ensuring patients locate the closest available medicine first.'
       },
       {
-        title: 'Secure Prescription Upload Pipeline',
-        description: 'Patients upload doctor prescription photos, optimized through Cloudinary CDN with pharmacist verification.'
+        title: 'Interactive Map Navigation',
+        description: 'Provides direct map coordinates and route navigation to guide patients directly to the target pharmacy without getting lost.'
       },
       {
-        title: 'Automated Reservation & Pickup PIN',
-        description: 'Holds reserved medications for up to 3 hours with a unique security PIN sent via transactional email through Resend.'
+        title: 'One-Click Pharmacy Stock Toggles',
+        description: 'Pharmacy staff can mark medications in stock or out of stock in seconds using lightweight toggle switches synced to Cloud Firestore.'
       },
       {
-        title: 'Location & Operating Hours Matrix',
-        description: 'Displays 24/7 duty status, address directions, and real-time open/closed badges.'
+        title: 'Input Sanitization & Injection Defense',
+        description: 'Rigorous sanitization filters on all query inputs protect the Firestore database from malicious search payloads and code injections.'
+      },
+      {
+        title: 'API Rate Limiting & Scalability Controls',
+        description: 'Multi-tier rate limiting defends inventory endpoints against automated scrapers and ensures consistent sub-second response times during traffic spikes.'
       }
     ],
     architecture: {
-      frontend: 'React, CSS3 Modern Flex/Grid Layouts, Cloudinary SDK',
-      backend: 'Firebase Cloud Functions, Resend API',
-      database: 'Cloud Firestore Realtime NoSQL Database',
-      deployment: 'Custom Domain (pharma-scout.online), Netlify / Cloudflare'
+      frontend: 'React, CSS3 Modern Flex/Grid Layouts, Geolocation API, Map Integration',
+      backend: 'Firebase Cloud Backend Services, Resend Email API',
+      database: 'Cloud Firestore Realtime NoSQL with Security Rules',
+      deployment: 'Custom Domain (pharma-scout.online), Cloudinary Storage, Netlify / Cloudflare'
     },
     challengesSolved: [
       {
-        title: 'Preventing Phantom Stock & Double Reservations',
-        solution: 'Architected Firestore atomic transactions (runTransaction) when a reservation is placed, temporarily locking inventory units for 180 minutes to avoid race conditions.'
+        title: 'Mitigating Inventory Scraping & Endpoint Abuse With Rate Limiting',
+        solution: 'Public search endpoints without logins risk automated competitor scraping and denial-of-service spikes. We engineered a token-bucket rate limiter that throttles repeated bursts while allowing legitimate patients to query stock freely and smoothly.'
       },
       {
-        title: 'Rapid Prescription Media Compression',
-        solution: 'Configured automated client-side canvas pre-compression before upload to Cloudinary, ensuring users on slow 3G connections can upload high-resolution prescription photos in seconds.'
+        title: 'Input Sanitization & Secure Real-Time Inventory Sync',
+        solution: 'Implemented comprehensive input sanitization routines on client and server boundaries to prevent malformed queries from degrading Firestore query performance, paired with atomic stock locks that prevent double-reservations.'
       }
     ]
   },
   {
     id: 'ksearch',
     name: 'KSearch',
-    year: '2024',
+    year: '2026',
     category: 'Advertising',
     projectType: 'Exploration',
-    shortSummary: 'Targeted advertising and campaign submission platform prototype.',
-    leadStatement: 'KSearch is an interactive digital advertising prototype built to streamline local campaign creation and placement. We engineered an intuitive submission pipeline with real-time budget forecasting.',
-    briefChallenge: 'Overly complex, opaque ad dashboards that alienate emerging local businesses and community event promoters.',
-    briefApproach: 'A guided 3-step campaign wizard, real-time impression calculations, and responsive ad placement previews built with vanilla ES6+.',
-    briefOutcome: 'Demonstrated a zero-bloat campaign submission pipeline with sub-second form feedback and live multi-device ad mockups.',
-    title: 'KSearch - Targeted Advertising & Campaign Platform',
+    shortSummary: 'Google Ads prototype with keyword bidding, price-based search display, and click tracking.',
+    leadStatement: 'KSearch is a Google Ads-style search advertising prototype where advertisers create accounts, submit keyword campaigns, complete payments, and have their ads showcased in search results based on price with real-time click tracking.',
+    briefChallenge: 'Simulating a full Google Ads ecosystem—from advertiser account creation and ad billing to keyword matching, price-ranked ad display, and click tracking—without heavy enterprise overhead.',
+    briefApproach: 'A modular web architecture combining advertiser account management, payment flows, a search engine results interface that showcases ads ranked by price/bid, and click-registration logging.',
+    briefOutcome: 'Successfully built an interactive Google Ads simulation with keyword-triggered ad placements, price-based ranking, and live click tracking in the search console.',
+    title: 'KSearch - Search Advertising & Keyword Bidding Prototype',
     badge: 'EXPLORATION',
-    tagline: 'An interactive advertising web prototype engineered for submitting, verifying, and managing targeted promotional campaigns.',
+    tagline: 'A Google Ads web prototype featuring advertiser accounts, ad campaign submission, payment processing, price-based search ad showcase, and click tracking.',
     image: ksearchImg,
     link: 'https://intern-board2.netlify.app/',
     github: 'https://github.com/Nchonganyi-Ernesto/',
-    role: 'Frontend Developer',
-    roleLeadStatement: 'As Frontend Developer, I architected the modular vanilla JavaScript pipeline, dynamic budget calculation algorithms, and live ad preview engines.',
+    role: 'Frontend Developer & AdTech Architect',
+    roleLeadStatement: 'As Frontend Developer & AdTech Architect, I designed the advertiser campaign wizard, keyword matching search engine, price-based ranking logic, and real-time click tracking console.',
     roleHighlights: [
       {
-        label: 'VANILLA ES6+ ARCHITECTURE',
-        text: 'Crafted a zero-framework modular application structure with pure JavaScript and semantic HTML5 for blazingly fast interaction.'
+        label: 'ADVERTISER PORTAL & PAYMENT',
+        text: 'Engineered account creation, ad application workflows, and payment setup for campaign budgeting.'
       },
       {
-        label: 'CALCULATION LOGIC',
-        text: 'Programmed live client-side budget estimation algorithms that instantly compute forecasted impressions upon slider adjustments.'
+        label: 'PRICE-BASED AD SHOWCASE',
+        text: 'Built the search ranking algorithm that displays keyword-targeted ads prioritized by advertiser price/bid.'
       },
       {
-        label: 'RESPONSIVE PREVIEW SYSTEM',
-        text: 'Built interactive preview containers showing live creative asset placements across billboard and mobile viewports.'
+        label: 'SEARCH CONSOLE & CLICK TRACKING',
+        text: 'Implemented search console integration that registers user clicks live and visualizes campaign keyword performance.'
       }
     ],
-    timeline: '2024',
+    timeline: '2026',
     status: 'Live Prototype',
-    client: 'AdTech & Business Growth Exploration',
+    client: 'AdTech & Search Engine Marketing Exploration',
     description:
-      'A clean advertising web prototype engineered for submitting, verifying, and managing targeted promotional campaigns with interactive submission pipelines.',
-    tags: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'Firebase', 'Firestore'],
+      'Google Ads-style prototype featuring account creation, keyword ad bidding, price-based search display, and click tracking.',
+    tags: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'Firebase', 'Cloud Firestore', 'Ad Bidding Engine'],
     overview:
-      'A modern digital ad management portal designed to streamline campaign submissions for local businesses, creators, and community initiatives.',
+      'KSearch is an interactive web prototype modeling the core mechanics of Google Ads. Advertisers create accounts, submit ad creatives, specify targeted search keywords, and complete payments. When visitors query matching keywords in the search console, the system showcases ads ranked dynamically by their bidding price. Every click on a sponsored result is registered in real time to monitor engagement and campaign return.',
     challenge:
-      'Creating digital ad campaigns often requires navigating bloated, opaque ad platforms with confusing configuration settings that discourage local and emerging businesses from running targeted promotions.',
+      'Designing a working search advertising system requires solving two interconnected sides: giving advertisers a straightforward way to create accounts, submit ads, and fund campaigns, while simultaneously powering a search console that matches user keyword queries, showcases top-bidding ads by price, and accurately tracks clicks without fraud or double-counting.',
     solution:
-      'Engineered an accessible, lightweight advertising prototype featuring a clear 3-step campaign wizard, live placement mockup generator, and real-time campaign moderation status.',
+      'Developed an end-to-end prototype featuring a streamlined advertiser dashboard for campaign creation and payment, alongside an interactive search engine interface. Ads are mapped to specific keywords in Firestore; when a user searches, the engine queries matching ads and showcases them ranked by price. Clicks are logged instantly with real-time status updates.',
     myRole: [
-      'Developed modular frontend code architecture in vanilla JavaScript and semantic HTML5.',
-      'Built custom form validation and budget calculation algorithms that update metrics live as target impressions change.',
-      'Implemented Firestore database hooks to persist submitted campaigns and moderation statuses.',
-      'Engineered the multi-format responsive ad preview container showing banner renders across devices.'
+      'Developed the advertiser onboarding flow: user account creation, campaign creative builder, and ad payment gateway.',
+      'Built the search engine results page (SERP) with keyword matching that surfaces sponsored ads alongside organic results.',
+      'Programmed the price-based ad showcase algorithm, ensuring ads with higher bids receive top visual priority.',
+      'Engineered the click-registration pipeline that records user ad clicks and updates campaign analytics in the console.',
+      'Styled the clean, high-contrast search interface using modern CSS with responsive layouts across mobile and desktop.'
     ],
     keyFeatures: [
       {
-        title: 'Multi-Step Campaign Builder',
-        description: 'Intuitive workflow guiding the user through campaign goals, creative assets, targeting demographic, and budget.'
+        title: 'Advertiser Account & Ad Application',
+        description: 'Advertisers can create an account, configure new promotional campaigns, and submit headlines, descriptions, and destination URLs.'
       },
       {
-        title: 'Real-Time Dynamic Cost Calculator',
-        description: 'Instant algorithmic cost and impression estimation responding dynamically to date range and placement choices.'
+        title: 'Campaign Payment & Budget Setup',
+        description: 'Enables advertisers to set their ad spend and complete simulated payments to activate their campaigns.'
       },
       {
-        title: 'Live Responsive Creative Preview',
-        description: 'Real-time previewer illustrating how promotional assets will appear on desktop billboards vs mobile feeds.'
+        title: 'Keyword-Targeted Search Display',
+        description: 'When users search specific keywords in the search engine, the system retrieves and displays corresponding sponsored ads.'
       },
       {
-        title: 'Moderation Pipeline Tracker',
-        description: 'Status badges (Submitted, Under Review, Active) synced with Firebase Firestore.'
+        title: 'Price-Based Ad Ranking Showcase',
+        description: 'Dynamic auction logic that ranks and showcases sponsored ads according to their bid price, giving priority to higher-value ads.'
+      },
+      {
+        title: 'Real-Time Click Registration',
+        description: 'Logs every visitor click on sponsored ad links, registering engagement metrics directly into the advertiser console.'
+      },
+      {
+        title: 'Search Console Analytics',
+        description: 'Displays campaign status, keyword impressions, and registered click counts in an intuitive moderation dashboard.'
       }
     ],
     architecture: {
       frontend: 'Semantic HTML5, CSS3 Custom Properties, Vanilla ES6+ JavaScript',
-      backend: 'Firebase BaaS Backend Services',
-      database: 'Cloud Firestore',
-      deployment: 'Netlify Static Hosting'
+      backend: 'Firebase BaaS, Campaign Payment Simulation, Click Logger',
+      database: 'Cloud Firestore (Keyword Indices, Ad Creatives, Click Logs)',
+      deployment: 'Netlify Global Edge Hosting'
     },
     challengesSolved: [
       {
-        title: 'Zero-Dependency Vanilla Architecture',
-        solution: 'Demonstrated high performance by building complex stateful wizard steps, dynamic calculations, and form validation using clean native ES6+ without third-party frameworks.'
+        title: 'Keyword Matching & Price-Ranked Ad Injection',
+        solution: 'Built an efficient client-side query filter that matches search query tokens against active campaigns in Firestore, sorting results by price in milliseconds so sponsored ads appear instantly above organic results.'
+      },
+      {
+        title: 'Reliable Click Tracking & Deduplication',
+        solution: 'Implemented event-driven click registration that debounces rapid duplicate clicks and writes atomic click increments to Firestore before redirecting users to the target URL.'
       }
     ]
   },
   {
     id: 'foodbistro',
     name: 'FoodBistro',
-    year: '2024',
+    year: '2025',
     category: 'Food & Dining',
     projectType: 'Exploration',
-    shortSummary: 'Modern culinary UI experience with interactive dining reservations.',
-    leadStatement: 'FoodBistro is an artisanal culinary dining platform showcasing interactive menus and fluid table bookings. We crafted an appetizing, high-performance digital dining experience.',
-    briefChallenge: 'Sluggish, non-responsive PDF menus and rigid reservation forms that degraded the guest dining discovery flow.',
-    briefApproach: 'A responsive culinary design system featuring instant dish filtering, dietary tags, and interactive reservation modals.',
-    briefOutcome: 'Sub-second menu load times, zero layout shifts, and an intuitive multi-guest table booking experience.',
-    title: 'FoodBistro - Modern Restaurant Digital UI Experience',
+    shortSummary: 'A 4-page restaurant website featuring interactive menus, add-to-cart ordering, and simulated checkout payment.',
+    leadStatement: 'FoodBistro is a clean 4-page restaurant web application built with interactive dining menus, cart order management, and a seamless payment simulation flow.',
+    briefChallenge: 'Creating an intuitive multi-page dining order experience with seamless cart state persistence and checkout simulation without heavy e-commerce overhead.',
+    briefApproach: 'A lightweight 4-page architectural structure featuring interactive menu catalogs, dynamic cart calculations, and an instant payment simulation flow.',
+    briefOutcome: 'Delivered a fluid, user-friendly 4-page restaurant web experience where visitors browse menus, add items to cart, and test complete checkout transactions.',
+    title: 'FoodBistro - Restaurant Multi-Page App & Cart Checkout Prototype',
     badge: 'EXPLORATION',
-    tagline: 'A culinary web application showcasing interactive dining menus, smooth reservation flows, and aesthetic dining UI/UX.',
+    tagline: 'A 4-page restaurant web experience featuring curated dining menus, add-to-cart item management, and simulated payment checkout.',
     image: foodbistroImg,
     link: 'https://bistro-f.netlify.app/',
     github: 'https://github.com/Nchonganyi-Ernesto/',
-    role: 'UI/UX Designer & Frontend Engineer',
-    roleLeadStatement: 'As UI/UX Designer & Frontend Engineer, I directed the gastronomic brand identity, fluid dish filtering interactions, and responsive table booking workflows.',
+    role: 'Frontend Developer & UI Designer',
+    roleLeadStatement: 'As Frontend Developer & UI Designer, I crafted the 4-page restaurant architecture, interactive menu displays, client-side cart calculation engine, and simulated checkout flow.',
     roleHighlights: [
       {
-        label: 'GASTRONOMIC DESIGN SYSTEM',
-        text: 'Developed the rich typographic hierarchy, sensory palette, and responsive component library tailored for culinary storytelling.'
+        label: '4-PAGE RESTAURANT ARCHITECTURE',
+        text: 'Structured a multi-page dining site covering home showcase, interactive food menus, cart review, and checkout pages.'
       },
       {
-        label: 'FLUID MENU INTERACTION',
-        text: 'Engineered instant menu category filtering utilizing hardware-accelerated CSS transforms to guarantee 60fps mobile transitions.'
+        label: 'ADD-TO-CART ENGINE',
+        text: 'Engineered reactive cart state handling item additions, quantities, price subtotals, and persistent order lists.'
       },
       {
-        label: 'RESERVATION MODAL FLOW',
-        text: 'Created an intuitive booking sequence with party size counters, date validation, and immediate confirmation feedback.'
+        label: 'PAYMENT SIMULATION',
+        text: 'Built an intuitive checkout flow with payment method simulation and instantaneous order confirmation.'
       }
     ],
-    timeline: '2024',
+    timeline: '2025',
     status: 'Live Prototype',
-    client: 'Culinary Brand Experience',
+    client: 'Restaurant & Food Service Exploration',
     description:
-      'A production-level frontend web application showcasing interactive dining menus, smooth reservation user flows, and aesthetic culinary UI/UX design.',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'UI/UX Design', 'Responsive Motion'],
+      'Simple 4-page restaurant website featuring curated food menus, dynamic add-to-cart ordering, and payment simulation.',
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'Cart State Management', 'Payment Simulation'],
     overview:
-      'A digital dining showcase designed to transform how guests discover artisanal culinary offerings and reserve private dining tables online.',
+      'FoodBistro is a streamlined 4-page restaurant web application designed for straightforward dining discovery and online ordering. Spanning four structured pages, the platform allows diners to explore appetizing menu selections, configure orders using an interactive add-to-cart system, review their basket, and walk through a realistic payment simulation for order completion.',
     challenge:
-      'Many restaurant websites rely on unreadable mobile PDF menus, lack responsive reservation pipelines, and suffer from poor sensory visual storytelling that fails to convert diners.',
+      'Many small restaurant sites either overwhelm users with cluttered single-page layouts or rely on static menu PDFs with no ordering capability. The goal was to build a clean 4-page restaurant experience that offers seamless menu browsing, reliable cart updates, and an authentic checkout payment simulation with zero friction.',
     solution:
-      'Created a modern, appetizing web experience with fluid menu category filtering, dietary tag indexing, rich culinary micro-animations, and an interactive reservation confirmation modal.',
+      'Designed and implemented a clear 4-page navigation structure (Home, Menu, Cart, and Checkout). The application provides appetizing menu cards with one-click "Add to Cart" functionality, real-time quantity/subtotal calculations, and a simulated payment process with prompt order confirmation.',
     myRole: [
-      'Conceived and designed the warm gastronomic brand identity, typographic hierarchy, and layout system.',
-      'Coded the smooth category filtering interface with instant DOM filtering and subtle scale transitions.',
-      'Engineered the reservation scheduling workflow with date verification and party size selection.',
-      'Optimized image loading and layout shifts to achieve perfect visual fidelity across high-DPI smartphone displays.'
+      'Architected the 4-page site hierarchy ensuring clean routing and responsive navigation between pages.',
+      'Designed and styled modern restaurant menu layouts with clear item pricing and appetizing visual hierarchy.',
+      'Programmed the add-to-cart shopping logic, managing cart item counters, subtotal math, and order modifications.',
+      'Built the checkout payment simulation form with payment method selection and order confirmation feedback.',
+      'Polished responsive mobile styling to ensure diners have a seamless ordering experience on smartphones.'
     ],
     keyFeatures: [
       {
-        title: 'Dynamic Dish & Menu Filtering',
-        description: 'Seamlessly switch between Chef Specials, Starters, Mains, and Artisan Drinks with zero page reloads.'
+        title: 'Structured 4-Page Site Flow',
+        description: 'Clean multi-page setup organizing the dining experience across dedicated Home, Menu, Cart, and Checkout pages.'
       },
       {
-        title: 'Dietary & Allergen Badges',
-        description: 'Clear visual indicators for Vegan, Gluten-Free, Organic, and Chef-recommended pairings.'
+        title: 'Interactive Menu Showcase',
+        description: 'Appetizing food item cards displaying descriptions, prices, and high-quality imagery across various dish categories.'
       },
       {
-        title: 'Interactive Table Reservation Engine',
-        description: 'Guided booking form with guest count counter, date/time pickers, and instant reservation confirmation state.'
+        title: 'Dynamic Add-to-Cart System',
+        description: 'Instant order additions with dynamic cart badge updates, item quantity adjusters, and live subtotal calculations.'
       },
       {
-        title: 'Appetizing Micro-Interactions',
-        description: 'Delightful hover elevations, fluid price tag animations, and responsive touch gestures for mobile diners.'
+        title: 'Checkout & Payment Simulation',
+        description: 'Realistic checkout form allowing users to select payment methods, input sample credentials, and trigger successful payment simulations.'
+      },
+      {
+        title: 'Mobile-First Ordering Experience',
+        description: 'Fully responsive layouts ensuring frictionless navigation, cart adjustments, and ordering on mobile devices.'
       }
     ],
     architecture: {
       frontend: 'Semantic HTML5, Advanced CSS Grid & Flexbox, Vanilla JavaScript',
-      design: 'Custom Gastronomic Design System & Typography Hierarchy',
-      deployment: 'Netlify Global Edge Hosting'
+      state: 'Client-Side Cart State & Order Calculation Engine',
+      deployment: 'Netlify Edge Hosting'
     },
     challengesSolved: [
       {
-        title: 'Fluid Category Transition Without Layout Jitter',
-        solution: 'Utilized CSS hardware-accelerated transforms (transform: scale() & opacity) with coordinated display transitions to keep the menu grid buttery smooth when toggling categories.'
+        title: 'Synchronizing Multi-Page Cart State',
+        solution: 'Implemented browser storage synchronization so that items added on the Menu page seamlessly carry over to the dedicated Cart and Checkout pages without state loss.'
+      },
+      {
+        title: 'Simulating Realistic Payment Transactions',
+        solution: 'Engineered a multi-step checkout modal that validates required billing fields, simulates payment processing latency, and presents a clear order receipt upon success.'
       }
     ]
   }

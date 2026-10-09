@@ -331,9 +331,13 @@
 
 .project-desc {
   font-size: 0.84rem;
-  line-height: 1.55;
+  line-height: 1.5;
   color: #525f70;
   font-weight: 400;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Footer with Tags and Action Buttons */
