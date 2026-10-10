@@ -80,13 +80,10 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="footer-col-title">Navigation</h4>
             <ul className="footer-links-list">
-              <li><a href="#hero" className="footer-nav-link">Home</a></li>
-              <li><a href="#about" className="footer-nav-link">About</a></li>
-              <li><a href="#skills" className="footer-nav-link">Skills</a></li>
-              <li><a href="#work" className="footer-nav-link">Selected Work</a></li>
-              <li><a href="#services" className="footer-nav-link">Services</a></li>
-              <li><a href="#experience" className="footer-nav-link">Experience</a></li>
-              <li><a href="#contact" className="footer-nav-link">Contact</a></li>
+              <li><a href="#/" className="footer-nav-link">Home</a></li>
+              <li><a href="#/work" className="footer-nav-link">Work</a></li>
+              <li><a href="#/service" className="footer-nav-link">Services</a></li>
+              <li><a href="#/contact" className="footer-nav-link">Contact</a></li>
             </ul>
           </div>
 

@@ -28,7 +28,7 @@ const servicesData = [
   }
 ];
 
-export default function Services() {
+export default function Services({ isStandalonePage = false }) {
   const [activeId, setActiveId] = useState('web-design-dev');
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [animatedItems, setAnimatedItems] = useState({});
@@ -222,7 +222,7 @@ export default function Services() {
 
   return (
     <section 
-      className={`services-section ${isHeaderVisible ? 'in-view' : ''}`} 
+      className={`services-section ${isStandalonePage ? 'services-page-standalone' : 'services-section-home'} ${isHeaderVisible ? 'in-view' : ''}`} 
       id="services"
     >
       {/* Background Image Layer from public/BG IMAGE.png */}
@@ -233,12 +233,40 @@ export default function Services() {
       />
       
       <div className="services-container">
-        {/* Section Title (slides down when centrally visible) */}
-        <div className="services-header" ref={headerRef}>
-          <h2 className={`services-title ${isHeaderVisible ? 'is-animated' : ''}`}>
-            /SERVICE
-          </h2>
-        </div>
+        {isStandalonePage ? (
+          <>
+            {/* Dedicated Services Page Hero Header with Centered Fading Grid Lines */}
+            <header className="services-hero-header" ref={headerRef}>
+              {/* Center Grid Lines with Fading Edges (Affects Hero Section Only) */}
+              <div className="services-grid-lines" aria-hidden="true" />
+
+              {/* Left Column: Eyebrow + Huge Title + Left Subtext */}
+              <div className="services-hero-left">
+                <div className="services-code-tag">
+                  <span className="code-bracket">&lt;/</span>
+                  <span className="status-text">Solutions &amp; Capabilities</span>
+                  <span className="code-bracket">&gt;</span>
+                </div>
+
+                <h1 className="services-hero-title">Services</h1>
+
+                <p className="services-hero-subtext">
+                  High-impact web engineering and user-centric digital design—delivering production-ready frontend architectures, fluid motion experiences, scalable cloud integrations, and memorable visual brands.
+                </p>
+              </div>
+            </header>
+
+            {/* Horizontal Line Below Hero Header (Full Width Left to Right) */}
+            <div className="services-hero-divider" aria-hidden="true" />
+          </>
+        ) : (
+          /* Standard Home Page Section Header */
+          <div className="services-header" ref={headerRef}>
+            <h2 className={`services-title ${isHeaderVisible ? 'is-animated' : ''}`}>
+              /SERVICES
+            </h2>
+          </div>
+        )}
 
         {/* Services Accordion List (Supports desktop hover, mobile scroll-hover, and mobile touch-hover) */}
         <div className="services-list" onTouchMove={handleTouchMoveList}>

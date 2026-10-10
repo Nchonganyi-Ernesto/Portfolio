@@ -15,8 +15,9 @@ import './App.css';
 
 function App() {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [currentPage, setCurrentPage] = useState('home'); // 'home' | 'work' | 'service' | 'contact'
 
-  // Sync with URL hash for seamless deep-linking & browser history (e.g., #/project/bloodlink)
+  // Sync with URL hash for seamless deep-linking & browser history
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
@@ -30,15 +31,17 @@ function App() {
         }
       }
       setSelectedProject(null);
-      if (hash && hash.length > 1 && !match) {
-        const targetId = hash.replace('#', '').replace('/', '');
-        setTimeout(() => {
-          const el = document.getElementById(targetId);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 80);
+
+      if (hash.includes('work')) {
+        setCurrentPage('work');
+      } else if (hash.includes('service')) {
+        setCurrentPage('service');
+      } else if (hash.includes('contact')) {
+        setCurrentPage('contact');
+      } else {
+        setCurrentPage('home');
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     // Check on initial load
@@ -48,6 +51,17 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  const handleNavigate = (page) => {
+    setSelectedProject(null);
+    setCurrentPage(page);
+    if (page === 'home') {
+      window.location.hash = '#/';
+    } else {
+      window.location.hash = `#/${page}`;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleSelectProject = (project) => {
     setSelectedProject(project);
     window.location.hash = `/project/${project.id}`;
@@ -56,19 +70,13 @@ function App() {
 
   const handleBackToPortfolio = () => {
     setSelectedProject(null);
-    window.location.hash = '';
-    // Restore smooth scroll to the selected work section
-    setTimeout(() => {
-      const workEl = document.getElementById('work');
-      if (workEl) {
-        workEl.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 50);
+    window.location.hash = currentPage === 'home' ? '#/' : `#/${currentPage}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="portfolio-app">
-      <Navbar />
+      <Navbar currentPage={selectedProject ? '' : currentPage} onNavigate={handleNavigate} />
 
       <main>
         {selectedProject ? (
@@ -77,16 +85,22 @@ function App() {
             onBack={handleBackToPortfolio}
             onSelectProject={handleSelectProject}
           />
+        ) : currentPage === 'work' ? (
+          <Work onSelectProject={handleSelectProject} isStandalonePage={true} />
+        ) : currentPage === 'service' ? (
+          <Services isStandalonePage={true} />
+        ) : currentPage === 'contact' ? (
+          <Contact isStandalonePage={true} />
         ) : (
           <>
             <Hero />
             <About />
             <ByTheNumbers />
             <Skills />
-            <Work onSelectProject={handleSelectProject} />
-            <Services />
+            <Work onSelectProject={handleSelectProject} isStandalonePage={false} />
+            <Services isStandalonePage={false} />
             <Experience />
-            <Contact />
+            <Contact isStandalonePage={false} />
           </>
         )}
       </main>

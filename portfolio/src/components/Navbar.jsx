@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
+import logoImg from '../assets/LOGO.png';
 import './Navbar.css';
 
-export default function Navbar() {
+export default function Navbar({ currentPage = 'home', onNavigate }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const lastScrollY = useRef(0);
+
+  const navItems = [
+    { id: 'home', label: 'Home', href: '#/' },
+    { id: 'work', label: 'Work', href: '#/work' },
+    { id: 'service', label: 'Services', href: '#/service' },
+    { id: 'contact', label: 'Contact', href: '#/contact' }
+  ];
 
   const toggleMenu = () => {
     setIsOpen(prev => !prev);
@@ -13,6 +21,16 @@ export default function Navbar() {
 
   const closeMenu = () => {
     setIsOpen(false);
+  };
+
+  const handleNavClick = (e, item) => {
+    e.preventDefault();
+    closeMenu();
+    if (onNavigate) {
+      onNavigate(item.id);
+    } else {
+      window.location.hash = item.href;
+    }
   };
 
   // Smart Hide-on-Scroll-Down / Show-on-Scroll-Up
@@ -98,21 +116,30 @@ export default function Navbar() {
     <>
       <header className={`navbar-header ${!isVisible && !isOpen ? 'nav-hidden' : 'nav-visible'} ${isScrolled ? 'nav-scrolled' : ''}`}>
         <div className="navbar-container">
-          {/* Left: Available for project tag (no dot, wrapped in </>) */}
-          <div className="status-code-tag">
-            <span className="code-bracket">&lt;/</span>
-            <span className="status-text">Available for New Project</span>
-            <span className="code-bracket">&gt;</span>
+          {/* Left: Brand Logo */}
+          <div className="nav-left-brand">
+            <a
+              href="#/"
+              className="navbar-brand-link"
+              onClick={(e) => handleNavClick(e, { id: 'home', href: '#/' })}
+              aria-label="Home"
+            >
+              <img src={logoImg} alt="E-DEV" className="navbar-logo-img" />
+            </a>
           </div>
 
           {/* Center: Desktop Nav Links */}
           <nav className="nav-menu">
-            <a href="#about" className="nav-link">About</a>
-            <a href="#skills" className="nav-link">Skills</a>
-            <a href="#work" className="nav-link">Work</a>
-            <a href="#services" className="nav-link">Service</a>
-            <a href="#experience" className="nav-link">Experience</a>
-            <a href="#contact" className="nav-link">Contact</a>
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                className={`nav-link ${currentPage === item.id ? 'active' : ''}`}
+                onClick={(e) => handleNavClick(e, item)}
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
 
           {/* Right: Desktop Let's Talk CTA & Mobile Hamburger Toggle */}
@@ -163,30 +190,17 @@ export default function Navbar() {
       <div className={`mobile-menu-drawer ${isOpen ? 'open' : ''}`}>
         <div className="mobile-menu-content">
           <nav className="mobile-nav-links">
-            <a href="#about" className="mobile-nav-link" onClick={closeMenu}>
-              <span>About</span>
-              <span className="mobile-nav-arrow">→</span>
-            </a>
-            <a href="#skills" className="mobile-nav-link" onClick={closeMenu}>
-              <span>Skills</span>
-              <span className="mobile-nav-arrow">→</span>
-            </a>
-            <a href="#work" className="mobile-nav-link" onClick={closeMenu}>
-              <span>Work</span>
-              <span className="mobile-nav-arrow">→</span>
-            </a>
-            <a href="#services" className="mobile-nav-link" onClick={closeMenu}>
-              <span>Service</span>
-              <span className="mobile-nav-arrow">→</span>
-            </a>
-            <a href="#experience" className="mobile-nav-link" onClick={closeMenu}>
-              <span>Experience</span>
-              <span className="mobile-nav-arrow">→</span>
-            </a>
-            <a href="#contact" className="mobile-nav-link" onClick={closeMenu}>
-              <span>Contact</span>
-              <span className="mobile-nav-arrow">→</span>
-            </a>
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                className={`mobile-nav-link ${currentPage === item.id ? 'active' : ''}`}
+                onClick={(e) => handleNavClick(e, item)}
+              >
+                <span>{item.label}</span>
+                <span className="mobile-nav-arrow">→</span>
+              </a>
+            ))}
           </nav>
 
           <div className="mobile-cta-wrapper">

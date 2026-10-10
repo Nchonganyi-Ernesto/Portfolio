@@ -56,7 +56,144 @@
   gap: 1.5rem;
 }
 
-/* Header Content Wrap */
+/* Standalone Contact Page Layout */
+.contact-section.contact-page-standalone {
+  min-height: auto;
+  padding: 5rem 1.5rem 7.5rem 1.5rem;
+  display: block;
+  background-color: var(--bg-primary);
+}
+
+.contact-section.contact-page-standalone .contact-bg-layer,
+.contact-section.contact-page-standalone::after {
+  display: none;
+}
+
+.contact-section.contact-page-standalone .contact-container {
+  max-width: 1180px;
+  align-items: stretch;
+  text-align: left;
+  gap: 3.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Dedicated Contact Page Hero Header (Left-Aligned Title + Grid Background)
+   -------------------------------------------------------------------------- */
+.contact-hero-header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2.25rem 0 1.5rem 0;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Center Grid Lines: Scoped strictly to the Hero Header, fading at all edges */
+.contact-grid-lines {
+  position: absolute;
+  top: -3.5rem;
+  bottom: -3.5rem;
+  left: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.075) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.075) 1px, transparent 1px);
+  background-size: 38px 38px;
+  background-position: center center;
+  /* Concentrated at the center, smoothly fading towards left, right, top, and bottom edges */
+  mask-image: radial-gradient(ellipse 65% 75% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 78%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 75% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 78%);
+}
+
+.contact-section.in-view .contact-hero-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Left Column */
+.contact-hero-left {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  text-align: left;
+  max-width: 720px;
+}
+
+.contact-hero-code-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.contact-hero-code-tag .code-bracket {
+  color: #64748b;
+}
+
+.contact-hero-code-tag .status-text {
+  color: #0284c7;
+}
+
+.contact-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3.2rem, 7vw, 5.4rem);
+  font-weight: 400;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  margin: 0;
+  text-align: left;
+}
+
+.contact-hero-subtext {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.62;
+  color: #475569;
+  max-width: 620px;
+  margin: 0;
+  text-align: left;
+}
+
+/* Horizontal Line Below Contact Page Hero (Full Width from Left to Right) */
+.contact-hero-divider {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  height: 1px;
+  background-color: rgba(15, 23, 42, 0.1);
+  border: none;
+  margin-top: -1.25rem;
+  margin-bottom: -0.5rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.contact-section.in-view .contact-hero-divider {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Header Content Wrap (Home Page) */
 .contact-header-wrap {
   display: flex;
   flex-direction: column;
@@ -233,10 +370,10 @@
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 20px;
   padding: 1.85rem 1.65rem;
-  box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
@@ -705,6 +842,18 @@
 @media (max-width: 860px) {
   .contact-section {
     padding: 4.5rem 1.25rem 2.5rem 1.25rem;
+  }
+
+  .contact-section.contact-page-standalone {
+    padding: 3.5rem 1.25rem 5rem 1.25rem;
+  }
+
+  .contact-hero-title {
+    font-size: clamp(2.6rem, 8vw, 3.8rem);
+  }
+
+  .contact-hero-subtext {
+    font-size: 0.95rem;
   }
 
   .contact-split-grid {

@@ -2,13 +2,13 @@
 .hero-section {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 85px);
+  min-height: calc(100vh - 88px);
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--bg-primary);
   overflow: hidden;
-  padding: 1.5rem 2rem 0 2rem;
+  padding: 1.5rem 1.25rem 0 1.25rem;
   box-sizing: border-box;
 }
 
@@ -36,7 +36,9 @@
 .hero-container {
   position: relative;
   width: 100%;
-  max-width: 1380px;
+  max-width: 1240px;
+  padding: 0 1.85rem;
+  box-sizing: border-box;
   height: 100%;
   min-height: calc(100vh - 120px);
   margin: 0 auto;
@@ -49,10 +51,13 @@
 /* Giant Background Name Typography */
 .hero-typography-backdrop {
   position: absolute;
-  top: 3%;
+  top: 1.25rem;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
+  max-width: 100%;
+  padding: 0 1.85rem;
+  box-sizing: border-box;
   text-align: center;
   z-index: 2;
   pointer-events: none;
@@ -78,14 +83,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: clamp(1rem, 2vw, 2rem);
   font-family: var(--font-family);
-  font-size: clamp(3.8rem, 11vw, 11rem);
+  font-size: clamp(2.8rem, 8.2vw, 8.4rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.04em;
   line-height: 0.88;
   white-space: nowrap;
+  max-width: 100%;
 }
 
 .name-outline {
@@ -338,11 +344,20 @@
   }
 }
 
+@media (max-width: 960px) {
+  .hero-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 @media (max-width: 868px) {
   .hero-section {
     min-height: auto;
     padding-top: 1.5rem;
     padding-bottom: 3rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
     position: relative;
   }
 
@@ -367,6 +382,8 @@
   }
 
   .hero-container {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
     min-height: auto;
     position: relative;
     z-index: 2;
@@ -378,6 +395,7 @@
     left: 0;
     width: 100%;
     transform: none;
+    padding: 0;
     margin-bottom: 1.5rem;
     text-align: center;
     animation: nameFadeInTopMobile 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
@@ -463,5 +481,12 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-container {
+    padding-left: 0.95rem;
+    padding-right: 0.95rem;
   }
 }

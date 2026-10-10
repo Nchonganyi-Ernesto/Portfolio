@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Work.css';
 import { projectsData } from '../data/projectsData';
 
-export default function Work({ onSelectProject }) {
+export default function Work({ onSelectProject, isStandalonePage = false }) {
   const [activeFilter, setActiveFilter] = useState('All');
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [isPair1Visible, setIsPair1Visible] = useState(false);
@@ -125,15 +125,42 @@ export default function Work({ onSelectProject }) {
 
   return (
     <section 
-      className={`work-section ${isHeaderVisible ? 'in-view' : ''}`} 
+      className={`work-section ${isStandalonePage ? 'work-page-standalone' : 'work-section-home'} ${isHeaderVisible ? 'in-view' : ''}`} 
       id="work"
     >
       <div className="work-container">
-        {/* Header with Background Watermark */}
-        <div className="work-header" ref={headerRef}>
-          <div className="work-watermark" aria-hidden="true">PORTFOLIO</div>
-          <h2 className="work-title">/SELECTED WORK</h2>
-        </div>
+        {isStandalonePage ? (
+          <>
+            {/* Dedicated Work Page Hero Header with Centered Fading Grid Lines */}
+            <header className="work-hero-header" ref={headerRef}>
+              {/* Center Grid Lines with Fading Edges (Affects Hero Section Only) */}
+              <div className="work-grid-lines" aria-hidden="true" />
+
+              {/* Left Column: Eyebrow + Huge Title + Left Subtext */}
+              <div className="work-hero-left">
+                <div className="work-code-tag">
+                  <span className="code-bracket">&lt;/</span>
+                  <span className="status-text">Curated Portfolio</span>
+                  <span className="code-bracket">&gt;</span>
+                </div>
+
+                <h1 className="work-hero-title">Selected Work</h1>
+
+                <p className="work-hero-subtext">
+                  A curated index of production applications, mission-critical healthcare networks, and experimental software systems engineered for real-world impact.
+                </p>
+              </div>
+            </header>
+
+            {/* Horizontal Line Below Hero Header */}
+            <div className="work-hero-divider" aria-hidden="true" />
+          </>
+        ) : (
+          /* Standard Home Page Section Header */
+          <div className="work-header" ref={headerRef}>
+            <h2 className="work-title">/SELECTED WORK</h2>
+          </div>
+        )}
 
         {/* Filter Navigation Bar */}
         <div className="work-controls">

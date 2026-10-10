@@ -44,7 +44,7 @@ const socialLinksData = [
   }
 ];
 
-export default function Contact() {
+export default function Contact({ isStandalonePage = false }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -222,7 +222,7 @@ export default function Contact() {
 
   return (
     <section 
-      className={`contact-section ${isHeaderVisible ? 'in-view' : ''}`} 
+      className={`contact-section ${isStandalonePage ? 'contact-page-standalone' : 'contact-section-home'} ${isHeaderVisible ? 'in-view' : ''}`} 
       id="contact"
     >
       {/* Background Image Layer from public/BG IMAGE.png */}
@@ -233,44 +233,72 @@ export default function Contact() {
       />
 
       <div className="contact-container">
-        {/* Header Content Group (Animated centrally) */}
-        <div className={`contact-header-wrap ${isHeaderVisible ? 'is-animated' : ''}`} ref={headerRef}>
-          {/* Top Status Tag (Matching Navbar borderless code bracket format) */}
-          <div className="contact-code-tag">
-            <span className="code-bracket">&lt;/</span>
-            <span className="status-text">Available for New Project</span>
-            <span className="code-bracket">&gt;</span>
+        {isStandalonePage ? (
+          <>
+            {/* Dedicated Contact Page Hero Header with Centered Fading Grid Lines */}
+            <header className="contact-hero-header" ref={headerRef}>
+              {/* Center Grid Lines with Fading Edges (Affects Hero Section Only) */}
+              <div className="contact-grid-lines" aria-hidden="true" />
+
+              {/* Left Column: Eyebrow + Huge Title + Left Subtext */}
+              <div className="contact-hero-left">
+                <div className="contact-hero-code-tag">
+                  <span className="code-bracket">&lt;/</span>
+                  <span className="status-text">Available for New Projects</span>
+                  <span className="code-bracket">&gt;</span>
+                </div>
+
+                <h1 className="contact-hero-title">Contact</h1>
+
+                <p className="contact-hero-subtext">
+                  Let's start a conversation. Whether you have an ambitious build in mind, need technical consultation, or want to explore collaboration opportunities—I'm here to connect.
+                </p>
+              </div>
+            </header>
+
+            {/* Horizontal Line Below Hero Header (Full Width Left to Right) */}
+            <div className="contact-hero-divider" aria-hidden="true" />
+          </>
+        ) : (
+          /* Standard Home Page Section Header */
+          <div className={`contact-header-wrap ${isHeaderVisible ? 'is-animated' : ''}`} ref={headerRef}>
+            {/* Top Status Tag (Matching Navbar borderless code bracket format) */}
+            <div className="contact-code-tag">
+              <span className="code-bracket">&lt;/</span>
+              <span className="status-text">Available for New Project</span>
+              <span className="code-bracket">&gt;</span>
+            </div>
+
+            {/* Headline */}
+            <h2 className="contact-headline">HAVE A PROJECT IN MIND?</h2>
+
+            {/* Value Proposition Description */}
+            <p className="contact-subtext">
+              Together, we can create something clear and impactful. Let's collaborate to bring our
+              ideas to life in a way that resonates with everyone.
+            </p>
+
+            {/* Primary Action Button */}
+            <div className="contact-cta-wrapper">
+              <button className="contact-cta-btn" onClick={scrollToForm}>
+                <span>Contact Me</span>
+                <svg 
+                  width="15" 
+                  height="15" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="5"></line>
+                  <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+              </button>
+            </div>
           </div>
-
-          {/* Headline */}
-          <h2 className="contact-headline">HAVE A PROJECT IN MIND?</h2>
-
-          {/* Value Proposition Description */}
-          <p className="contact-subtext">
-            Together, we can create something clear and impactful. Let's collaborate to bring our
-            ideas to life in a way that resonates with everyone.
-          </p>
-
-          {/* Primary Action Button */}
-          <div className="contact-cta-wrapper">
-            <button className="contact-cta-btn" onClick={scrollToForm}>
-              <span>Contact Me</span>
-              <svg 
-                width="15" 
-                height="15" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              >
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </button>
-          </div>
-        </div>
+        )}
 
         {/* 2-Column Split Layout: Left Glassmorphism Social Card | Right Form */}
         <div className="contact-split-grid">
