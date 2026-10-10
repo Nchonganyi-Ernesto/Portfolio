@@ -1,0 +1,18 @@
+/* Hardware-accelerated mouse follower canvas */
+.cursor-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  user-select: none;
+}
+
+/* Hide automatically on touch-only / mobile viewports */
+@media (pointer: coarse) {
+  .cursor-canvas {
+    display: none !important;
+  }
+}

@@ -10,6 +10,7 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ProjectDetail from './components/ProjectDetail';
+import CursorFollower from './components/CursorFollower';
 import { projectsData } from './data/projectsData';
 import './App.css';
 
@@ -76,6 +77,7 @@ function App() {
 
   return (
     <div className="portfolio-app">
+      <CursorFollower />
       <Navbar currentPage={selectedProject ? '' : currentPage} onNavigate={handleNavigate} />
 
       <main>
