@@ -18,6 +18,27 @@ function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentPage, setCurrentPage] = useState('home'); // 'home' | 'work' | 'service' | 'contact'
 
+  // Dark / Light Mode state with localStorage session persistence
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('portfolio-theme');
+      if (saved === 'dark' || saved === 'light') return saved;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   // Sync with URL hash for seamless deep-linking & browser history
   useEffect(() => {
     const handleHashChange = () => {
@@ -77,8 +98,13 @@ function App() {
 
   return (
     <div className="portfolio-app">
-      <CursorFollower />
-      <Navbar currentPage={selectedProject ? '' : currentPage} onNavigate={handleNavigate} />
+      <CursorFollower theme={theme} />
+      <Navbar
+        currentPage={selectedProject ? '' : currentPage}
+        onNavigate={handleNavigate}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
 
       <main>
         {selectedProject ? (

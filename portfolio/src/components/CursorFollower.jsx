@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './CursorFollower.css';
 
-export default function CursorFollower() {
+export default function CursorFollower({ theme = 'light' }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function CursorFollower() {
     let animationFrameId;
 
     // Helper: Draw geometric spark / diamond figure
-    const drawDiamondFigure = (context, x, y, size, rotation, alpha) => {
+    const drawDiamondFigure = (context, x, y, size, rotation, alpha, dark) => {
       context.save();
       context.translate(x, y);
       context.rotate(rotation);
@@ -55,7 +55,9 @@ export default function CursorFollower() {
       context.lineTo(0, size);
       context.lineTo(-size * 0.65, 0);
       context.closePath();
-      context.fillStyle = `rgba(15, 23, 42, ${alpha})`;
+      context.fillStyle = dark
+        ? `rgba(255, 255, 255, ${alpha})`
+        : `rgba(15, 23, 42, ${alpha})`;
       context.fill();
       context.restore();
     };
@@ -124,6 +126,10 @@ export default function CursorFollower() {
 
       ctx.clearRect(0, 0, width, height);
 
+      const isDark =
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        theme === 'dark';
+
       if (!isVisible) {
         // Fade out any remaining particles
         for (let i = particles.length - 1; i >= 0; i--) {
@@ -132,7 +138,7 @@ export default function CursorFollower() {
           if (p.alpha <= 0) {
             particles.splice(i, 1);
           } else {
-            drawDiamondFigure(ctx, p.x, p.y, p.size, p.rotation, p.alpha);
+            drawDiamondFigure(ctx, p.x, p.y, p.size, p.rotation, p.alpha, isDark);
           }
         }
         return;
@@ -183,7 +189,7 @@ export default function CursorFollower() {
         if (p.alpha <= 0 || p.size <= 0) {
           particles.splice(i, 1);
         } else {
-          drawDiamondFigure(ctx, p.x, p.y, p.size, p.rotation, p.alpha);
+          drawDiamondFigure(ctx, p.x, p.y, p.size, p.rotation, p.alpha, isDark);
         }
       }
 
@@ -198,7 +204,9 @@ export default function CursorFollower() {
           ctx.save();
           ctx.beginPath();
           ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(15, 23, 42, ${r.alpha})`;
+          ctx.strokeStyle = isDark
+            ? `rgba(255, 255, 255, ${r.alpha * 0.8})`
+            : `rgba(15, 23, 42, ${r.alpha})`;
           ctx.lineWidth = 1.5;
           ctx.stroke();
           ctx.restore();
@@ -227,14 +235,20 @@ export default function CursorFollower() {
       // Trailing aura ring
       ctx.beginPath();
       ctx.ellipse(0, 0, Math.max(rx, 4), Math.max(ry, 4), 0, 0, Math.PI * 2);
-      ctx.strokeStyle = isHovering
+      ctx.strokeStyle = isDark
+        ? isHovering
+          ? 'rgba(255, 255, 255, 0.85)'
+          : 'rgba(255, 255, 255, 0.4)'
+        : isHovering
         ? 'rgba(15, 23, 42, 0.65)'
         : 'rgba(15, 23, 42, 0.3)';
       ctx.lineWidth = isHovering ? 2 : 1.4;
       ctx.stroke();
 
       if (isHovering) {
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.05)';
+        ctx.fillStyle = isDark
+          ? 'rgba(255, 255, 255, 0.08)'
+          : 'rgba(15, 23, 42, 0.05)';
         ctx.fill();
       }
 
@@ -244,7 +258,7 @@ export default function CursorFollower() {
       ctx.save();
       ctx.beginPath();
       ctx.arc(mouse.targetX, mouse.targetY, isHovering ? 3.5 : 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = '#0f172a';
+      ctx.fillStyle = isDark ? '#ffffff' : '#0f172a';
       ctx.fill();
       ctx.restore();
     };

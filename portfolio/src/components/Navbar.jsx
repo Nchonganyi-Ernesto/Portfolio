@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import logoImg from '../assets/LOGO.png';
 import './Navbar.css';
 
-export default function Navbar({ currentPage = 'home', onNavigate }) {
+export default function Navbar({ currentPage = 'home', onNavigate, theme = 'light', onToggleTheme }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -142,8 +142,34 @@ export default function Navbar({ currentPage = 'home', onNavigate }) {
             ))}
           </nav>
 
-          {/* Right: Desktop Let's Talk CTA & Mobile Hamburger Toggle */}
+          {/* Right: Theme Toggle, Desktop Let's Talk CTA & Mobile Hamburger Toggle */}
           <div className="nav-right-actions">
+            {/* Theme Toggle Button */}
+            <button
+              className="theme-toggle-btn"
+              onClick={onToggleTheme}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? (
+                <svg className="theme-toggle-icon sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              ) : (
+                <svg className="theme-toggle-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              )}
+            </button>
+
             <a href="mailto:nchonganyiernesto27@gmail.com" className="talk-btn desktop-talk-btn">
               <span>Let's Talk</span>
               <svg
@@ -225,6 +251,33 @@ export default function Navbar({ currentPage = 'home', onNavigate }) {
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
             </a>
+          </div>
+
+          <div className="mobile-theme-row">
+            <span className="mobile-theme-label">{theme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+            <button
+              className="theme-toggle-btn mobile-theme-btn"
+              onClick={onToggleTheme}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? (
+                <svg className="theme-toggle-icon sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              ) : (
+                <svg className="theme-toggle-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              )}
+            </button>
           </div>
 
           <div className="mobile-socials-row">

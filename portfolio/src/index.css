@@ -36,6 +36,40 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ==========================================================================
+   Professional Aesthetic Dark Theme Palette
+   ========================================================================== */
+[data-theme="dark"] {
+  /* Native controls (scrollbars, <select> dropdowns, autofill) render dark */
+  color-scheme: dark;
+
+  --bg-primary: #090d16;
+  --bg-secondary: #0d121e;
+  --bg-card: #111624;
+  --bg-elevated: #161c2c;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-body: #cbd5e1;
+  
+  --dark-pill: #f8fafc;
+  --dark-pill-hover: #ffffff;
+  --dark-pill-text: #090d16;
+  
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  
+  --pill-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4), 0 2px 6px -1px rgba(0, 0, 0, 0.25);
+  --pill-shadow-hover: 0 10px 25px -4px rgba(0, 0, 0, 0.5), 0 4px 10px -2px rgba(0, 0, 0, 0.3);
+  
+  --glow-color: rgba(99, 102, 241, 0.28);
+  --glow-accent: rgba(56, 189, 248, 0.3);
+
+  --accent-sky: #38bdf8;
+  --accent-link: #60a5fa;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -54,6 +88,22 @@ body {
   font-family: var(--font-family);
   overflow-x: hidden;
   min-height: 100vh;
+}
+
+body,
+.portfolio-app,
+main,
+.hero-section,
+.about-editorial-section,
+.numbers-section,
+.work-section,
+.services-section,
+.contact-section,
+.project-detail-page,
+.site-footer {
+  transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #root {
@@ -84,4 +134,951 @@ button {
   border: none;
   background: none;
   cursor: pointer;
+}
+
+/* ==========================================================================
+   GLOBAL DARK MODE COMPONENT OVERRIDES ([data-theme="dark"])
+   --------------------------------------------------------------------------
+   Notes:
+   - This file loads BEFORE component stylesheets, so every override carries
+     one extra class of specificity (the [data-theme] attribute) over the
+     component selector it replaces. Compound component selectors
+     (e.g. `.a:hover .b`) are mirrored exactly with the prefix added.
+   - Palette: page #090d16 · surface #0d121e · card #111624 · elevated #161c2c
+     text #f8fafc · body #cbd5e1 · secondary #94a3b8 · accent #38bdf8
+   ========================================================================== */
+
+/* Shared "code tag" accent used by section eyebrows  </ Status >  */
+[data-theme="dark"] .work-code-tag .status-text,
+[data-theme="dark"] .services-code-tag .status-text,
+[data-theme="dark"] .contact-hero-code-tag .status-text {
+  color: var(--accent-sky);
+}
+
+/* Shared page-hero typography (Work / Services / Contact standalone pages) */
+[data-theme="dark"] .work-code-tag,
+[data-theme="dark"] .services-code-tag,
+[data-theme="dark"] .contact-hero-code-tag {
+  color: var(--text-body);
+}
+
+[data-theme="dark"] .work-hero-title,
+[data-theme="dark"] .services-hero-title,
+[data-theme="dark"] .contact-hero-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .work-hero-subtext,
+[data-theme="dark"] .services-hero-subtext,
+[data-theme="dark"] .contact-hero-subtext {
+  color: var(--text-secondary);
+}
+
+/* Shared architectural grid lines */
+[data-theme="dark"] .hero-grid-lines,
+[data-theme="dark"] .work-grid-lines,
+[data-theme="dark"] .services-grid-lines,
+[data-theme="dark"] .contact-grid-lines {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+}
+
+[data-theme="dark"] .work-hero-divider,
+[data-theme="dark"] .services-hero-divider,
+[data-theme="dark"] .contact-hero-divider {
+  background-color: rgba(255, 255, 255, 0.09);
+}
+
+/* --------------------------------------------------------------------------
+   1. HERO SECTION
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .hero-section {
+  background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .name-outline {
+  -webkit-text-stroke: 2.2px rgba(255, 255, 255, 0.22);
+  color: transparent;
+}
+
+[data-theme="dark"] .name-solid {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .hero-role-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .hero-description {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .hero-collab-btn {
+  background-color: #f8fafc;
+  color: #090d16;
+  box-shadow: 0 4px 18px rgba(255, 255, 255, 0.16);
+}
+
+[data-theme="dark"] .hero-collab-btn:hover {
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.24);
+}
+
+[data-theme="dark"] .hero-portrait-img {
+  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.45));
+}
+
+[data-theme="dark"] .social-pill {
+  background-color: #121826;
+  border-color: rgba(255, 255, 255, 0.09);
+  color: #f8fafc;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .social-pill:hover {
+  background-color: #182236;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .social-label {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .social-icon {
+  color: #94a3b8;
+}
+
+/* Fix: light rule `.social-pill:hover .social-icon` turned icon near-black on hover */
+[data-theme="dark"] .social-pill:hover .social-icon {
+  color: #f8fafc;
+}
+
+@media (max-width: 868px) {
+  /* Mobile-only full-bleed grid lines were still dark slate on dark bg */
+  [data-theme="dark"] .hero-section::before {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. ABOUT EDITORIAL SECTION
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .about-editorial-section {
+  background-color: var(--bg-primary);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .editorial-huge-about,
+[data-theme="dark"] .editorial-me-text {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .editorial-subtitle {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .editorial-desc-bold {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .editorial-desc-bold strong {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .editorial-philosophy-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .editorial-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .editorial-image-frame {
+  background: #111624;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="dark"] .editorial-image-frame:hover {
+  box-shadow: 0 26px 50px -10px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .editorial-highlight-item {
+  background: #111624;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .editorial-highlight-item:hover {
+  background: #161c2c;
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .highlight-icon-box {
+  background: #f8fafc;
+  color: #090d16;
+}
+
+[data-theme="dark"] .highlight-label {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .highlight-sub {
+  color: #94a3b8;
+}
+
+/* --------------------------------------------------------------------------
+   3. BY THE NUMBERS SECTION
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .numbers-section {
+  background-color: var(--bg-primary);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .numbers-heading {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .numbers-dot {
+  background-color: #ffffff;
+}
+
+[data-theme="dark"] .numbers-eyebrow {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .numbers-note-text {
+  color: #94a3b8;
+}
+
+/* Pure-black card disappeared into the near-black page; lift it to a surface */
+[data-theme="dark"] .numbers-card-row {
+  background: linear-gradient(180deg, #131a2a 0%, #0e1320 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 50px -15px rgba(0, 0, 0, 0.6),
+              inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="dark"] .number-stat-item {
+  border-right-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .number-stat-label {
+  color: #94a3b8;
+}
+
+@media (max-width: 968px) {
+  [data-theme="dark"] .number-stat-item:nth-child(1),
+  [data-theme="dark"] .number-stat-item:nth-child(2) {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  [data-theme="dark"] .number-stat-item:nth-child(odd) {
+    border-right-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3.5 SKILLS SECTION
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .skills-section {
+  background-color: var(--bg-primary);
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .hard-skills-view {
+  background: var(--bg-primary);
+}
+
+/* --------------------------------------------------------------------------
+   4. WORK SECTION & PAGE
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .work-section {
+  background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .work-title {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .filter-tab {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .filter-tab:hover,
+[data-theme="dark"] .filter-tab.active {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .filter-tab::after {
+  background-color: #f8fafc;
+}
+
+[data-theme="dark"] .view-all-btn {
+  background-color: #111624;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .view-all-btn:hover {
+  background-color: #f8fafc;
+  border-color: #f8fafc;
+  color: #090d16;
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="dark"] .project-card {
+  background-color: #111624;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .project-card.is-animated:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.75);
+}
+
+[data-theme="dark"] .project-image-wrapper {
+  background-color: #0d121e;
+}
+
+[data-theme="dark"] .project-view-badge {
+  background-color: rgba(9, 13, 22, 0.92);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .project-card:hover .project-view-badge {
+  background-color: #090d16;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] .project-title-btn {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .project-title-btn:hover {
+  color: var(--accent-link);
+}
+
+[data-theme="dark"] .project-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .project-card-footer {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .tech-pill {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .tech-pill:hover {
+  background-color: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   5. SERVICES SECTION & PAGE
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .services-section {
+  background-color: var(--bg-primary);
+}
+
+/* The cloud photo is near-white; inverting it yields a subtle smoky texture
+   instead of the muddy mid-gray produced by a translucent dark overlay. */
+[data-theme="dark"] .services-bg-layer,
+[data-theme="dark"] .contact-bg-layer {
+  filter: invert(1) brightness(0.85);
+  opacity: 0.5;
+}
+
+[data-theme="dark"] .services-section::after,
+[data-theme="dark"] .contact-section::after {
+  background: linear-gradient(
+    180deg,
+    rgba(9, 13, 22, 0.8) 0%,
+    rgba(9, 13, 22, 0.45) 50%,
+    rgba(9, 13, 22, 0.8) 100%
+  );
+}
+
+[data-theme="dark"] .services-title {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .service-item {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .service-card-shell {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .service-item-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .service-arrow-svg {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .service-item.collapsed:hover .service-arrow-svg {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .service-item.expanded .service-card-shell {
+  background-color: #121826;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.6),
+              inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="dark"] .service-desc-text {
+  color: #cbd5e1;
+}
+
+/* --------------------------------------------------------------------------
+   6. CONTACT SECTION & PAGE
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .contact-section {
+  background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .contact-code-tag .status-text {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .contact-headline {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .contact-subtext {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .contact-cta-btn {
+  background-color: #f8fafc;
+  color: #090d16;
+  box-shadow: 0 6px 20px -4px rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="dark"] .contact-cta-btn:hover {
+  background-color: #ffffff;
+  box-shadow: 0 12px 28px -4px rgba(255, 255, 255, 0.22);
+}
+
+/* Glass card */
+[data-theme="dark"] .contact-glass-card {
+  background: #111624 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .glass-avatar-img {
+  border-color: #1e2638;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .glass-user-name {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .glass-user-role,
+[data-theme="dark"] .glass-bio-text {
+  color: #94a3b8;
+}
+
+/* Social link rows */
+[data-theme="dark"] .glass-social-item {
+  background: #0d121e;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .glass-social-item:hover {
+  background: #f8fafc;
+  border-color: #f8fafc;
+  color: #090d16;
+  box-shadow: 0 10px 24px -4px rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .social-item-icon {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .glass-social-item:hover .social-item-icon {
+  background: rgba(9, 13, 22, 0.08);
+  color: #090d16;
+}
+
+[data-theme="dark"] .glass-social-item:hover .social-label {
+  color: #090d16;
+}
+
+[data-theme="dark"] .social-handle,
+[data-theme="dark"] .social-item-arrow {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .glass-social-item:hover .social-handle {
+  color: #475569;
+}
+
+[data-theme="dark"] .glass-social-item:hover .social-item-arrow {
+  color: #090d16;
+}
+
+/* Floating-label form */
+[data-theme="dark"] .floating-input,
+[data-theme="dark"] .floating-select,
+[data-theme="dark"] .floating-textarea {
+  background: #0d121e;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .floating-input:focus,
+[data-theme="dark"] .floating-select:focus,
+[data-theme="dark"] .floating-textarea:focus {
+  background: #101626;
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 0 3.5px rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .floating-select option {
+  background-color: #0d121e;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .floating-label {
+  color: #94a3b8;
+}
+
+/* Docked label must match the input surface so it "cuts" the border cleanly */
+[data-theme="dark"] .floating-input:focus ~ .floating-label,
+[data-theme="dark"] .floating-input:not(:placeholder-shown) ~ .floating-label,
+[data-theme="dark"] .floating-textarea:focus ~ .floating-label,
+[data-theme="dark"] .floating-textarea:not(:placeholder-shown) ~ .floating-label,
+[data-theme="dark"] .floating-select:focus ~ .floating-label,
+[data-theme="dark"] .floating-group.has-value .floating-label {
+  background: #0d121e;
+  color: #cbd5e1;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .floating-input:focus ~ .floating-label,
+[data-theme="dark"] .floating-textarea:focus ~ .floating-label,
+[data-theme="dark"] .floating-select:focus ~ .floating-label {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .select-arrow-icon {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .floating-select:focus ~ .select-arrow-icon {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .form-submit-btn {
+  background-color: #f8fafc;
+  color: #090d16;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .form-submit-btn:hover {
+  background-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .submit-success-msg {
+  color: #4ade80;
+}
+
+[data-theme="dark"] .submit-error-msg {
+  color: #f87171;
+}
+
+/* --------------------------------------------------------------------------
+   7. EXPERIENCE SECTION (already dark by design — only separation tuned)
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .experience-section {
+  background-color: #080b12;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   8. PROJECT DETAIL CASE STUDY PAGE
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .project-detail-page {
+  background-color: var(--bg-primary);
+  color: #f8fafc;
+}
+
+/* Top sub-navigation */
+[data-theme="dark"] .detail-back-btn {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .detail-back-btn:hover {
+  color: var(--accent-link);
+}
+
+[data-theme="dark"] .detail-nav-breadcrumbs {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .crumb-root:hover,
+[data-theme="dark"] .crumb-current {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .crumb-divider {
+  color: #334155;
+}
+
+/* Hero */
+[data-theme="dark"] .hero-product-name {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .hero-product-subtext {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .meta-value {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .meta-line {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="dark"] .hero-meta-item:hover .meta-line {
+  background-color: #f8fafc;
+}
+
+/* Browser mockup */
+[data-theme="dark"] .browser-mockup-frame {
+  background: #111624;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .browser-mockup-frame:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 22px 48px -10px rgba(0, 0, 0, 0.75);
+}
+
+[data-theme="dark"] .browser-mockup-bar {
+  background: #0d121e;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .browser-address {
+  background: #090d16;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .browser-open-btn {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .browser-open-btn:hover {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .browser-mockup-body {
+  background: #0d121e;
+}
+
+/* Generic section headers */
+[data-theme="dark"] .detail-section-header,
+[data-theme="dark"] .detail-bottom-projects-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .detail-section-title,
+[data-theme="dark"] .detail-bottom-projects-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .detail-section-sub,
+[data-theme="dark"] .detail-bottom-projects-sub {
+  color: #94a3b8;
+}
+
+/* The Brief / My Role */
+[data-theme="dark"] .detail-brief-section.role-reversed {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .brief-section-tag {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .brief-lead-statement,
+[data-theme="dark"] .scroll-highlight-lead {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .brief-item-text {
+  color: #cbd5e1;
+}
+
+/* Word-by-word scroll illumination */
+[data-theme="dark"] .scroll-highlight-text .highlight-word.is-muted {
+  color: rgba(248, 250, 252, 0.2);
+}
+
+[data-theme="dark"] .scroll-highlight-text .highlight-word.is-active {
+  color: #f8fafc;
+}
+
+/* Slightly softer white for long body copy to reduce halation */
+[data-theme="dark"] .brief-item-text.scroll-highlight-text .highlight-word.is-active {
+  color: #e2e8f0;
+}
+
+/* Functionality timeline */
+[data-theme="dark"] .timeline-track-line {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .timeline-progress-fill {
+  background: #f8fafc;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .timeline-node {
+  background: #090d16;
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+[data-theme="dark"] .timeline-row.is-visible .timeline-node {
+  border-color: #f8fafc;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="dark"] .timeline-inner-dot {
+  background: #f8fafc;
+}
+
+[data-theme="dark"] .timeline-step-tag {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .timeline-step-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .timeline-step-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .timeline-row:hover .timeline-node {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .timeline-row:hover .timeline-inner-dot {
+  background-color: #ffffff;
+}
+
+[data-theme="dark"] .timeline-row:hover .timeline-step-tag {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .timeline-row:hover .timeline-step-title {
+  color: #ffffff;
+}
+
+/* Architecture matrix */
+[data-theme="dark"] .arch-matrix-grid {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .arch-card {
+  background-color: #0d121e;
+}
+
+[data-theme="dark"] .arch-card:hover {
+  background-color: #111624;
+}
+
+[data-theme="dark"] .arch-tier-label {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .arch-icon-badge {
+  background: #111624;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .arch-card:hover .arch-icon-badge {
+  background: #161c2c;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #f8fafc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .arch-tier-val {
+  color: #cbd5e1;
+}
+
+/* Engineering challenges accordion */
+[data-theme="dark"] .challenge-accordion-item {
+  background: #0d121e;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+[data-theme="dark"] .challenge-accordion-item.is-visible:hover,
+[data-theme="dark"] .challenge-accordion-item.is-open:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .challenge-accordion-item.is-open {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="dark"] .challenge-accordion-header {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .challenge-accordion-header:hover {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
+[data-theme="dark"] .accordion-item-index {
+  background: #111624;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .challenge-accordion-item:hover .accordion-item-index {
+  background-color: #161c2c;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .challenge-accordion-item.is-open .accordion-item-index {
+  background-color: #f8fafc;
+  border-color: #f8fafc;
+  color: #090d16;
+}
+
+[data-theme="dark"] .accordion-challenge-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .accordion-icon-circle {
+  background: #111624;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .challenge-accordion-item:hover .accordion-icon-circle {
+  background: #161c2c;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .challenge-accordion-item.is-open .accordion-icon-circle {
+  background: #f8fafc;
+  border-color: #f8fafc;
+  color: #090d16;
+}
+
+[data-theme="dark"] .accordion-solution-body {
+  background-color: #0a0f19;
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .accordion-solution-tag {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .accordion-solution-text {
+  color: #cbd5e1;
+}
+
+/* More projects cards */
+[data-theme="dark"] .bottom-project-card {
+  background: #0d121e;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+[data-theme="dark"] .bottom-project-card.is-visible:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 18px 40px -8px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .bottom-project-img-wrapper {
+  background-color: #111624;
+}
+
+[data-theme="dark"] .bottom-project-name,
+[data-theme="dark"] .bottom-project-card:hover .bottom-project-name {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .bottom-project-arrow-circle {
+  background: #111624;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .bottom-project-card:hover .bottom-project-arrow-circle {
+  background: #f8fafc;
+  border-color: #f8fafc;
+  color: #090d16;
+}
+
+[data-theme="dark"] .bottom-project-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .bottom-project-tag-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .bottom-project-card:hover .bottom-project-tag-pill {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+/* "Let's build something rare" banner — already dark; give it a defined edge */
+[data-theme="dark"] .detail-project-mind-card {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.7),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* --------------------------------------------------------------------------
+   9. FOOTER (dark by design — only separation tuned)
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .site-footer {
+  background-color: #060910;
+  border-top-color: rgba(255, 255, 255, 0.07);
 }
