@@ -18,25 +18,38 @@ function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentPage, setCurrentPage] = useState('home'); // 'home' | 'work' | 'service' | 'contact'
 
-  // Dark / Light Mode state with localStorage session persistence
+  // Default to clean White / Light mode as intended
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('portfolio-theme');
+      // Clear legacy auto-detected preference that forced dark mode on OS-dark devices
+      try {
+        if (localStorage.getItem('portfolio-theme')) {
+          localStorage.removeItem('portfolio-theme');
+        }
+      } catch (e) {
+        // ignore storage errors
+      }
+
+      const saved = localStorage.getItem('portfolio-theme-mode');
       if (saved === 'dark' || saved === 'light') return saved;
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
     }
-    return 'light';
+    return 'light'; // Always start with white / light mode by default
   });
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('portfolio-theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    setTheme((prev) => {
+      const nextTheme = prev === 'dark' ? 'light' : 'dark';
+      try {
+        localStorage.setItem('portfolio-theme-mode', nextTheme);
+      } catch (e) {
+        // ignore storage errors
+      }
+      return nextTheme;
+    });
   };
 
   // Sync with URL hash for seamless deep-linking & browser history
