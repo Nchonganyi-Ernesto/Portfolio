@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './Footer.css';
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   const [localTime, setLocalTime] = useState('');
+
+  const handleNavClick = (e, page, path) => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate(page);
+    } else {
+      window.history.pushState({}, '', path);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   // Live Cameroon local time (WAT, UTC+1)
   useEffect(() => {
@@ -80,10 +91,10 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="footer-col-title">Navigation</h4>
             <ul className="footer-links-list">
-              <li><a href="#/" className="footer-nav-link">Home</a></li>
-              <li><a href="#/work" className="footer-nav-link">Work</a></li>
-              <li><a href="#/service" className="footer-nav-link">Services</a></li>
-              <li><a href="#/contact" className="footer-nav-link">Contact</a></li>
+              <li><a href="/" className="footer-nav-link" onClick={(e) => handleNavClick(e, 'home', '/')}>Home</a></li>
+              <li><a href="/work" className="footer-nav-link" onClick={(e) => handleNavClick(e, 'work', '/work')}>Work</a></li>
+              <li><a href="/service" className="footer-nav-link" onClick={(e) => handleNavClick(e, 'service', '/service')}>Services</a></li>
+              <li><a href="/contact" className="footer-nav-link" onClick={(e) => handleNavClick(e, 'contact', '/contact')}>Contact</a></li>
             </ul>
           </div>
 

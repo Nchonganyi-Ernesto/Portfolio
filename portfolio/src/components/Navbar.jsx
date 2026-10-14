@@ -9,10 +9,10 @@ export default function Navbar({ currentPage = 'home', onNavigate, theme = 'ligh
   const lastScrollY = useRef(0);
 
   const navItems = [
-    { id: 'home', label: 'Home', href: '#/' },
-    { id: 'work', label: 'Work', href: '#/work' },
-    { id: 'service', label: 'Services', href: '#/service' },
-    { id: 'contact', label: 'Contact', href: '#/contact' }
+    { id: 'home', label: 'Home', href: '/' },
+    { id: 'work', label: 'Work', href: '/work' },
+    { id: 'service', label: 'Services', href: '/service' },
+    { id: 'contact', label: 'Contact', href: '/contact' }
   ];
 
   const toggleMenu = () => {
@@ -29,7 +29,8 @@ export default function Navbar({ currentPage = 'home', onNavigate, theme = 'ligh
     if (onNavigate) {
       onNavigate(item.id);
     } else {
-      window.location.hash = item.href;
+      window.history.pushState({}, '', item.href);
+      window.dispatchEvent(new PopStateEvent('popstate'));
     }
   };
 
@@ -119,9 +120,9 @@ export default function Navbar({ currentPage = 'home', onNavigate, theme = 'ligh
           {/* Left: Brand Logo */}
           <div className="nav-left-brand">
             <a
-              href="#/"
+              href="/"
               className="navbar-brand-link"
-              onClick={(e) => handleNavClick(e, { id: 'home', href: '#/' })}
+              onClick={(e) => handleNavClick(e, { id: 'home', href: '/' })}
               aria-label="Home"
             >
               <img src={logoImg} alt="E-DEV" className="navbar-logo-img" />

@@ -52,60 +52,77 @@ function App() {
     });
   };
 
-  // Sync with URL hash for seamless deep-linking & browser history
+  // Sync with URL path & hash for seamless deep-linking, SEO & browser history
   useEffect(() => {
-    const handleHashChange = () => {
+    const syncRoute = () => {
+      const pathname = window.location.pathname;
       const hash = window.location.hash;
-      const match = hash.match(/#\/?project\/([a-zA-Z0-9_-]+)/);
-      if (match && match[1]) {
-        const found = projectsData.find((p) => p.id === match[1]);
+
+      // Check for project detail in pathname (/project/xyz) or legacy hash (#/project/xyz)
+      const projectMatch =
+        pathname.match(/\/project\/([a-zA-Z0-9_-]+)/) ||
+        hash.match(/#\/?project\/([a-zA-Z0-9_-]+)/);
+
+      if (projectMatch && projectMatch[1]) {
+        const found = projectsData.find((p) => p.id === projectMatch[1]);
         if (found) {
           setSelectedProject(found);
+          document.title = `${found.title} | Nchonganyi Ernesto Portfolio`;
           window.scrollTo({ top: 0, behavior: 'smooth' });
           return;
         }
       }
+
       setSelectedProject(null);
 
-      if (hash.includes('work')) {
+      if (pathname.startsWith('/work') || hash.includes('work')) {
         setCurrentPage('work');
-      } else if (hash.includes('service')) {
+        document.title = 'Selected Work | Nchonganyi Ernesto Portfolio';
+      } else if (pathname.startsWith('/service') || hash.includes('service')) {
         setCurrentPage('service');
-      } else if (hash.includes('contact')) {
+        document.title = 'Services & Solutions | Nchonganyi Ernesto Portfolio';
+      } else if (pathname.startsWith('/contact') || hash.includes('contact')) {
         setCurrentPage('contact');
+        document.title = 'Contact | Nchonganyi Ernesto Portfolio';
       } else {
         setCurrentPage('home');
+        document.title = 'Nchonganyi Ernesto Portfolio | Frontend Developer & UI/UX';
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     // Check on initial load
-    handleHashChange();
+    syncRoute();
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', syncRoute);
+    window.addEventListener('hashchange', syncRoute);
+    return () => {
+      window.removeEventListener('popstate', syncRoute);
+      window.removeEventListener('hashchange', syncRoute);
+    };
   }, []);
 
   const handleNavigate = (page) => {
     setSelectedProject(null);
     setCurrentPage(page);
-    if (page === 'home') {
-      window.location.hash = '#/';
-    } else {
-      window.location.hash = `#/${page}`;
-    }
+    const path = page === 'home' ? '/' : `/${page}`;
+    window.history.pushState({}, '', path);
+    window.dispatchEvent(new PopStateEvent('popstate'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectProject = (project) => {
     setSelectedProject(project);
-    window.location.hash = `/project/${project.id}`;
+    window.history.pushState({}, '', `/project/${project.id}`);
+    window.dispatchEvent(new PopStateEvent('popstate'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBackToPortfolio = () => {
     setSelectedProject(null);
-    window.location.hash = currentPage === 'home' ? '#/' : `#/${currentPage}`;
+    const path = currentPage === 'home' ? '/' : `/${currentPage}`;
+    window.history.pushState({}, '', path);
+    window.dispatchEvent(new PopStateEvent('popstate'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -146,7 +163,7 @@ function App() {
         )}
       </main>
 
-      <Footer />
+      <Footer onNavigate={handleNavigate} />
     </div>
   );
 }
