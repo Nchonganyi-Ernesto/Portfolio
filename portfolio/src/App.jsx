@@ -67,7 +67,7 @@ function App() {
         const found = projectsData.find((p) => p.id === projectMatch[1]);
         if (found) {
           setSelectedProject(found);
-          document.title = `${found.title} | Nchonganyi Ernesto Portfolio`;
+          document.title = `${found.title} | Nchonganyi Ernesto`;
           window.scrollTo({ top: 0, behavior: 'smooth' });
           return;
         }
@@ -77,16 +77,16 @@ function App() {
 
       if (pathname.startsWith('/work') || hash.includes('work')) {
         setCurrentPage('work');
-        document.title = 'Selected Work | Nchonganyi Ernesto Portfolio';
+        document.title = 'Selected Work | Nchonganyi Ernesto';
       } else if (pathname.startsWith('/service') || hash.includes('service')) {
         setCurrentPage('service');
-        document.title = 'Services & Solutions | Nchonganyi Ernesto Portfolio';
+        document.title = 'Services & Solutions | Nchonganyi Ernesto';
       } else if (pathname.startsWith('/contact') || hash.includes('contact')) {
         setCurrentPage('contact');
-        document.title = 'Contact | Nchonganyi Ernesto Portfolio';
+        document.title = 'Contact | Nchonganyi Ernesto';
       } else {
         setCurrentPage('home');
-        document.title = 'Nchonganyi Ernesto Portfolio | Frontend Developer & UI/UX';
+        document.title = 'Nchonganyi Ernesto | Frontend Developer & Software Engineer';
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
