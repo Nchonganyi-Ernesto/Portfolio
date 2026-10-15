@@ -21,7 +21,7 @@ export default function Hero() {
           {/* Left Block: Role, Description & CTA */}
           <div className="hero-left-col">
             <div className="hero-role-block">
-              <h2 className="hero-role-title">Frontend Developer</h2>
+              <h2 className="hero-role-title">Software Engineer &amp; Frontend Developer</h2>
               <p className="hero-description">
                 Crafting production-ready web applications with intuitive UI/UX, 
                 high-performance frontend architecture, and working knowledge of backend development.

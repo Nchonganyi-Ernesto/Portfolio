@@ -86,7 +86,7 @@ function App() {
         document.title = 'Contact | Nchonganyi Ernesto';
       } else {
         setCurrentPage('home');
-        document.title = 'Nchonganyi Ernesto | Frontend Developer & Software Engineer';
+        document.title = 'Nchonganyi Ernesto | Software Engineer & Frontend Developer';
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };

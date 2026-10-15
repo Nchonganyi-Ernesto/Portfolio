@@ -7,7 +7,7 @@
     <link rel="shortcut icon" type="image/png" href="/LOGO.png" />
     <link rel="apple-touch-icon" href="/LOGO.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nchonganyi Ernesto | Frontend Developer &amp; Software Engineer</title>
+    <title>Nchonganyi Ernesto | Software Engineer &amp; Frontend Developer</title>
     <meta name="description" content="Nchonganyi Ernesto - Software Engineer and Frontend Developer enthusiastic about tech and building innovative solutions like Pharma-Scout." />
     <meta name="author" content="Nchonganyi Ernesto" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -25,7 +25,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://e-dev1.netlify.app/" />
-    <meta property="og:title" content="Nchonganyi Ernesto | Frontend Developer &amp; Software Engineer" />
+    <meta property="og:title" content="Nchonganyi Ernesto | Software Engineer &amp; Frontend Developer" />
     <meta property="og:description" content="Nchonganyi Ernesto - Software Engineer and Frontend Developer enthusiastic about tech and building innovative solutions like Pharma-Scout." />
     <meta property="og:image" content="https://e-dev1.netlify.app/heroimage.png" />
     <meta property="og:site_name" content="Nchonganyi Ernesto" />
@@ -33,30 +33,61 @@
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://e-dev1.netlify.app/" />
-    <meta name="twitter:title" content="Nchonganyi Ernesto | Frontend Developer &amp; Software Engineer" />
+    <meta name="twitter:title" content="Nchonganyi Ernesto | Software Engineer &amp; Frontend Developer" />
     <meta name="twitter:description" content="Nchonganyi Ernesto - Software Engineer and Frontend Developer enthusiastic about tech and building innovative solutions like Pharma-Scout." />
     <meta name="twitter:image" content="https://e-dev1.netlify.app/heroimage.png" />
 
-    <!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
+    <!-- Schema.org Interconnected Knowledge Graph for Google (Entity SEO) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Nchonganyi Ernesto",
-      "url": "https://e-dev1.netlify.app/",
-      "image": "https://e-dev1.netlify.app/heroimage.png",
-      "jobTitle": "Frontend Developer & Software Engineer",
-      "sameAs": [
-        "https://github.com/Nchonganyi-Ernesto/",
-        "https://www.linkedin.com/in/nchonganyi-ernesto-5a3549369/"
-      ],
-      "knowsAbout": [
-        "Frontend Development",
-        "React",
-        "JavaScript",
-        "CSS3",
-        "UI/UX Design",
-        "Web Application Architecture"
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://e-dev1.netlify.app/#person",
+          "name": "Nchonganyi Ernesto",
+          "url": "https://e-dev1.netlify.app/",
+          "image": "https://e-dev1.netlify.app/heroimage.png",
+          "jobTitle": "Software Engineer & Frontend Developer",
+          "description": "Software Engineer and Frontend Developer enthusiastic about tech and building innovative solutions like Pharma-Scout.",
+          "sameAs": [
+            "https://www.linkedin.com/in/nchonganyi-ernesto-5a3549369/",
+            "https://github.com/Nchonganyi-Ernesto/"
+          ],
+          "knowsAbout": [
+            "Software Engineering",
+            "Frontend Development",
+            "React",
+            "JavaScript",
+            "Cloud Firestore",
+            "UI/UX Architecture",
+            "Healthcare Technology"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://pharma-scout.online/#software",
+          "name": "Pharma-Scout",
+          "url": "https://pharma-scout.online/",
+          "applicationCategory": "HealthApplication",
+          "operatingSystem": "All",
+          "description": "Smart medicine inventory & pharmacy locator eliminating drug search exhaustion across Cameroon.",
+          "author": {
+            "@id": "https://e-dev1.netlify.app/#person"
+          },
+          "creator": {
+            "@id": "https://e-dev1.netlify.app/#person"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://e-dev1.netlify.app/#website",
+          "url": "https://e-dev1.netlify.app/",
+          "name": "Nchonganyi Ernesto | Frontend Developer & Software Engineer",
+          "author": {
+            "@id": "https://e-dev1.netlify.app/#person"
+          }
+        }
       ]
     }
     </script>

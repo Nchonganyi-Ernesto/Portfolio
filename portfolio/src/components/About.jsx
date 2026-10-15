@@ -100,10 +100,10 @@ export default function About() {
               ref={bioRef} 
               className={`editorial-left-bio ${visibleParts.bio ? 'is-animated' : ''}`}
             >
-              <p className="editorial-subtitle">Frontend &amp; UI/UX Web Developer</p>
+              <p className="editorial-subtitle">Software Engineer &amp; Frontend Developer</p>
               <p className="editorial-desc-bold">
-                <strong>Hi, I'm Nchonganyi Ernesto:</strong> A Frontend Developer specializing in 
-                building clean, modern web applications, with average knowledge of backend technologies.
+                <strong>Hi, I'm Nchonganyi Ernesto:</strong> A Software Engineer and Frontend Developer specializing in 
+                building clean, modern web applications, with working knowledge of backend development.
               </p>
             </div>
           </div>
